@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { ClickCounterComponent } from './click-counter/click-counter.component';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { HomeProfileComponent } from './home-profile/home-profile.component';
 
 import { RegistrationComponent } from './registration/registration.component';
 
