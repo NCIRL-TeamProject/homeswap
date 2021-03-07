@@ -1,0 +1,48 @@
+/* You can add global styles to this file, and also import other style files */
+
+p{
+    font-size: 22px;
+    color:rgb(109, 104, 104);
+}
+
+.wrapper ul {
+    display: inline-block;
+    
+
+    
+
+}
+
+.wrapper li{
+    
+    color: rgb(109, 104, 104);
+    text-align: left;
+    font-size: 22px;
+
+    
+}
+
+h1{
+    font-style: inherit;
+    color:rgb(115, 85, 163);  
+    text-shadow: 2px 0 rgb(14, 127, 161);
+     
+}
+
+.wrapper{
+    
+    background-color: white;
+    height:2000px;
+    width: 99.5%;
+    text-align: center;
+    
+
+  }
+
+  .how1,.how2,.how3,.how4{
+    
+    background-color: white;
+    height: 500px;
+    width: 99.5%;
+
+  }
