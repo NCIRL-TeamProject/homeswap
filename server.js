@@ -26,6 +26,7 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/dist/hsapp/index.html'));
 });
 
+//TODO: At some point we have to move endpoints to services
 app.get('/test', function (req, res) {
 
     sequelize.authenticate().then(() => {
