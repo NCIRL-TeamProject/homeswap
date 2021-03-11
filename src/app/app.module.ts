@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppComponent } from './app.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AppComponent } from './app.component';
 import { RegistrationComponent } from './registration/registration.component';
 
 // Content
@@ -14,6 +14,8 @@ import { HowItWorksComponent } from './home/how-it-works/how-it-works.component'
 import { HomeProfileComponent } from './home-profile/home-profile.component';
 // Shared
 import { AppRoutingModule } from './app-routing.module';
+import { environment } from 'src/environments/environment';
+import { BaseUrlInterceptor } from './Infrastructure/BaseUrlInterceptor';
 
 @NgModule({
   declarations: [
@@ -23,14 +25,21 @@ import { AppRoutingModule } from './app-routing.module';
     FooterComponent,
     HomeComponent,
     HomeProfileComponent,
-    HowItWorksComponent    
+    HowItWorksComponent
   ],
   imports: [
     BrowserModule,
     NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [{ provide: "BASE_API_URL", useValue: environment.baseUrl },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: BaseUrlInterceptor,
+    multi: true,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
