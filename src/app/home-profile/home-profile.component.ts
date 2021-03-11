@@ -14,7 +14,7 @@ export class HomeProfileComponent implements OnInit {
   //   userId: new FormControl('')
   // });
   form: FormGroup;
-  constructor(private fb: FormBuilder, private http: HttpClient, @Inject('BASE_API_URL') private baseUrl: string) {
+  constructor(private fb: FormBuilder, private http: HttpClient) {
     this.form = this.fb.group({
       title: [''],
       description: [''],
