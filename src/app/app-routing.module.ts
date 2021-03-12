@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeProfileComponent } from './home-profile/home-profile.component';
 
-
 // Content
 import { HomeComponent } from './home/home.component';
 import { HowItWorksComponent } from './home/how-it-works/how-it-works.component';
@@ -13,7 +12,7 @@ const appRoutes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'home-profile', component: HomeProfileComponent },
     { path: 'how-it-works', component: HowItWorksComponent },
-    // {path: 'register', loadChildren: 'app/registration/registration.module#RegistrationModule'}
+    { path: 'register', loadChildren: './registration/registration.module#RegistrationModule'}
 ];
 
 @NgModule({

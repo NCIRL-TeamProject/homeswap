@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { RegistrationComponent } from './registration/registration.component';
@@ -16,6 +16,7 @@ import { HomeProfileComponent } from './home-profile/home-profile.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'src/environments/environment';
 import { BaseUrlInterceptor } from './Infrastructure/BaseUrlInterceptor';
+import { RegistrationModule } from './registration/registration.module';
 
 @NgModule({
   declarations: [
@@ -32,9 +33,10 @@ import { BaseUrlInterceptor } from './Infrastructure/BaseUrlInterceptor';
     NgbModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    RegistrationModule,
     HttpClientModule
   ],
-  providers: [{ provide: "BASE_API_URL", useValue: environment.baseUrl },
+  providers: [{ provide: 'BASE_API_URL', useValue: environment.baseUrl },
   {
     provide: HTTP_INTERCEPTORS,
     useClass: BaseUrlInterceptor,

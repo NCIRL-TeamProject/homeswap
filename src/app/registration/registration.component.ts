@@ -1,13 +1,13 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @Component({
   selector: 'app-registration',
-  template: '<router-outlet></router-outlet>',
+  templateUrl: './registration-form/registration-form.component.html',
   styleUrls: ['./registration.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RegistrationComponent implements OnInit {
 
+export class RegistrationComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
