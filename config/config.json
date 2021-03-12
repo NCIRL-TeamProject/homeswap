@@ -20,6 +20,9 @@
     "password": "don't add user credentials here",
     "database": "don't add user credentials here",
     "host": "127.0.0.1",
-    "dialect": "postgres"   
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": true
+    } 
   } 
 }
