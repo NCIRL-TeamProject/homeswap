@@ -39,12 +39,12 @@ module.exports = {
         type: Sequelize.DATE
       }
     })
-      .then(() => queryInterface.addConstraint('homes', {
+      .then(() => queryInterface.addConstraint('Homes', {
         fields: ['userId'],
         type: 'FOREIGN KEY',
         name: 'FK_homes_users',
         references: {
-          table: 'users',
+          table: 'Users',
           field: 'id',
         },
         onDelete: 'restrict',
@@ -52,7 +52,7 @@ module.exports = {
       }));
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeConstraint("homes", "FK_homes_users")
+    await queryInterface.removeConstraint("Homes", "FK_homes_users")
       .then(() => queryInterface.dropTable('Homes'));
   }
 };
