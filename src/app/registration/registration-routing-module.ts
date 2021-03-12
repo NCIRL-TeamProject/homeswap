@@ -14,7 +14,7 @@ const routes: Routes = [
         component: RegistrationComponent,
         children:
         [
-            {path: '', component: RegistrationFormViewComponent },
+            {path: 'register/form', component: RegistrationFormViewComponent },
         ]
     }
 ];
