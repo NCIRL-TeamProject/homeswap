@@ -18,7 +18,7 @@ if (process.env.NODE_ENV !== 'production') {
     app.use(cors());
 }
 
-const sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
+const sequelize = new Sequelize(process.env.JAWSDB_URL);
 const User = require('./models/user')(sequelize, DataTypes);
 const Home = require('./models/home')(sequelize, DataTypes);
 

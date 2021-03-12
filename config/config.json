@@ -5,7 +5,7 @@
     "database": "na",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "use_env_variable": "CLEARDB_DATABASE_URL"
+    "use_env_variable": "JAWSDB_URL"
   },
   "test": {
     "username": "root",
@@ -15,7 +15,7 @@
     "dialect": "mysql"
   }, 
   "production": {
-    "use_env_variable": "CLEARDB_DATABASE_URL",
+    "use_env_variable": "JAWSDB_URL",
     "username": "don't add user credentials here",
     "password": "don't add user credentials here",
     "database": "don't add user credentials here",
