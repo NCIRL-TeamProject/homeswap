@@ -18,7 +18,9 @@ if (process.env.NODE_ENV !== 'production') {
     app.use(cors());
 }
 
-const sequelize = new Sequelize(process.env.DATABASE_URL);
+const env = process.env.NODE_ENV || 'development';
+const config = require(__dirname + '/config/config.json')[env];
+const sequelize = new Sequelize(process.env.DATABASE_URL, config);
 const User = require('./models/user')(sequelize, DataTypes);
 const Home = require('./models/home')(sequelize, DataTypes);
 
