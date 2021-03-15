@@ -1,18 +1,17 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const upload = require('./config/multer.config');
 require('dotenv').config();
 const app = express();
 const { Sequelize, Model, DataTypes } = require('sequelize');
-const bodyParser = require('body-parser');
-const multer = require('multer');
-var upload = multer({ dest: 'uploads/' })
 
-app.use(express.urlencoded({
-    extended: true
-}))
-
-app.use(express.json());
+// app.use(express.urlencoded({
+//     extended: true,
+//     limit: '50mb',
+//     parameterLimit: 1000000
+// }));
+// app.use(express.json({ limit: '50mb' }));
 
 if (process.env.NODE_ENV !== 'production') {
     app.use(cors());
@@ -60,21 +59,28 @@ app.get('/test2', function (req, res) {
     });
 });
 
-//x-www-form-urlencoded content type
-// app.post('/api/homeprofile', function (req, res) {
-//form / multipart
-app.post('/api/homeprofile', upload.single('avatar'), function (req, res, next) {
-    // req.file is the `avatar` file
-    // req.body will hold the text fields, if there were any
-    console.log(req.body);
+
+app.post('/api/homeprofile', upload.single("image"), function (req, res, next) {
     console.log("title: " + req.body.title);
     console.log("description: " + req.body.description);
     console.log("userId: " + req.body.userId);
 
-
     Home.findOne({ where: { userId: req.body.userId } }).then((h) => {
+
+        var imageAsBase64 = undefined;
+
+        if (req.file && req.file.buffer) {
+            imageAsBase64 = "data:image/webp;base64,";
+            imageAsBase64 += req.file.buffer.toString('base64');
+        }
+
         if (!h) {
-            Home.create({ title: req.body.title, description: req.body.description, userId: req.body.userId }).then(r => {
+            Home.create({
+                title: req.body.title,
+                description: req.body.description,
+                userId: req.body.userId,
+                image: imageAsBase64
+            }).then(r => {
                 if (r) {
                     console.log('home created');
                     res.send('home created');
@@ -87,6 +93,7 @@ app.post('/api/homeprofile', upload.single('avatar'), function (req, res, next) 
         } else {
             h.title = req.body.title;
             h.description = req.body.description;
+            h.image = imageAsBase64 === null ? h.image : imageAsBase64;
             h.save();
 
             console.log('home updated');
@@ -96,6 +103,23 @@ app.post('/api/homeprofile', upload.single('avatar'), function (req, res, next) 
     });
 });
 
+var stream = require('stream');
+const user = require('./models/user');
+
+app.get('/api/gethomeprofile', function (req, res,) {
+    const userId = req.query.userId;
+    console.log("userId: " + userId);
+    Home.findOne({ where: { userId: userId } }).then((h) => {
+        if (!h) {
+            console.log('not found');
+        } else {
+            const img = h.image.toString();
+            res.send({ title: h.title, description: h.description, image: img });
+        }
+
+    });
+
+});
 
 // Start the app by listening on the default Heroku port
 app.listen(process.env.PORT || 8080);
