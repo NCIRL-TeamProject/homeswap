@@ -6,12 +6,12 @@ require('dotenv').config();
 const app = express();
 const { Sequelize, Model, DataTypes } = require('sequelize');
 
-// app.use(express.urlencoded({
-//     extended: true,
-//     limit: '50mb',
-//     parameterLimit: 1000000
-// }));
-// app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({
+    extended: true,
+    limit: '50mb',
+    parameterLimit: 1000000
+}));
+app.use(express.json({ limit: '50mb' }));
 
 if (process.env.NODE_ENV !== 'production') {
     app.use(cors());
@@ -120,6 +120,10 @@ app.get('/api/gethomeprofile', function (req, res,) {
     });
 
 });
+
+// routes
+require('./routes/auth.routes')(app);
+require('./routes/user.routes')(app);
 
 // Start the app by listening on the default Heroku port
 app.listen(process.env.PORT || 8080);
