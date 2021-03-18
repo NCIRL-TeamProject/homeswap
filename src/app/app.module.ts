@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { RegistrationComponent } from './registration/registration.component';
+import { RegistrationFormComponent } from './registration/registration-form/registration-form.component';
+// import { AuthInterceptor } from './auth/auth.interceptor';
 
 // Content
 import { HomeComponent } from './home/home.component';
@@ -16,12 +17,12 @@ import { HomeProfileComponent } from './home-profile/home-profile.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'src/environments/environment';
 import { BaseUrlInterceptor } from './Infrastructure/BaseUrlInterceptor';
-import { RegistrationModule } from './registration/registration.module';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegistrationComponent,
+    RegistrationFormComponent,
     HeaderComponent,
     FooterComponent,
     HomeComponent,
@@ -32,16 +33,23 @@ import { RegistrationModule } from './registration/registration.module';
     BrowserModule,
     NgbModule,
     AppRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
-    RegistrationModule,
     HttpClientModule
   ],
   providers: [{ provide: 'BASE_API_URL', useValue: environment.baseUrl },
+  // Use it for login{
+  //   provide: HTTP_INTERCEPTORS,
+  //   useClass: AuthInterceptor,
+  //   multi: true
+  // },
   {
     provide: HTTP_INTERCEPTORS,
     useClass: BaseUrlInterceptor,
     multi: true,
-  }],
+  }
+],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

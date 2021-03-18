@@ -1,17 +1,16 @@
+
 <div class="container">
-<form class="text-center border border-light p-5">
+<form class="text-center border border-light p-5" [formGroup]="registerForm" (ngSubmit)="registerUser()">
     <p class="h4 mb-4">Sign up</p>
     <div class="form-row mb-4">
         <div class="col">
-            <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="First name">
+            <input type="text" id="defaultRegisterFormFirstName" class="form-control" placeholder="First name" formControlName="firstName" required>
         </div>
         <div class="col">
-            <input type="text" id="defaultRegisterFormLastName" class="form-control" placeholder="Last name">
+            <input type="text" id="defaultRegisterFormLastName" class="form-control" placeholder="Last name" formControlName="lastName">
         </div>
     </div>
-    <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="E-mail">
-    <input type="text" id="defaultRegisterDOB" class="form-control" placeholder="Date of birth"
-        aria-describedby="defaultRegisterFormDOBHelpBlock">
+    <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="E-mail" formControlName="email" required>
     <button mdbBtn color="info" block="true" class="my-4" type="submit">Sign in</button>
     <hr>
     <p>By clicking
