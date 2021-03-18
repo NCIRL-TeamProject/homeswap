@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {Location } from '@angular/common';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -9,7 +10,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class HowItWorksComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _location: Location) {  
+    console.log('test');
+    console.log(this._location.prepareExternalUrl('assets/Banner.png'));
+  }
 
   ngOnInit(): void {
   }
