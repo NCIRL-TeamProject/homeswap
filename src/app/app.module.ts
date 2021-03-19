@@ -5,7 +5,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { RegistrationFormComponent } from './registration/registration-form/registration-form.component';
-// import { AuthInterceptor } from './auth/auth.interceptor';
 
 // Content
 import { HomeComponent } from './home/home.component';
@@ -17,7 +16,13 @@ import { HomeProfileComponent } from './home-profile/home-profile.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'src/environments/environment';
 import { BaseUrlInterceptor } from './Infrastructure/BaseUrlInterceptor';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { LoginComponent } from './login/login.component';
+import { JwtModule } from '@auth0/angular-jwt';
 
+export function tokenGetter() {
+  return localStorage.getItem("access_token");
+}
 
 @NgModule({
   declarations: [
@@ -27,7 +32,8 @@ import { BaseUrlInterceptor } from './Infrastructure/BaseUrlInterceptor';
     FooterComponent,
     HomeComponent,
     HomeProfileComponent,
-    HowItWorksComponent
+    HowItWorksComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -35,21 +41,29 @@ import { BaseUrlInterceptor } from './Infrastructure/BaseUrlInterceptor';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:8080", "localhost:4200", "homeswap-kickinunit.herokuapp.com"]
+      }
+    })
   ],
-  providers: [{ provide: 'BASE_API_URL', useValue: environment.baseUrl },
-  // Use it for login{
-  //   provide: HTTP_INTERCEPTORS,
-  //   useClass: AuthInterceptor,
-  //   multi: true
-  // },
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: BaseUrlInterceptor,
-    multi: true,
-  }
-],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  providers: [
+    { provide: 'BASE_API_URL', useValue: environment.baseUrl },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BaseUrlInterceptor,
+      multi: true,
+    }
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

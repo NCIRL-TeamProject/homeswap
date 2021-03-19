@@ -12,19 +12,18 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/how-it-works" routerLinkActive="active">How it works</a>
       </li>
-      <!-- TODO (MH): Move this to user nav bar (airbnb style)-->
       <li class="nav-item">
-        <a class="nav-link" routerLink="/home-profile" routerLinkActive="active">Home Profile</a>
+        <a class="nav-link" routerLink="/home-profile" routerLinkActive="active" *ngIf="authService.isLoggedIn()">Home
+          Profile</a>
       </li>
-      <!-- TODO (MH): Move this to user nav bar (airbnb style)-->
       <li class="nav-item">
         <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Other Link Here</a>
+        <a class="nav-link" routerLink="/login" routerLinkActive="active" *ngIf="!authService.isLoggedIn()">Login</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#">Other Link Disabled Here</a>
+        <a class="nav-link" routerLink="/logout" (click)="logout()" *ngIf="authService.isLoggedIn()">Logout</a>
       </li>
     </ul>
   </div>

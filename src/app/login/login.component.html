@@ -1,0 +1,10 @@
+<div class="container">
+    <form class="text-center border border-light p-5" [formGroup]="form" (ngSubmit)="login()">
+        <p class="h4 mb-4">Login</p>
+        <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="E-mail"
+            formControlName="email" required>
+        <input type="password" id="password" class="form-control mb-4" formControlName="password" placeholder="Password"
+            required>
+        <button mdbBtn color="info" block="true" class="my-4" type="submit" [disabled]="!form.valid">Sign in</button>
+    </form>
+</div>

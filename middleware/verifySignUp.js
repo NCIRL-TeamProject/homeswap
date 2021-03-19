@@ -1,8 +1,7 @@
-//Source: https://bezkoder.com/node-js-jwt-authentication-postgresql/
 const db = require("../models");
 const User = db.User;
 
-checkDuplicateUsernameOrEmail = (req, res, next) => {
+checkDuplicatedUserEmail = (req, res, next) => {
     // Email
     User.findOne({
         where: {
@@ -21,7 +20,7 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
 };
 
 const verifySignUp = {
-    checkDuplicateUsernameOrEmail: checkDuplicateUsernameOrEmail
+    checkDuplicatedUserEmail: checkDuplicatedUserEmail
 };
 
 module.exports = verifySignUp;
