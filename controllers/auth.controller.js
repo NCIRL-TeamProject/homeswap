@@ -1,4 +1,3 @@
-//Source: https://bezkoder.com/node-js-jwt-authentication-postgresql/
 const db = require("../models");
 const config = require("../config/auth.config");
 const User = db.User;

@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -9,9 +10,14 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(public authService: AuthService) {
+
+  }
 
   ngOnInit(): void {
   }
 
+  logout() {
+    this.authService.logout();
+  }
 }

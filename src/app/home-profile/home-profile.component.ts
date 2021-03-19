@@ -1,7 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Home } from '../Model/home';
+import { AuthService } from '../auth/auth.service';
+import { Home } from '../Models/home';
 
 @Component({
   selector: 'app-home-profile',
@@ -13,12 +14,13 @@ export class HomeProfileComponent implements OnInit {
   form: FormGroup;
   imageSrc: String;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private authService: AuthService) {
+
 
     this.form = this.fb.group({
       title: [''],
       description: [''],
-      userId: [1],
+      userId: [authService.userId],
       image: [''],
       fileSource: ['']
     })

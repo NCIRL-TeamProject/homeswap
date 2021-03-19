@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
 import { Router } from '@angular/router';
-import { User } from '../_models/user';
+import { User } from '../../Models/user';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -21,7 +21,7 @@ export class RegistrationFormComponent implements OnInit {
     public router: Router
   ) {
     this.registerForm = this.formBuilder.group({
-      firstName : [''],
+      firstName: [''],
       lastName: [''],
       email: [''],
       password: ['']
@@ -40,7 +40,7 @@ export class RegistrationFormComponent implements OnInit {
         this.registerForm.reset();
         this.router.navigate(['login']);
       }
-  });
-}
+    });
+  }
 
 }
