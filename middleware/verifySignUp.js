@@ -2,7 +2,10 @@ const db = require("../models");
 const User = db.User;
 
 checkDuplicatedUserEmail = (req, res, next) => {
-    // Email
+
+    if (!req.body.email)
+        return res.status(400).send({ message: "Mandatory fields not provided" });
+
     User.findOne({
         where: {
             email: req.body.email
