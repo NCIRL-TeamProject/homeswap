@@ -7,6 +7,8 @@
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
+    "backend": "nodemon server.js",
+    "frontend": "ng serve --open",
     "dev": "ng serve --open | nodemon server.js",
     "build": "ng build",
     "test": "ng test",

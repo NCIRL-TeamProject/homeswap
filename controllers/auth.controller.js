@@ -5,7 +5,11 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
-    // Save User to Database
+
+    if (!(req.body.firstName && req.body.lastName && req.body.email && req.body.password)) {
+        return res.status(400).send({ message: "Mandatory fields not provided" });
+    }
+
     User.create({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -13,7 +17,7 @@ exports.signup = (req, res) => {
         password: bcrypt.hashSync(req.body.password, 8)
     })
         .then(user => {
-            res.send({ message: "User was registered successfully!" });
+            res.send({ message: "User was registered successfully" });
         })
         .catch(err => {
             res.status(500).send({ message: err.message });
@@ -22,6 +26,10 @@ exports.signup = (req, res) => {
 
 exports.signin = (req, res) => {
 
+    if (!(req.body.email && req.body.password)) {
+        return res.status(400).send({ message: "Mandatory fields not provided" });
+    }
+
     User.findOne({
         where: {
             email: req.body.email
@@ -29,7 +37,7 @@ exports.signin = (req, res) => {
     })
         .then(user => {
             if (!user) {
-                return res.status(404).send({ message: "User Not found." });
+                return res.status(404).send({ message: "User not found" });
             }
 
             var passwordIsValid = bcrypt.compareSync(
@@ -40,7 +48,7 @@ exports.signin = (req, res) => {
             if (!passwordIsValid) {
                 return res.status(401).send({
                     accessToken: null,
-                    message: "Invalid Password!"
+                    message: "Invalid Password"
                 });
             }
 
@@ -48,7 +56,7 @@ exports.signin = (req, res) => {
                 expiresIn: 86400 // 24 hours
             });
 
-            res.status(200).send({
+            res.send({
                 id: user.id,
                 username: user.firstName + " " + user.lastName,
                 email: user.email,
