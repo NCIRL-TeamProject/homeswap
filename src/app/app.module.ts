@@ -7,17 +7,17 @@ import { AppComponent } from './app.component';
 import { RegistrationFormComponent } from './registration/registration-form/registration-form.component';
 
 // Content
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
-import { HowItWorksComponent } from './home/how-it-works/how-it-works.component';
-import { HomeProfileComponent } from './home-profile/home-profile.component';
+import { HowItWorksComponent } from './components/home/how-it-works/how-it-works.component';
+import { HomeProfileComponent } from './components/home-profile/home-profile.component';
 // Shared
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'src/environments/environment';
 import { BaseUrlInterceptor } from './Infrastructure/BaseUrlInterceptor';
-import { AuthInterceptor } from './auth/auth.interceptor';
-import { LoginComponent } from './login/login.component';
+import { AuthInterceptor } from './Infrastructure/auth/auth.interceptor';
+import { LoginComponent } from './components/login/login.component';
 import { JwtModule } from '@auth0/angular-jwt';
 
 export function tokenGetter() {

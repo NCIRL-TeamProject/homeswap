@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1102.0",
+    "@angular/localize": "^11.2.3",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
