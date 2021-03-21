@@ -16,8 +16,8 @@ import { User } from '../Models/user';
 export class AuthService {
   //API_URL = 'http://localhost:8080';
   //headers = new HttpHeaders().set('Content-Type', 'application/json');
-  currentUser = {};
-  userId;
+  // currentUser = {};
+  // userId;
   constructor(private httpClient: HttpClient, private router: Router, private jwtHelper: JwtHelperService) { }
 
   register(user: User): Observable<any> {
@@ -40,18 +40,21 @@ export class AuthService {
     return this.httpClient.post<User>('api/auth/signin', { email, password })
       .subscribe((res: any) => {
         localStorage.setItem('access_token', res.accessToken);
+        localStorage.setItem('user_id', res.id);
         console.log('user logged-in: ' + res.username);
-        this.userId = res.id;
+
         //For simplicity I am just assigning the data from token
-        this.currentUser = { id: res.id, username: res.username, email: res.email };
+        // this.userId = res.id;
+        // this.currentUser = { id: res.id, username: res.username, email: res.email };
         this.router.navigateByUrl('/');
       });
   }
 
   logout() {
     localStorage.removeItem("access_token");
-    this.userId = null;
-    this.currentUser = null;
+    localStorage.removeItem("user_id");
+    // this.userId = null;
+    // this.currentUser = null;
     this.router.navigate(['/home']);
   }
 
@@ -67,6 +70,10 @@ export class AuthService {
 
   getAccessToken(): string {
     return localStorage.getItem('access_token');
+  }
+
+  getLoggedInUserId(): any {
+    return this.isLoggedIn() ? localStorage.getItem('user_id') : null;
   }
 
   getUserProfile(id): Observable<any> {

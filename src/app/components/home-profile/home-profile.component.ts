@@ -24,7 +24,7 @@ export class HomeProfileComponent implements OnInit {
     this.form = this.fb.group({
       title: [''],
       description: [''],
-      userId: [authService.userId],
+      userId: [authService.getLoggedInUserId()],
       image: [''],
       fileSource: ['']
     })
