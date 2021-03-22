@@ -1,0 +1,28 @@
+{
+    "homes": [
+        {
+            "title": "title 0",
+            "description": "description 0",
+            "userId": "0",
+            "image": "home0.webp"
+        },
+        {
+            "title": "title 1",
+            "description": "description 1",
+            "userId": "1",
+            "image": "home1.webp"
+        },
+        {
+            "title": "title 2",
+            "description": "description 2",
+            "userId": "2",
+            "image": "home2.webp"
+        },
+        {
+            "title": "title 3",
+            "description": "description 3",
+            "userId": "3",
+            "image": "home3.webp"
+        }
+    ]
+}

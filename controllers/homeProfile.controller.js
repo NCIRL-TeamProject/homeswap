@@ -1,4 +1,4 @@
-const db = require('../models/index');
+const db = require('../database/models/index');
 const Home = db.Home;
 
 exports.getHomeProfile = (req, res) => {

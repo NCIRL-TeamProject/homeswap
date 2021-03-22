@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require("../database/models");
 const config = require("../config/auth.config");
 const User = db.User;
 var jwt = require("jsonwebtoken");

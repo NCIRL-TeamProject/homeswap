@@ -3,7 +3,7 @@ const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
 const app = express();
-const db = require(__dirname + '/models/index');
+const db = require(__dirname + '/database/models/index');
 const sequelize = db.sequelize;
 
 app.use(express.urlencoded({
