@@ -1,0 +1,17 @@
+<button type="button" class="btn btn-outline-primary" (click)="onBack()">Back</button>
+<div class="container">
+
+    <div class="row" *ngIf="home">
+        <div class="col-md-10">
+            <img [src]="home.image" *ngIf="home.image" style="height: 300px; width:500px">
+            <h3>{{home.title}}</h3>
+            <p placeholder="Description" maxlength="512" rows="7">{{home.description}}</p>
+        </div>
+
+        <div class="col-md-2">
+            User profile information
+        </div>
+
+    </div>
+
+</div>

@@ -14,9 +14,7 @@ export class HomesForSwapListComponent implements OnInit {
   constructor(private homesForSwapping: HomesForSwapServiceService) { }
 
   ngOnInit(): void {
-
     this.homes$ = this.homesForSwapping.getHomesForSwapping();
-
   }
 
 }
