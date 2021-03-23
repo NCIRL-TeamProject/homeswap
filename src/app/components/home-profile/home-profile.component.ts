@@ -58,13 +58,7 @@ export class HomeProfileComponent implements OnInit {
     )
   }
 
-  //TODO: To be removed
-  onUserIdChange(event) {
-    this.populateHomeProfile();
-  }
-
   onFileChange(event) {
-
     const reader = new FileReader();
 
     if (event.target.files && event.target.files.length) {
@@ -72,14 +66,11 @@ export class HomeProfileComponent implements OnInit {
       reader.readAsDataURL(file);
 
       reader.onload = () => {
-
         this.imageSrc = reader.result as string;
         this.form.patchValue({ image: file });
-
       };
     }
   }
-
 
   private handleError(error: any, errorMessage: any): void {
     this.errorMessage = errorMessage;

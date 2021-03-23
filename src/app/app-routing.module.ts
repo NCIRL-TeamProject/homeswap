@@ -15,7 +15,7 @@ const appRoutes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'home', component: HomeComponent },
     { path: 'home-profile', component: HomeProfileComponent, canActivate: [AuthGuard] },
-    { path: 'homes-for-swapping', component: HomesForSwapListComponent, canActivate: [AuthGuard] },
+    { path: 'homes-for-swapping', component: HomesForSwapListComponent },
     { path: 'how-it-works', component: HowItWorksComponent },
     { path: 'register', component: RegistrationFormComponent },
     { path: 'login', component: LoginComponent }
