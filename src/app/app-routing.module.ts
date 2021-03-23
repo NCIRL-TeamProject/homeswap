@@ -8,12 +8,14 @@ import { HomeComponent } from './components/home/home.component';
 import { HowItWorksComponent } from './components/home/how-it-works/how-it-works.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrationFormComponent } from './registration/registration-form/registration-form.component';
+import { HomesForSwapListComponent } from './components/homes-for-swap-list/homes-for-swap-list.component';
 
 const appRoutes: Routes = [
     // Home
     { path: '', component: HomeComponent },
     { path: 'home', component: HomeComponent },
     { path: 'home-profile', component: HomeProfileComponent, canActivate: [AuthGuard] },
+    { path: 'homes-for-swapping', component: HomesForSwapListComponent, canActivate: [AuthGuard] },
     { path: 'how-it-works', component: HowItWorksComponent },
     { path: 'register', component: RegistrationFormComponent },
     { path: 'login', component: LoginComponent }

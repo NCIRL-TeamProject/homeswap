@@ -64,6 +64,7 @@ app.get('/test3', function (req, res) {
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 require('./routes/homeProfile.routes')(app);
+require('./routes/homesForSwapping.routes')(app);
 
 // Start the app by listening on the default Heroku port
 app.listen(process.env.PORT || 8080);

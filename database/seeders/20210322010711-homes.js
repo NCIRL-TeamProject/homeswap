@@ -31,6 +31,7 @@ module.exports = {
         title: home['title'],
         description: home['description'],
         userId: home['userId'],
+        published: home['published'],
         image: imageAsBase64,
         createdAt: new Date(),
         updatedAt: new Date()

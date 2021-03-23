@@ -1,0 +1,22 @@
+<div class="container">
+    <p class="h4 text-center">Homes for swapping</p>
+    <div class="d-flex justify-content-between p-3 bg-white mb-3 align-items-center">
+        <div id="productsRow" class="row g-4">
+
+
+            <div *ngFor="let home of homes$ | async" class="col-md-3 d-flex align-items-stretch">
+                <div class="card" style="width: 18rem;">
+
+                    <img [src]="home.image" class="card-img-top">
+                    <div class="card-body">
+                        <h6 class="card-title text-truncate">{{home.title }}</h6>
+                        <p class="card-text text-truncate">{{home.description }}</p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>

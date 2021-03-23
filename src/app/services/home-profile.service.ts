@@ -9,7 +9,6 @@ export class HomeProfileService {
 
   constructor(private httpClient: HttpClient) { }
 
-
   get(userId: any): Observable<any> {
     const params = new HttpParams().set('userId', userId);
     return this.httpClient.get('api/homeprofile', { params });
