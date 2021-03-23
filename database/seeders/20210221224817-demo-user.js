@@ -13,42 +13,21 @@ module.exports = {
      * }], {});
     */
 
-    return queryInterface.bulkInsert('Users', [{
-      id: 0,
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'example@example.com',
-      password: bcrypt.hashSync('test', 8),
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      id: 1,
-      firstName: 'user 1',
-      lastName: 'user 1',
-      email: 'user1@example.com',
-      password: bcrypt.hashSync('test1', 8),
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      id: 2,
-      firstName: 'user 2',
-      lastName: 'user 2',
-      email: 'user2@example.com',
-      password: bcrypt.hashSync('test2', 8),
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      id: 3,
-      firstName: 'user 3',
-      lastName: 'user 3',
-      email: 'user3@example.com',
-      password: bcrypt.hashSync('test3', 8),
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }]);
+    var users = [];
+
+    for (var i = 0; i < 12; i++) {
+      users.push({
+        id: i,
+        firstName: 'firstName' + i,
+        lastName: 'lastName' + i,
+        email: 'user' + i + '@example.com',
+        password: bcrypt.hashSync('test' + i, 8),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      })
+    }
+
+    return queryInterface.bulkInsert('Users', users);
   },
 
   down: async (queryInterface, Sequelize) => {

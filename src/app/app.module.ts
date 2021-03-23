@@ -19,6 +19,7 @@ import { BaseUrlInterceptor } from './Infrastructure/BaseUrlInterceptor';
 import { AuthInterceptor } from './Infrastructure/auth/auth.interceptor';
 import { LoginComponent } from './components/login/login.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { HomesForSwapListComponent } from './components/homes-for-swap-list/homes-for-swap-list.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -33,7 +34,8 @@ export function tokenGetter() {
     HomeComponent,
     HomeProfileComponent,
     HowItWorksComponent,
-    LoginComponent
+    LoginComponent,
+    HomesForSwapListComponent
   ],
   imports: [
     BrowserModule,
