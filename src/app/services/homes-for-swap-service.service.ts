@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Home } from '../Models/home';
@@ -14,4 +14,8 @@ export class HomesForSwapServiceService {
     return this.httpClient.get<Home[]>('api/getHomesForSwapping');
   }
 
+  getHomeDetails(id: string): Observable<Home> {
+    const params = new HttpParams().set('id', id);
+    return this.httpClient.get<Home>('api/getHomeDetails', { params });
+  }
 }

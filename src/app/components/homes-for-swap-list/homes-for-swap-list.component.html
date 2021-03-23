@@ -6,7 +6,9 @@
             <div *ngFor="let home of homes$ | async" class="col-md-3 d-flex align-items-stretch">
                 <div class="card" style="width: 18rem;margin-bottom: 10px;">
 
-                    <img [src]="home.image" class="card-img-top">
+                    <a [routerLink]="['/home-details', home.id]">
+                        <img [src]="home.image" class="card-img-top">
+                    </a>
                     <div class="card-body">
                         <h6 class="card-title text-truncate">{{home.title }}</h6>
                         <p class="card-text text-truncate">{{home.description }}</p>
