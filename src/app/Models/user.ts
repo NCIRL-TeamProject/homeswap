@@ -1,6 +1,7 @@
 export class User {
-    firdtName: string;
+    firstName: string;
     lastName: string;
     email: string;
     dbo: string;
+    password: string;
 }
