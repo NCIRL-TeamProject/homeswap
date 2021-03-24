@@ -1,13 +1,6 @@
 {
     "homes": [
         {
-            "title": "title 0",
-            "description": "description 0",
-            "userId": "0",
-            "image": "home0.webp",
-            "published": true
-        },
-        {
             "title": "title 1",
             "description": "description 1",
             "userId": "1",
@@ -82,6 +75,13 @@
             "description": "description 11",
             "userId": "11",
             "image": "home11.webp",
+            "published": true
+        },
+        {
+            "title": "title 12",
+            "description": "description 12",
+            "userId": "12",
+            "image": "home12.webp",
             "published": true
         }
     ]

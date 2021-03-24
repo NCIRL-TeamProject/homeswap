@@ -17,7 +17,6 @@ module.exports = {
 
     for (var i = 0; i < 12; i++) {
       users.push({
-        id: i,
         firstName: 'firstName' + i,
         lastName: 'lastName' + i,
         email: 'user' + i + '@example.com',
