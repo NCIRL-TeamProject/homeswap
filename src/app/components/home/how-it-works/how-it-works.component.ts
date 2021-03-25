@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
+
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'how-it-works',
@@ -9,9 +10,11 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class HowItWorksComponent implements OnInit {
 
-  constructor() { }
+  constructor() {  
+
+  }
 
   ngOnInit(): void {
   }
-
+  
 }

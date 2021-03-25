@@ -1,48 +1,68 @@
-/* You can add global styles to this file, and also import other style files */
 
-p{
-    font-size: 22px;
-    color:rgb(109, 104, 104);
-}
-
-.wrapper ul {
+/**.wrapper ul {
     display: inline-block;
-    
-
-    
-
 }
 
 .wrapper li{
     
-    color: rgb(109, 104, 104);
-    text-align: left;
-    font-size: 22px;
-
-    
-}
-
-h1{
-    font-style: inherit;
-    color:rgb(115, 85, 163);  
-    text-shadow: 2px 0 rgb(14, 127, 161);
-     
+    color: rgb(109, 104, 104);  
+    font-size: 20px; 
 }
 
 .wrapper{
     
     background-color: white;
     height:2000px;
-    width: 99.5%;
+    width: 80%;
+  }**/
+
+
+  p{
+    font-size: 20px;
+    color:rgb(109, 104, 104);
     text-align: center;
-    
+}
 
-  }
 
-  .how1,.how2,.how3,.how4{
+li {
+    text-align: left;
+}
+
+ul{
     
+    display: inline-block;
+}
+
+
+h1{
+    font-style: inherit;
+    color:rgb(115, 85, 163);  
+    text-shadow: 2px 0 rgb(14, 127, 161);
+    text-align:center;
+
+}
+
+  .how3,.how4{ 
     background-color: white;
-    height: 500px;
-    width: 99.5%;
+    height: 350px;
+    width: 100%;
+    margin-top:20px;
+    text-align: center;
+  }
+  .how1{
+  background-color: white;
+    height: 400px;
+    width: 100%;
+    margin-top:50px;
+    text-align: center;
+    margin-bottom: 50px;
 
   }
+
+ .row{
+    height: 600px;
+    width: 80%;
+    margin-left: 300px;
+    margin-top: 30px;
+  } 
+
