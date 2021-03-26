@@ -5,7 +5,7 @@ const cors = require('cors');
 
 exports.initialize = (app) => {
     //For test purpose only (dev environment only)
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== 'production' || process.env.GMAPS_TEST) {
         app.get('/getKey', function (req, res) {
             axios.get('http://localhost:5001/getKey')
                 .then(response => {

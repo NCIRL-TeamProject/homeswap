@@ -1,7 +1,8 @@
 import { AgmCoreModule, LAZY_MAPS_API_CONFIG, LazyMapsAPILoaderConfigLiteral }
     from '@agm/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { InterceptorSkipHeader } from './BaseUrlInterceptor';
 
 export function agmConfigFactory(http: HttpClient, config: LazyMapsAPILoaderConfigLiteral) {
@@ -13,6 +14,10 @@ export function agmConfigFactory(http: HttpClient, config: LazyMapsAPILoaderConf
         map(response => {
             config.apiKey = response.key;
             return response;
-        })
+        }),
+        catchError(err => {
+            console.log('caught mapping error and rethrowing', err);
+            return throwError(err);
+        }),
     ).toPromise();
 }
