@@ -18,9 +18,8 @@ exports.initialize = (app) => {
     }
 
     const appForGmapsKeyEndpoint = express();
-    appForGmapsKeyEndpoint.use(cors());
 
-    appForGmapsKeyEndpoint.get('/getKey', function (req, res) {
+    appForGmapsKeyEndpoint.get('/getKey', cors(), function (req, res) {
         res.send({ key: process.env.GMAPS_API_KEY });
     });
 
