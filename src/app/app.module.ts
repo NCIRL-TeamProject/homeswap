@@ -23,10 +23,6 @@ import { HomesForSwapListComponent } from './components/homes-for-swap-list/home
 import { HomeDetailComponent } from './components/home-detail/home-detail.component';
 import { agmConfigFactory } from './Infrastructure/agmConfigFactory';
 
-// import * as dotenv from "dotenv";
-// dotenv.config({ path: '../../.env' });
-// dotenv.config({ path: __dirname+'/.env' });
-
 export function tokenGetter() {
   return localStorage.getItem("access_token");
 }
