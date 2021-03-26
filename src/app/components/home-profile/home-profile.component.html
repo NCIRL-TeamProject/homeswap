@@ -24,8 +24,9 @@
                 <input id="title" formControlName="title" type="text" class="form-control" placeholder="Title" required>
                 <label for="description" class="col-form-label">Description</label>
                 <textarea id="description" formControlName="description" class="form-control" placeholder="Description"
-                    maxlength="512" rows="7" required></textarea>
+                    maxlength="512" rows="4" required></textarea>
             </div>
+
             <div class="col-md-6">
                 <img [src]="imageSrc" *ngIf="imageSrc" style="height: 300px; width:500px">
                 <div class="custom-file">
@@ -34,6 +35,33 @@
                 </div>
             </div>
         </div>
+        <hr>
+        <div class="row">
+
+            <div class="col-md-6">
+                <label for="country" class="col-form-label">Country</label>
+                <input id="country" formControlName="country" type="text" class="form-control" placeholder="Country"
+                    readonly>
+                <label for="streetAddress" class="col-form-label">Street address</label>
+                <input id="streetAddress" formControlName="streetAddress" type="text" class="form-control"
+                    placeholder="Street address" (change)="onStreetAddressChange($event)">
+                <label for="city" class="col-form-label">City</label>
+                <input id="city" formControlName="city" type="text" class="form-control" placeholder="City">
+                <label for="eircode" class="col-form-label">Eircode</label>
+                <input id="eircode" formControlName="eircode" type="text" class="form-control" placeholder="Eircode"
+                    (change)="onEircodeChange($event)">
+            </div>
+            <div class="col-md-6">
+                <!-- this creates a google map on the page with the given lat/lng from -->
+                <!-- the component as the initial center of the map: -->
+                <agm-map [latitude]="lat" [longitude]="long" [zoom]="zoom">
+                    <agm-marker [latitude]="lat" [longitude]="long"></agm-marker>
+                </agm-map>
+
+            </div>
+        </div>
+
+
 
         <hr>
         <div class="row">

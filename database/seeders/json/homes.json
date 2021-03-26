@@ -5,13 +5,17 @@
             "description": "description 1",
             "userId": "1",
             "image": "home1.webp",
-            "published": true
+            "published": true,
+            "streetAddress": "30 Xavier Avenue, North Strand",
+            "city": "Dublin",
+            "country": "Ireland"
         },
         {
             "title": "title 2",
             "description": "description 2",
             "userId": "2",
             "image": "home2.webp",
+            "postCode": "D01K6W2",
             "published": true
         },
         {
@@ -19,7 +23,10 @@
             "description": "description 3",
             "userId": "3",
             "image": "home3.webp",
-            "published": true
+            "published": true,
+            "streetAddress": "150 Belgrove Park",
+            "city": "Dublin",
+            "country": "Ireland"
         },
         {
             "title": "title 4",

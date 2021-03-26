@@ -2,6 +2,8 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/c
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
+export const InterceptorSkipHeader = 'X-Skip-Interceptor';
+
 @Injectable()
 export class BaseUrlInterceptor implements HttpInterceptor {
 
@@ -10,6 +12,11 @@ export class BaseUrlInterceptor implements HttpInterceptor {
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        if (request.headers.has(InterceptorSkipHeader)) {
+            const headers = request.headers.delete(InterceptorSkipHeader);
+            return next.handle(request.clone({ headers }));
+        }
+
         const apiReq = request.clone({ url: `${this.baseUrl}/${request.url}` });
         return next.handle(apiReq);
     }
