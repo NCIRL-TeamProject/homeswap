@@ -6,11 +6,12 @@ import { catchError, map } from 'rxjs/operators';
 import { InterceptorSkipHeader } from './BaseUrlInterceptor';
 
 export function agmConfigFactory(http: HttpClient, config: LazyMapsAPILoaderConfigLiteral) {
-    const headers = new HttpHeaders().set(InterceptorSkipHeader, '');
+    // const headers = new HttpHeaders().set(InterceptorSkipHeader, ''); 
     // .set('Access-Control-Allow-Origin', '*');
 
+
     //This has to point to localhost:5001 because it is an internal endpoint for retrieving gmaps API key from .env
-    return () => http.get<any>("http://localhost:5001/getKey", { headers }).pipe(
+    return () => http.get<any>("http://localhost:5001/getKey", { headers: new HttpHeaders().set(InterceptorSkipHeader, '') }).pipe(
         map(response => {
             config.apiKey = response.key;
             return response;

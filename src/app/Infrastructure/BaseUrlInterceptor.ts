@@ -13,8 +13,8 @@ export class BaseUrlInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (request.headers.has(InterceptorSkipHeader)) {
-            const headers = request.headers.delete(InterceptorSkipHeader);
-            return next.handle(request.clone({ headers }));
+            // const headers = request.headers.delete(InterceptorSkipHeader);
+            return next.handle(request);
         }
 
         const apiReq = request.clone({ url: `${this.baseUrl}/${request.url}` });
