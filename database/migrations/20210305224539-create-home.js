@@ -14,7 +14,19 @@ module.exports = {
       description: {
         type: Sequelize.STRING
       },
-      location: {
+      streetAddress: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
+      city: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
+      postCode: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
+      country: {
         allowNull: true,
         type: Sequelize.STRING
       },

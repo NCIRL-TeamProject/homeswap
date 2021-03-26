@@ -16,7 +16,10 @@ module.exports = (sequelize, DataTypes) => {
   Home.init({
     title: DataTypes.STRING,
     description: DataTypes.STRING,
-    location: DataTypes.STRING,
+    streetAddress: DataTypes.STRING,
+    city: DataTypes.STRING,
+    country: DataTypes.STRING,
+    postCode: DataTypes.STRING,
     published: DataTypes.BOOLEAN,
     userId: DataTypes.INTEGER,
     image: DataTypes.BLOB

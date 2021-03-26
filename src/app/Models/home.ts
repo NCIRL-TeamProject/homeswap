@@ -1,5 +1,10 @@
 export interface Home {
-    title: String,
-    description: String,
-    image: String
+    title: string,
+    description: string,
+    streetAddress: string,
+    city: string,
+    country: string,
+    postCode: string;
+    image: string,
+    userId: number
 }

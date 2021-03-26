@@ -13,7 +13,16 @@ exports.getHomeProfile = (req, res) => {
                 return res.status(404).send({ message: "Home Not found." });
             }
 
-            res.send({ title: h.title, description: h.description, image: h.image?.toString() });
+            res.send({
+                title: h.title,
+                description: h.description,
+                streetAddress: h.streetAddress,
+                city: h.city,
+                postCode: h.postCode,
+                country: h.country,
+                userId: h.userId,
+                image: h.image?.toString()
+            });
         })
         .catch(err => {
             res.status(500).send({ message: err.message });
@@ -39,6 +48,10 @@ exports.updateHomeProfile = (req, res) => {
                 title: req.body.title,
                 description: req.body.description,
                 userId: req.body.userId,
+                streetAddress: req.body.streetAddress,
+                city: req.body.city,
+                postCode: req.body.postCode,
+                country: req.body.country,
                 image: imageAsBase64
             }).then(r => {
                 if (!r) {
@@ -51,6 +64,10 @@ exports.updateHomeProfile = (req, res) => {
         } else {
             h.title = req.body.title;
             h.description = req.body.description;
+            h.streetAddress = req.body.streetAddress;
+            h.city = req.body.city;
+            h.postCode = req.body.postCode;
+            h.country = req.body.country;
             h.image = imageAsBase64 === null ? h.image : imageAsBase64;
             h.save();
 

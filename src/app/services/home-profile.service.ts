@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Home } from '../Models/home';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +15,16 @@ export class HomeProfileService {
     return this.httpClient.get('api/homeprofile', { params });
   }
 
-  save(title: any, description: any, userId: any, image: any): Observable<any> {
+  save(home: Home): Observable<any> {
     var formData: any = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("userId", userId);
-    formData.append("image", image);
+    formData.append("title", home.title);
+    formData.append("description", home.description);
+    formData.append("userId", home.userId);
+    formData.append("image", home.image);
+    formData.append("streetAddress", home.streetAddress);
+    formData.append("city", home.city);
+    formData.append("country", home.country);
+    formData.append("postCode", home.postCode);
     return this.httpClient.post('api/homeprofile', formData);
   }
 }

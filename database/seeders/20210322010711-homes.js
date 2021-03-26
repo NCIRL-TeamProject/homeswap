@@ -19,9 +19,7 @@ module.exports = {
     let homeArray = []
 
     homes.forEach((home) => {
-
       const imagePath = path.resolve(imageBasePath, home['image']);
-      console.log(imagePath);
       const bitmap = fs.readFileSync(imagePath);
 
       var imageAsBase64 = "data:image/webp;base64,";
@@ -32,6 +30,10 @@ module.exports = {
         description: home['description'],
         userId: home['userId'],
         published: home['published'],
+        streetAddress: home['streetAddress'],
+        city: home['city'],
+        country: home['country'],
+        postCode: home['postCode'],
         image: imageAsBase64,
         createdAt: new Date(),
         updatedAt: new Date()
