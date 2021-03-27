@@ -9,12 +9,20 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HowItWorksComponent implements OnInit {
+  images = ['assets/Banner.png',
+    'assets/estates.png',
+    'assets/simple.png',
+    'assets/swim.png',
+    'assets/holiday.png',
+    'assets/estates.png'
+  ];
 
-  constructor() {  
+  constructor() {
 
   }
 
   ngOnInit(): void {
+
   }
-  
+
 }

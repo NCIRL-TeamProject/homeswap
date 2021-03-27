@@ -1,58 +1,46 @@
-  p{
-    font-size: 20px;
-    color:rgb(109, 104, 104);
-    text-align: center;
+p {
+  font-size: 20px;
+  color: rgb(109, 104, 104);
 }
-
 
 li {
-    text-align: left;
+  text-align: left;
 }
 
-ul{
-    
-    display: inline-block;
+ul {
+  display: inline-block;
 }
 
-
-h1{
-    font-style: inherit;
-    color:rgb(115, 85, 163);  
-    text-shadow: 2px 0 rgb(14, 127, 161);
-    text-align:center;
-
+h1 {
+  font-style: inherit;
+  color: rgb(115, 85, 163);
+  text-shadow: 2px 0 rgb(14, 127, 161);
+  text-align: center;
 }
-
-  .how3,.how4{ 
-    background-color: white;
-    height: 350px;
-    width: 100%;
-    margin-top:20px;
-    text-align: center;
-  }
-  .how1{
+.how3,
+.how4 {
   background-color: white;
-    height: 400px;
-    width: 100%;
-    margin-top:50px;
-    text-align: center;
-    margin-bottom: 50px;
+  height: 350px;
+  width: 100%;
+  margin-top: 20px;
+  text-align: center;
+}
 
-  }
-
- .row{
-    height: 600px;
-    width: 80%;
-    margin-left: 300px;
-    margin-top: 30px;
-  } 
-
-
-/* Code Reference:https://codepen.io/stefen/pen/rjNdeB*/
-body {
-  display: flex;
-  align-items: center;
-  height: 100vh;
+.offer-detail-image-div {
+  display: block;
+  width: 100%;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+img {
+  display: block;
+  overflow: visible;
+  width: 100%;
+  height: auto;
+  margin-right: auto;
+  margin-bottom: 12px;
+  margin-left: auto;
+  float: none;
 }
 
 .marquee-wrapper {
@@ -73,8 +61,11 @@ body {
   animation-direction: alternate;
 }
 
- @keyframes marquee {
-  from {transform: translateX(0);}
-  to {transform: translateX(-100%);}
-} 
-
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
