@@ -18,16 +18,31 @@ exports.initialize = (app) => {
     }
 
     const appForGmapsKeyEndpoint = express();
-    // appForGmapsKeyEndpoint.use(cors());
 
 
-    appForGmapsKeyEndpoint.use(function (req, res, next) { //allow cross origin requests
-        res.setHeader("Access-Control-Allow-Methods", "GET");
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, X-Skip-Interceptor");
-        res.header("Access-Control-Allow-Credentials", true);
-        next();
-    });
+    var corsOptions = {
+        // origin: true,
+        allowedHeaders: "Origin,X-Requested-With,Content-Type,Accept,X-Skip-Interceptor",
+        optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+    }
+    appForGmapsKeyEndpoint.use(cors(corsOptions));
+
+
+    // appForGmapsKeyEndpoint.use(function (req, res, next) { //allow cross origin requests
+    //     res.setHeader("Access-Control-Allow-Methods", "GET");
+    //     res.header("Access-Control-Allow-Origin", "*");
+    //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, X-Skip-Interceptor");
+    //     res.header("Access-Control-Allow-Credentials", true);
+    //     next();
+    // });
+
+    // var corsOptions = {
+    //     origin: true,
+    //     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    //     allowedHeaders: "Origin,X-Requested-With,Content-Type,Accept,X-Skip-Interceptor",
+    //     preflightContinue: false,
+    //     optionsSuccessStatus: 204 // some legacy browsers (IE11, various SmartTVs) choke on 204
+    // }
 
 
     appForGmapsKeyEndpoint.get('/getKey', function (req, res) {
