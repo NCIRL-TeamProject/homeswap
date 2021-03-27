@@ -1,22 +1,3 @@
-
-/**.wrapper ul {
-    display: inline-block;
-}
-
-.wrapper li{
-    
-    color: rgb(109, 104, 104);  
-    font-size: 20px; 
-}
-
-.wrapper{
-    
-    background-color: white;
-    height:2000px;
-    width: 80%;
-  }**/
-
-
   p{
     font-size: 20px;
     color:rgb(109, 104, 104);
@@ -65,4 +46,35 @@ h1{
     margin-left: 300px;
     margin-top: 30px;
   } 
+
+
+/* Code Reference:https://codepen.io/stefen/pen/rjNdeB*/
+body {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
+.marquee-wrapper {
+  overflow: hidden;
+  margin: 0 auto;
+  width: 75%;
+  text-align: center;
+}
+
+.marquee {
+  display: flex;
+  animation-name: marquee;
+  transform: translateX(0);
+  height: 300px;
+  animation-duration: 30s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-direction: alternate;
+}
+
+ @keyframes marquee {
+  from {transform: translateX(0);}
+  to {transform: translateX(-100%);}
+} 
 
