@@ -66,7 +66,11 @@ require('./routes/user.routes')(app);
 require('./routes/homeProfile.routes')(app);
 require('./routes/homesForSwapping.routes')(app);
 
-gmapsKeyEndpoint.initialize(app);
+
+app.get('/gm/getKey', function (req, res) {
+    res.send({ key: process.env.GMAPS_API_KEY });
+});
+// gmapsKeyEndpoint.initialize(app);
 
 // Start the app by listening on the default Heroku port
 app.listen(process.env.PORT || 8080);
