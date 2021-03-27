@@ -3,7 +3,7 @@ const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
 const app = express();
-const gmapsKeyEndpoint = require("./gmapsKeyEndpoint");
+// const gmapsKeyEndpoint = require("./gmapsKeyEndpoint");
 const db = require(__dirname + '/database/models/index');
 const sequelize = db.sequelize;
 
@@ -66,7 +66,30 @@ require('./routes/user.routes')(app);
 require('./routes/homeProfile.routes')(app);
 require('./routes/homesForSwapping.routes')(app);
 
-gmapsKeyEndpoint.initialize(app);
+// gmapsKeyEndpoint.initialize(app);
+
+const axios = require('axios');
+
+//For test purpose only (dev environment only)
+if (process.env.NODE_ENV !== 'production' || process.env.GMAPS_TEST) {
+    app.get('/getKey', function (req, res) {
+        axios.get('http://localhost:5001/getKey')
+            .then(response => {
+                res.send(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    });
+}
+
+const appForGmapsKeyEndpoint = express();
+appForGmapsKeyEndpoint.use(cors());
+appForGmapsKeyEndpoint.get('/getKey', function (req, res) {
+    res.send({ key: process.env.GMAPS_API_KEY });
+});
+
+appForGmapsKeyEndpoint.listen(5001, 'localhost');
 
 // Start the app by listening on the default Heroku port
 app.listen(process.env.PORT || 8080);
