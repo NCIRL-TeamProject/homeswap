@@ -28,6 +28,9 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/logout" (click)="logout()" *ngIf="authService.isLoggedIn()">Logout</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/account-details" routerLinkActive="active" *ngIf="authService.isLoggedIn()">View Account Details</a>
+      </li>
     </ul>
   </div>
 </nav>

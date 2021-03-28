@@ -22,6 +22,7 @@ import { LoginComponent } from './components/login/login.component';
 import { HomesForSwapListComponent } from './components/homes-for-swap-list/homes-for-swap-list.component';
 import { HomeDetailComponent } from './components/home-detail/home-detail.component';
 import { agmConfigFactory } from './Infrastructure/agmConfigFactory';
+import { AccountComponent } from './components/account/account.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -38,7 +39,8 @@ export function tokenGetter() {
     HowItWorksComponent,
     LoginComponent,
     HomesForSwapListComponent,
-    HomeDetailComponent
+    HomeDetailComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

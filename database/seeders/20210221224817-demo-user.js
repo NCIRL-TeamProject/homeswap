@@ -21,6 +21,7 @@ module.exports = {
         lastName: 'lastName' + i,
         email: 'user' + i + '@example.com',
         password: bcrypt.hashSync('Test' + i + '!', 8),
+        dbo: '12/01/2021',
         createdAt: new Date(),
         updatedAt: new Date()
       })

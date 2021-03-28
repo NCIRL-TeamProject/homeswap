@@ -20,6 +20,12 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
+      dbo: {
+        type: Sequelize.STRING
+      },
+      profileImage: {
+        type: Sequelize.BLOB
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

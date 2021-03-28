@@ -17,4 +17,6 @@ module.exports = function (app) {
         [authJwt.verifyToken],
         controller.userBoard
     );
+
+    app.get("/api/users/profile/:id", controller.userBasicDetails)
 };

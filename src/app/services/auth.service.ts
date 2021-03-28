@@ -76,15 +76,14 @@ export class AuthService {
     return this.isLoggedIn() ? localStorage.getItem('user_id') : null;
   }
 
-  getUserProfile(id): Observable<any> {
-    return this.httpClient.get('users/profile/${id}'
-      // , { headers: this.headers }
+  getUserBasicProfile(id): Observable<Response> {
+    return this.httpClient.get(`api/users/profile/${id}`
     ).pipe(
       map((res: Response) => {
-        return res || {}
+        return res || {};
       }),
       catchError(this.handleError)
-    )
+    );
   }
 
   handleError(error: HttpErrorResponse): Observable<any> {
