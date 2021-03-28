@@ -14,7 +14,8 @@ exports.signup = (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        password: bcrypt.hashSync(req.body.password, 8)
+        password: bcrypt.hashSync(req.body.password, 8),
+        dbo: req.body.dbo
     })
         .then(user => {
             res.send({ message: "User was registered successfully" });
