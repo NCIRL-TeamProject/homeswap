@@ -1,17 +1,37 @@
 <button type="button" class="btn btn-outline-primary" (click)="onBack()">Back</button>
-<div class="container">
+
+<div class="container mt-4">
 
     <div class="row" *ngIf="home">
-        <div class="col-md-10">
-            <img [src]="home.image" *ngIf="home.image" style="height: 300px; width:500px">
+        <div class="col-md-8">
+            <img [src]="home.image" *ngIf="home.image" class="custom-image">
             <h3>{{home.title}}</h3>
             <p placeholder="Description" maxlength="512" rows="7">{{home.description}}</p>
         </div>
 
-        <div class="col-md-2">
-            User profile information
+        <div class="col-md-4">
+            <h5>User profile information</h5>
+            <p>user name</p>
+            <p>user image</p>
+            <p>user reviews</p>
         </div>
 
+    </div>
+
+    <div class="row" *ngIf="home">
+
+        <div class="col-md-8">
+
+            <home-map [address]="home?.getAddressLocation()"></home-map>
+        </div>
+
+        <div class="col-md-4">
+            <h5>Home location</h5>
+            <p>Country: {{home.country}}</p>
+            <p>Street address: {{home.streetAddress}}</p>
+            <p>City: {{home.city}}</p>
+            <p>Eircode: {{home.postCode}}</p>
+        </div>
     </div>
 
 </div>

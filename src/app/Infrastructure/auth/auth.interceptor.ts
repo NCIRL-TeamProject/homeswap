@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
-import { InterceptorSkipHeader } from '../BaseUrlInterceptor';
+
+export const AuthSkipHeader = 'X-Skip-Interceptor-Auth';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -9,8 +10,8 @@ export class AuthInterceptor implements HttpInterceptor {
 
     // tslint:disable-next-line:typedef
     intercept(request: HttpRequest<any>, next: HttpHandler) {
-        if (request.headers.has(InterceptorSkipHeader)) {
-            // const headers = request.headers.delete(InterceptorSkipHeader);
+        if (request.headers.has(AuthSkipHeader)) {
+            const headers = request.headers.delete(AuthSkipHeader);
             return next.handle(request);
         }
 

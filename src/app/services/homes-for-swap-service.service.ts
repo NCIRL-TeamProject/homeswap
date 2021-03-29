@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Home } from '../Models/home';
 
 @Injectable({
@@ -16,6 +17,9 @@ export class HomesForSwapServiceService {
 
   getHomeDetails(id: string): Observable<Home> {
     const params = new HttpParams().set('id', id);
-    return this.httpClient.get<Home>('api/getHomeDetails', { params });
+    return this.httpClient.get<Home>('api/getHomeDetails', { params }).pipe(map((x) => {
+      const home = new Home(x);
+      return home;
+    }));
   }
 }

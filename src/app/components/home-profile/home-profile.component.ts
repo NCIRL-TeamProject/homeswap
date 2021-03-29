@@ -1,10 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Home } from '../../Models/home';
 import { HomeProfileService } from '../../services/home-profile.service';
-import { map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home-profile',
@@ -13,18 +12,15 @@ import { map } from 'rxjs/operators';
 })
 
 export class HomeProfileComponent implements OnInit {
-  lat = 53.349943551810966;
-  long = -6.260286979853556;
-  zoom = 10;
-
   form: FormGroup;
   imageSrc: String;
   errorMessage: String;
+  address: string;
   successfulMessage: String;
-  geoCoder: google.maps.Geocoder;
+  subscriptionGet: Subscription;
+  subscriptionSave: Subscription;
 
   constructor(private fb: FormBuilder,
-    private http: HttpClient,
     private authService: AuthService,
     private homeProfileService: HomeProfileService
   ) {
@@ -49,7 +45,7 @@ export class HomeProfileComponent implements OnInit {
   }
 
   populateHomeProfile() {
-    this.homeProfileService.get(this.form.controls.userId.value)
+    this.subscriptionGet = this.homeProfileService.get(this.form.controls.userId.value)
       .subscribe((data: Home) => {
         this.form.controls.title.patchValue(data.title);
         this.form.controls.description.patchValue(data.description);
@@ -58,13 +54,7 @@ export class HomeProfileComponent implements OnInit {
         this.form.controls.country.patchValue(data.country);
         this.form.controls.eircode.patchValue(data.postCode);
         this.imageSrc = data.image;
-
-        if (data.postCode) {
-          this.setLatitudeAndLongitudeBy(data.postCode);
-        }
-        else if (data.streetAddress) {
-          this.setLatitudeAndLongitudeBy(data.streetAddress);
-        }
+        this.address = data.getAddressLocation();
 
       }, (error) => this.handleError(error, "Error when trying to retrieve home profile")
       );
@@ -91,7 +81,7 @@ export class HomeProfileComponent implements OnInit {
       postCode: postCode
     } as Home;
 
-    this.homeProfileService.save(home).subscribe(
+    this.subscriptionSave = this.homeProfileService.save(home).subscribe(
       (error) => this.handleError(error, "Error when trying to update a home profile"),
       this.handleSuccessful("Home profile updated")
     )
@@ -112,30 +102,12 @@ export class HomeProfileComponent implements OnInit {
   }
 
   onStreetAddressChange(event) {
-    const value = this.form.get('streetAddress').value;
-    this.setLatitudeAndLongitudeBy(value);
+    this.address = this.form.get('streetAddress').value;
   }
 
   onEircodeChange(event) {
-    const value = this.form.get('eircode').value;
-    this.setLatitudeAndLongitudeBy(value);
+    this.address = this.form.get('eircode').value;
   }
-
-  setLatitudeAndLongitudeBy(value: string) {
-    this.geoCoder = new google.maps.Geocoder;
-
-    this.geoCoder.geocode({ 'address': value, 'componentRestrictions': { 'country': 'IE' } }, (results, status) => {
-      console.log(results);
-      console.log(status);
-
-      if (status === "OK" && Array.isArray(results) && results.length > 0) {
-        this.lat = results[0].geometry?.location?.lat();
-        this.long = results[0].geometry?.location?.lng();
-        this.zoom = 15;
-      }
-    });
-  }
-
 
   private handleError(error: any, errorMessage: any): void {
     this.errorMessage = errorMessage;
@@ -146,5 +118,10 @@ export class HomeProfileComponent implements OnInit {
     return () => {
       this.successfulMessage = message;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptionGet?.unsubscribe();
+    this.subscriptionSave?.unsubscribe();
   }
 }

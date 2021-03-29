@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { Observable, throwError } from 'rxjs';
+import { Observable, Subscription, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +12,10 @@ import { Observable, throwError } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
+  errorMessage: string;
+  subscription: Subscription;
 
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) { }
+  constructor(public fb: FormBuilder, public router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -23,10 +25,22 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    if (this.form.invalid) {
+      return;
+    }
+
     var email = this.form.get('email').value;
     var password = this.form.get('password').value;
 
-    this.authService.login(email, password);
+    this.subscription = this.authService.login(email, password).subscribe((res: any) => {
+      this.router.navigate(['/']);
+    },
+      error => {
+        this.errorMessage = "Invalid user credentials";
+      })
   }
 
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
 }

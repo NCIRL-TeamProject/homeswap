@@ -11,6 +11,7 @@ import { HomesForSwapServiceService } from 'src/app/services/homes-for-swap-serv
 export class HomeDetailComponent implements OnInit {
   id: string;
   home?: Home;
+  address: string;
 
   constructor(private ActivatedRoute: ActivatedRoute,
     private service: HomesForSwapServiceService,
@@ -25,6 +26,7 @@ export class HomeDetailComponent implements OnInit {
     this.service.getHomeDetails(this.id).subscribe((data: Home) => {
 
       this.home = data;
+      this.address = data.getAddressLocation();
     }, (error) => { console.log("Error") }
     );
   }

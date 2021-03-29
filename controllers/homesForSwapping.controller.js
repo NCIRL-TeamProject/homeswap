@@ -35,7 +35,16 @@ exports.getHomeDetails = (req, res) => {
                 return res.status(404).send({ message: "Home Not found, id: " + homeId });
             }
 
-            res.send({ title: h.title, description: h.description, image: h.image?.toString() });
+            res.send({
+                title: h.title,
+                description: h.description,
+                streetAddress: h.streetAddress,
+                city: h.city,
+                country: h.country,
+                streetAddress: h.streetAddress,
+                postCode: h.postCode,
+                image: h.image?.toString()
+            });
         })
         .catch(err => {
             res.status(500).send({ message: err.message });

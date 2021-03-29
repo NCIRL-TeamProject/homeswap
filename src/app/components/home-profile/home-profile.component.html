@@ -52,16 +52,9 @@
                     (change)="onEircodeChange($event)">
             </div>
             <div class="col-md-6">
-                <!-- this creates a google map on the page with the given lat/lng from -->
-                <!-- the component as the initial center of the map: -->
-                <agm-map [latitude]="lat" [longitude]="long" [zoom]="zoom">
-                    <agm-marker [latitude]="lat" [longitude]="long"></agm-marker>
-                </agm-map>
-
+                <home-map [address]="address"></home-map>
             </div>
         </div>
-
-
 
         <hr>
         <div class="row">

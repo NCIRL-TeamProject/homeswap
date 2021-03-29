@@ -2,7 +2,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/c
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
-export const InterceptorSkipHeader = 'X-Skip-Interceptor';
+export const BaseUrlSkipHeader = 'X-Skip-Interceptor-BaseUrl';
 
 @Injectable()
 export class BaseUrlInterceptor implements HttpInterceptor {
@@ -12,8 +12,8 @@ export class BaseUrlInterceptor implements HttpInterceptor {
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (request.headers.has(InterceptorSkipHeader)) {
-            // const headers = request.headers.delete(InterceptorSkipHeader);
+        if (request.headers.has(BaseUrlSkipHeader)) {
+            const headers = request.headers.delete(BaseUrlSkipHeader);
             return next.handle(request);
         }
 

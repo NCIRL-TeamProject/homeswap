@@ -8,7 +8,6 @@ import { RegistrationFormComponent } from './registration/registration-form/regi
 import { AgmCoreModule, LAZY_MAPS_API_CONFIG } from '@agm/core';
 import { JwtModule } from '@auth0/angular-jwt';
 
-
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +22,7 @@ import { HomesForSwapListComponent } from './components/homes-for-swap-list/home
 import { HomeDetailComponent } from './components/home-detail/home-detail.component';
 import { agmConfigFactory } from './Infrastructure/agmConfigFactory';
 import { AccountComponent } from './components/account/account.component';
+import { MapComponent } from './components/map/map.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -40,7 +40,8 @@ export function tokenGetter() {
     LoginComponent,
     HomesForSwapListComponent,
     HomeDetailComponent,
-    AccountComponent
+    AccountComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
