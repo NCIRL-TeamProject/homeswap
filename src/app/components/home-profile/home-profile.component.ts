@@ -15,8 +15,9 @@ export class HomeProfileComponent implements OnInit {
   form: FormGroup;
   imageSrc: String;
   errorMessage: String;
-  address: string;
   successfulMessage: String;
+  warningMessage: String;
+  address: string;
   subscriptionGet: Subscription;
   subscriptionSave: Subscription;
 
@@ -110,6 +111,11 @@ export class HomeProfileComponent implements OnInit {
   }
 
   private handleError(error: any, errorMessage: any): void {
+    if (error.status === 404) {
+      this.warningMessage = "Please complete your home details";
+      return;
+    }
+
     this.errorMessage = errorMessage;
     console.log(this.errorMessage + ". Error: " + error);
   }

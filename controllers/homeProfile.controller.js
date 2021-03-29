@@ -52,7 +52,8 @@ exports.updateHomeProfile = (req, res) => {
                 city: req.body.city,
                 postCode: req.body.postCode,
                 country: req.body.country,
-                image: imageAsBase64
+                image: imageAsBase64,
+                published: true //This is temporary until publish feature is implemented
             }).then(r => {
                 if (!r) {
                     return res.status(500).send({ message: "Error when trying to create a home" });

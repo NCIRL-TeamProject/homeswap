@@ -3,14 +3,19 @@
     <div id="alertMessagesArea">
         <div id="errorResult">
             <p>
-                <ngb-alert [dismissible]="true" *ngIf="errorMessage" type="danger" (closed)="errorMessage = ''">
-                    {{errorMessage}}
-                </ngb-alert>
-            </p>
-            <p>
                 <ngb-alert [dismissible]="true" *ngIf="successfulMessage" type="success"
                     (closed)="successfulMessage = ''">
                     {{successfulMessage}}
+                </ngb-alert>
+            </p>
+            <p>
+                <ngb-alert [dismissible]="true" *ngIf="warningMessage" type="warning" (closed)="warningMessage = ''">
+                    {{warningMessage}}
+                </ngb-alert>
+            </p>
+            <p>
+                <ngb-alert [dismissible]="true" *ngIf="errorMessage" type="danger" (closed)="errorMessage = ''">
+                    {{errorMessage}}
                 </ngb-alert>
             </p>
         </div>
