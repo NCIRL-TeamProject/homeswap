@@ -51,7 +51,7 @@ exports.updateHomeProfile = (req, res) => {
                 streetAddress: req.body.streetAddress,
                 city: req.body.city,
                 postCode: req.body.postCode,
-                country: req.body.country,
+                // country: req.body.country,
                 image: imageAsBase64,
                 published: true //This is temporary until publish feature is implemented
             }).then(r => {

@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { GeocodeService } from 'src/app/services/geocode.service';
 import { LocationData } from '../../Models/LocationData';
 
@@ -12,9 +13,10 @@ export class MapComponent implements OnInit {
   @Input()
   address: string;
 
-  location: LocationData = { lat: 53.349943551810966, lng: -6.260286979853556, zoom: 10 }
+  location: LocationData = { lat: 53.349943551810966, lng: -6.260286979853556, zoom: 10 };
+  subscription: Subscription;
 
-  constructor(private geocodeService: GeocodeService) { }
+  constructor(private geocodeService: GeocodeService, private ref: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
@@ -24,15 +26,19 @@ export class MapComponent implements OnInit {
 
     if (!addressValue || !addressValue?.currentValue) return;
 
-    this.geocodeAddress(addressValue);
-
+    this.geocodeAddress(addressValue.currentValue);
   }
 
-  private geocodeAddress(addressValue) {
-    this.geocodeService.geocodeAddress(addressValue?.currentValue)
+  private geocodeAddress(addressLocation) {
+    this.subscription = this.geocodeService.geocodeAddress(addressLocation)
       .subscribe((location: LocationData) => {
         this.location = location;
         this.location.zoom = 15;
+        this.ref.detectChanges();
       });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }
