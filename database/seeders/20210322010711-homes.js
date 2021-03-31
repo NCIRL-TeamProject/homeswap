@@ -36,6 +36,7 @@ module.exports = {
         postCode: home['postCode'],
         bathrooms: home['bathrooms'],
         bedrooms: home['bedrooms'],
+        beds: home['beds'],
         image: imageAsBase64,
         createdAt: new Date(),
         updatedAt: new Date()

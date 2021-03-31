@@ -11,6 +11,7 @@ exports.getHomesForSwapping = (req, res) => {
                     title: x.title,
                     description: x.description,
                     bathrooms: x.bathrooms,
+                    beds: x.beds,
                     bedrooms: x.bedrooms,
                     image: x.image?.toString()
                 }));
@@ -47,6 +48,7 @@ exports.getHomeDetails = (req, res) => {
                 postCode: h.postCode,
                 bathrooms: h.bathrooms,
                 bedrooms: h.bedrooms,
+                beds: h.beds,
                 image: h.image?.toString()
             });
         })

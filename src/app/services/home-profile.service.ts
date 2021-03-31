@@ -26,6 +26,7 @@ export class HomeProfileService {
     formData.append("description", home.description);
     formData.append("userId", home.userId);
     formData.append("image", home.image);
+    formData.append("beds", home.beds);
     formData.append("bedrooms", home.bedrooms);
     formData.append("bathrooms", home.bathrooms);
     formData.append("streetAddress", home.streetAddress);

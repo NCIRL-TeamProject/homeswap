@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Home } from 'src/app/Models/home';
 import { HomesForSwapServiceService } from 'src/app/services/homes-for-swap-service.service';
+import { faBed, faBath } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-homes-for-swap-list',
@@ -10,7 +11,8 @@ import { HomesForSwapServiceService } from 'src/app/services/homes-for-swap-serv
 })
 export class HomesForSwapListComponent implements OnInit {
   homes$: Observable<Home[]>;
-
+  faBed = faBed;
+  faBath = faBath;
   constructor(private homesForSwapping: HomesForSwapServiceService) { }
 
   ngOnInit(): void {

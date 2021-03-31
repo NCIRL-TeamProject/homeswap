@@ -6,6 +6,12 @@
         <div class="col-md-8">
             <img [src]="home.image" *ngIf="home.image" class="custom-image">
             <h3>{{home.title}}</h3>
+            <p>{{home.bedrooms }} bedrooms
+                <span class="ml-2">
+                    <fa-icon [icon]="faBed" class="mr-2"></fa-icon>{{home.beds }}
+                    <fa-icon [icon]="faBath" class="mr-2"></fa-icon>{{home.bathrooms }}
+                </span>
+            </p>
             <p placeholder="Description" maxlength="512" rows="7">{{home.description}}</p>
         </div>
 

@@ -44,12 +44,35 @@
                 </div>
 
                 <div class="mt-2">
-                    <fa-icon [icon]="faBed"></fa-icon>
-                    <input formControlName="bedrooms" type="number" step="1" min="1" max="10" class="m-2"
+
+                    <span>
+                        <input formControlName="bedrooms" type="number" step="1" min="1" max="10" class="m-2"
+                            style="width: 50px;" required>bedrooms
+                    </span>
+
+                    <fa-icon [icon]="faBed" class="ml-2"></fa-icon>
+                    <input formControlName="beds" type="number" step="1" min="1" max="10" class="m-2"
                         style="width: 50px;" required>
+
                     <fa-icon [icon]="faBath" class="m-2"></fa-icon>
                     <input formControlName="bathrooms" type="number" step="1" min="1" max="10" class="m-2"
                         style="width: 50px;" required>
+
+                </div>
+                <div *ngIf="isValidInput('bedrooms')" class="alert alert-danger">
+                    <div>
+                        Please select a number of bedrooms
+                    </div>
+                </div>
+                <div *ngIf="isValidInput('beds')" class="alert alert-danger">
+                    <div>
+                        Please select a number of beds
+                    </div>
+                </div>
+                <div *ngIf="isValidInput('bathrooms')" class="alert alert-danger">
+                    <div>
+                        Please select a number of bathrooms
+                    </div>
                 </div>
                 <!-- <span style="display:inline-flex">
                     <fa-icon [icon]="faBath" class="mr-2">

@@ -16,11 +16,15 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(512)
       },
-      bathrooms: {
+      bedrooms: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      bedrooms: {
+      beds: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
+      bathrooms: {
         allowNull: false,
         type: Sequelize.INTEGER
       },

@@ -40,6 +40,7 @@ export class HomeProfileComponent implements OnInit {
       city: [''],
       eircode: [''],
       bedrooms: ['', [Validators.required, Validators.min(1), Validators.max(10)]],
+      beds: ['', [Validators.required, Validators.min(1), Validators.max(10)]],
       bathrooms: ['', [Validators.required, Validators.min(1), Validators.max(10)]]
     })
   }
@@ -60,6 +61,7 @@ export class HomeProfileComponent implements OnInit {
         this.form.controls.country.patchValue(data.country);
         this.form.controls.eircode.patchValue(data.postCode);
         this.form.controls.bedrooms.patchValue(data.bedrooms);
+        this.form.controls.beds.patchValue(data.beds);
         this.form.controls.bathrooms.patchValue(data.bathrooms);
 
         this.address = data.getAddressLocation();
@@ -82,6 +84,7 @@ export class HomeProfileComponent implements OnInit {
     var postCode = this.form.get('eircode').value;
     var bathrooms = this.form.get('bathrooms').value;
     var bedrooms = this.form.get('bedrooms').value;
+    var beds = this.form.get('beds').value;
 
     var home = {
       title: title,
@@ -93,7 +96,8 @@ export class HomeProfileComponent implements OnInit {
       country: country,
       postCode: postCode,
       bathrooms: bathrooms,
-      bedrooms: bedrooms
+      bedrooms: bedrooms,
+      beds: beds
     } as Home;
 
     this.subscriptionSave = this.homeProfileService.save(home).subscribe(

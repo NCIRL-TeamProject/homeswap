@@ -23,6 +23,7 @@ exports.getHomeProfile = (req, res) => {
                 userId: h.userId,
                 bathrooms: h.bathrooms,
                 bedrooms: h.bedrooms,
+                beds: h.beds,
                 image: h.image?.toString()
             });
         })
@@ -55,6 +56,7 @@ exports.updateHomeProfile = (req, res) => {
                 postCode: req.body.postCode,
                 bathrooms: req.body.bathrooms,
                 bedrooms: req.body.bedrooms,
+                beds: req.body.beds,
                 // country: req.body.country,
                 image: imageAsBase64,
                 published: true //This is temporary until publish feature is implemented
@@ -75,7 +77,8 @@ exports.updateHomeProfile = (req, res) => {
             h.country = req.body.country;
             h.bathrooms = req.body.bathrooms;
             h.bedrooms = req.body.bedrooms;
-            h.image = imageAsBase64 === null ? h.image : imageAsBase64;
+            h.beds = req.body.beds,
+                h.image = imageAsBase64 === null ? h.image : imageAsBase64;
             h.save();
 
             res.send('home updated');
