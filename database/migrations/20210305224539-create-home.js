@@ -9,10 +9,20 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       title: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       description: {
+        allowNull: false,
         type: Sequelize.STRING(512)
+      },
+      bathrooms: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
+      bedrooms: {
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
       streetAddress: {
         allowNull: true,

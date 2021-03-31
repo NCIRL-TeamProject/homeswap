@@ -23,6 +23,7 @@ import { HomeDetailComponent } from './components/home-detail/home-detail.compon
 import { agmConfigFactory } from './Infrastructure/agmConfigFactory';
 import { AccountComponent } from './components/account/account.component';
 import { MapComponent } from './components/map/map.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -59,7 +60,8 @@ export function tokenGetter() {
     AgmCoreModule.forRoot({
       apiKey: 'innitialKey',
       libraries: ['places']
-    })
+    }),
+    FontAwesomeModule
   ],
   providers: [
     {

@@ -30,6 +30,11 @@
                 <label for="description" class="col-form-label">Description</label>
                 <textarea id="description" formControlName="description" class="form-control" placeholder="Description"
                     maxlength="512" rows="7" required></textarea>
+
+                <fa-icon [icon]="faBed"></fa-icon><input formControlName="bedrooms" type="number" step="1" min="0"
+                    max="20">
+                <fa-icon [icon]="faBath"></fa-icon><input formControlName="bathrooms" type="number" step="1" min="0"
+                    max="20">
             </div>
 
             <div class="col-md-6">
