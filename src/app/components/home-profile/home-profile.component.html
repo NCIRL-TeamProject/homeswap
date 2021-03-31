@@ -26,13 +26,62 @@
 
             <div class="col-md-6">
                 <label for="title" class="col-form-label">Title</label>
-                <input id="title" formControlName="title" type="text" class="form-control" placeholder="Title" required>
+                <input id="title" formControlName="title" type="text" class="form-control" placeholder="Title"
+                    maxlength="70" required>
+                <div *ngIf="isValidInput('title')" class="alert alert-danger">
+                    <div *ngIf="form.controls['title'].errors.required">
+                        Title is required.
+                    </div>
+                </div>
+
                 <label for="description" class="col-form-label">Description</label>
                 <textarea id="description" formControlName="description" class="form-control" placeholder="Description"
                     maxlength="512" rows="7" required></textarea>
+                <div *ngIf="isValidInput('description')" class="alert alert-danger">
+                    <div *ngIf="form.controls['description'].errors.required">
+                        Description is required.
+                    </div>
+                </div>
+
+                <div class="mt-2">
+
+                    <span>
+                        <input formControlName="bedrooms" type="number" step="1" min="1" max="10" class="m-2"
+                            style="width: 50px;" required>bedrooms
+                    </span>
+
+                    <fa-icon [icon]="faBed" class="ml-2"></fa-icon>
+                    <input formControlName="beds" type="number" step="1" min="1" max="10" class="m-2"
+                        style="width: 50px;" required>
+
+                    <fa-icon [icon]="faBath" class="m-2"></fa-icon>
+                    <input formControlName="bathrooms" type="number" step="1" min="1" max="10" class="m-2"
+                        style="width: 50px;" required>
+
+                </div>
+                <div *ngIf="isValidInput('bedrooms')" class="alert alert-danger">
+                    <div>
+                        Please select a number of bedrooms
+                    </div>
+                </div>
+                <div *ngIf="isValidInput('beds')" class="alert alert-danger">
+                    <div>
+                        Please select a number of beds
+                    </div>
+                </div>
+                <div *ngIf="isValidInput('bathrooms')" class="alert alert-danger">
+                    <div>
+                        Please select a number of bathrooms
+                    </div>
+                </div>
+                <!-- <span style="display:inline-flex">
+                    <fa-icon [icon]="faBath" class="mr-2">
+                    </fa-icon>
+                    <app-stepper></app-stepper>
+                </span> -->
             </div>
 
-            <div class="col-md-6">
+            <div class=" col-md-6">
                 <img [src]="imageSrc" *ngIf="imageSrc" style="height: 300px; width:500px">
                 <div class="custom-file">
                     <input type="file" id="inputFileId" class="custom-file-input" (change)="onFileChange($event)">
@@ -49,12 +98,13 @@
                     readonly>
                 <label for="streetAddress" class="col-form-label">Street address</label>
                 <input id="streetAddress" formControlName="streetAddress" type="text" class="form-control"
-                    placeholder="Street address" (change)="onStreetAddressChange($event)">
+                    placeholder="Street address" maxlength="70" (change)="onaddressLocationChange()">
                 <label for="city" class="col-form-label">City</label>
-                <input id="city" formControlName="city" type="text" class="form-control" placeholder="City">
+                <input id="city" formControlName="city" type="text" class="form-control" placeholder="City"
+                    maxlength="70">
                 <label for="eircode" class="col-form-label">Eircode</label>
                 <input id="eircode" formControlName="eircode" type="text" class="form-control" placeholder="Eircode"
-                    (change)="onEircodeChange($event)">
+                    maxlength="20" (change)="onaddressLocationChange()">
             </div>
             <div class="col-md-6">
                 <home-map [address]="address"></home-map>
@@ -64,7 +114,7 @@
         <hr>
         <div class="row">
             <div class="col-md-12">
-                <button type="submit" [disabled]="!form.valid" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </div>
 

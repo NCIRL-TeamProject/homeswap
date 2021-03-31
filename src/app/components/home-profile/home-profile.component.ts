@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Home } from '../../Models/home';
 import { HomeProfileService } from '../../services/home-profile.service';
 import { Subscription } from 'rxjs';
+import { faBed, faBath } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home-profile',
@@ -20,6 +21,8 @@ export class HomeProfileComponent implements OnInit {
   address: string;
   subscriptionGet: Subscription;
   subscriptionSave: Subscription;
+  faBed = faBed;
+  faBath = faBath;
 
   constructor(private fb: FormBuilder,
     private authService: AuthService,
@@ -27,15 +30,18 @@ export class HomeProfileComponent implements OnInit {
   ) {
 
     this.form = this.fb.group({
-      title: [''],
-      description: [''],
+      title: ['', [Validators.required]],
+      description: ['', [Validators.required]],
       userId: [authService.getLoggedInUserId()],
       image: [''],
       fileSource: [''],
       country: ['Ireland'],
       streetAddress: [''],
       city: [''],
-      eircode: ['']
+      eircode: [''],
+      bedrooms: ['', [Validators.required, Validators.min(1), Validators.max(10)]],
+      beds: ['', [Validators.required, Validators.min(1), Validators.max(10)]],
+      bathrooms: ['', [Validators.required, Validators.min(1), Validators.max(10)]]
     })
   }
 
@@ -54,14 +60,20 @@ export class HomeProfileComponent implements OnInit {
         this.form.controls.city.patchValue(data.city);
         this.form.controls.country.patchValue(data.country);
         this.form.controls.eircode.patchValue(data.postCode);
-        this.imageSrc = data.image;
+        this.form.controls.bedrooms.patchValue(data.bedrooms);
+        this.form.controls.beds.patchValue(data.beds);
+        this.form.controls.bathrooms.patchValue(data.bathrooms);
+
         this.address = data.getAddressLocation();
+        this.imageSrc = data.image;
 
       }, (error) => this.handleError(error, "Error when trying to retrieve home profile")
       );
   }
 
   onSubmit() {
+    if (!this.form.valid) return;
+
     var title = this.form.get('title').value;
     var description = this.form.get('description').value;
     var userId = this.form.get('userId').value;
@@ -70,6 +82,9 @@ export class HomeProfileComponent implements OnInit {
     var city = this.form.get('city').value;
     var country = this.form.get('country').value;
     var postCode = this.form.get('eircode').value;
+    var bathrooms = this.form.get('bathrooms').value;
+    var bedrooms = this.form.get('bedrooms').value;
+    var beds = this.form.get('beds').value;
 
     var home = {
       title: title,
@@ -79,7 +94,10 @@ export class HomeProfileComponent implements OnInit {
       streetAddress: streetAddress,
       city: city,
       country: country,
-      postCode: postCode
+      postCode: postCode,
+      bathrooms: bathrooms,
+      bedrooms: bedrooms,
+      beds: beds
     } as Home;
 
     this.subscriptionSave = this.homeProfileService.save(home).subscribe(
@@ -102,12 +120,16 @@ export class HomeProfileComponent implements OnInit {
     }
   }
 
-  onStreetAddressChange(event) {
-    this.address = this.form.get('streetAddress').value;
-  }
+  onaddressLocationChange() {
+    const streetAddress = this.form.get('streetAddress').value;
+    const eircode = this.form.get('eircode').value;
 
-  onEircodeChange(event) {
-    this.address = this.form.get('eircode').value;
+    if (eircode && eircode !== '')
+      this.address = eircode;
+    else {
+      this.address = streetAddress;
+    }
+
   }
 
   private handleError(error: any, errorMessage: any): void {
@@ -129,5 +151,10 @@ export class HomeProfileComponent implements OnInit {
   ngOnDestroy(): void {
     this.subscriptionGet?.unsubscribe();
     this.subscriptionSave?.unsubscribe();
+  }
+
+  isValidInput(fieldName): boolean {
+    return this.form.controls[fieldName].invalid &&
+      (this.form.controls[fieldName].dirty || this.form.controls[fieldName].touched);
   }
 }

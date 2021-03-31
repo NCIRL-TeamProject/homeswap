@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Home } from 'src/app/Models/home';
 import { HomesForSwapServiceService } from 'src/app/services/homes-for-swap-service.service';
+import { faBed, faBath } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home-detail',
@@ -12,6 +13,8 @@ export class HomeDetailComponent implements OnInit {
   id: string;
   home?: Home;
   address: string;
+  faBed = faBed;
+  faBath = faBath;
 
   constructor(private ActivatedRoute: ActivatedRoute,
     private service: HomesForSwapServiceService,

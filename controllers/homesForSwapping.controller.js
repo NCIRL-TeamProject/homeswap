@@ -10,6 +10,9 @@ exports.getHomesForSwapping = (req, res) => {
                     id: x.id,
                     title: x.title,
                     description: x.description,
+                    bathrooms: x.bathrooms,
+                    beds: x.beds,
+                    bedrooms: x.bedrooms,
                     image: x.image?.toString()
                 }));
                 res.send(homes);
@@ -43,6 +46,9 @@ exports.getHomeDetails = (req, res) => {
                 country: h.country,
                 streetAddress: h.streetAddress,
                 postCode: h.postCode,
+                bathrooms: h.bathrooms,
+                bedrooms: h.bedrooms,
+                beds: h.beds,
                 image: h.image?.toString()
             });
         })

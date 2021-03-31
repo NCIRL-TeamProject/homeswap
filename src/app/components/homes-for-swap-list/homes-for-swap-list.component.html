@@ -12,10 +12,15 @@
                     <div class="card-body">
                         <h6 class="card-title text-truncate">{{home.title }}</h6>
                         <p class="card-text text-truncate">{{home.description }}</p>
+                        <p class="card-text">{{home.bedrooms }} bedrooms
+                            <span class="ml-2">
+                                <fa-icon [icon]="faBed" class="mr-2"></fa-icon>{{home.beds }}
+                                <fa-icon [icon]="faBath" class="mr-2"></fa-icon>{{home.bathrooms }}
+                            </span>
+                        </p>
                     </div>
                 </div>
             </div>
-
 
         </div>
     </div>

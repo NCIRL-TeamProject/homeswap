@@ -21,6 +21,9 @@ exports.getHomeProfile = (req, res) => {
                 postCode: h.postCode,
                 country: h.country,
                 userId: h.userId,
+                bathrooms: h.bathrooms,
+                bedrooms: h.bedrooms,
+                beds: h.beds,
                 image: h.image?.toString()
             });
         })
@@ -51,6 +54,9 @@ exports.updateHomeProfile = (req, res) => {
                 streetAddress: req.body.streetAddress,
                 city: req.body.city,
                 postCode: req.body.postCode,
+                bathrooms: req.body.bathrooms,
+                bedrooms: req.body.bedrooms,
+                beds: req.body.beds,
                 // country: req.body.country,
                 image: imageAsBase64,
                 published: true //This is temporary until publish feature is implemented
@@ -69,7 +75,10 @@ exports.updateHomeProfile = (req, res) => {
             h.city = req.body.city;
             h.postCode = req.body.postCode;
             h.country = req.body.country;
-            h.image = imageAsBase64 === null ? h.image : imageAsBase64;
+            h.bathrooms = req.body.bathrooms;
+            h.bedrooms = req.body.bedrooms;
+            h.beds = req.body.beds,
+                h.image = imageAsBase64 === null ? h.image : imageAsBase64;
             h.save();
 
             res.send('home updated');

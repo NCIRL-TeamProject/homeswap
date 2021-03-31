@@ -7,6 +7,9 @@ export class Home {
     postCode: string;
     image: string;
     userId: number;
+    bedrooms: number;
+    beds: number;
+    bathrooms: number;
 
     constructor(home: Home) {
         this.title = home.title;
@@ -17,6 +20,9 @@ export class Home {
         this.postCode = home.postCode;
         this.image = home.image;
         this.userId = home.userId;
+        this.bathrooms = home.bathrooms;
+        this.bedrooms = home.bedrooms;
+        this.beds = home.beds;
     }
 
     getAddressLocation() {
