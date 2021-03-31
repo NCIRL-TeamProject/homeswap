@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Home } from '../../Models/home';
 import { HomeProfileService } from '../../services/home-profile.service';
@@ -30,8 +30,8 @@ export class HomeProfileComponent implements OnInit {
   ) {
 
     this.form = this.fb.group({
-      title: [''],
-      description: [''],
+      title: ['', [Validators.required]],
+      description: ['', [Validators.required]],
       userId: [authService.getLoggedInUserId()],
       image: [''],
       fileSource: [''],
@@ -39,8 +39,8 @@ export class HomeProfileComponent implements OnInit {
       streetAddress: [''],
       city: [''],
       eircode: [''],
-      bedrooms: [0],
-      bathrooms: [0]
+      bedrooms: ['', [Validators.required, Validators.min(1), Validators.max(10)]],
+      bathrooms: ['', [Validators.required, Validators.min(1), Validators.max(10)]]
     })
   }
 
@@ -70,6 +70,8 @@ export class HomeProfileComponent implements OnInit {
   }
 
   onSubmit() {
+    if (!this.form.valid) return;
+
     var title = this.form.get('title').value;
     var description = this.form.get('description').value;
     var userId = this.form.get('userId').value;
@@ -114,12 +116,16 @@ export class HomeProfileComponent implements OnInit {
     }
   }
 
-  onStreetAddressChange(event) {
-    this.address = this.form.get('streetAddress').value;
-  }
+  onaddressLocationChange() {
+    const streetAddress = this.form.get('streetAddress').value;
+    const eircode = this.form.get('eircode').value;
 
-  onEircodeChange(event) {
-    this.address = this.form.get('eircode').value;
+    if (eircode && eircode !== '')
+      this.address = eircode;
+    else {
+      this.address = streetAddress;
+    }
+
   }
 
   private handleError(error: any, errorMessage: any): void {
@@ -141,5 +147,10 @@ export class HomeProfileComponent implements OnInit {
   ngOnDestroy(): void {
     this.subscriptionGet?.unsubscribe();
     this.subscriptionSave?.unsubscribe();
+  }
+
+  isValidInput(fieldName): boolean {
+    return this.form.controls[fieldName].invalid &&
+      (this.form.controls[fieldName].dirty || this.form.controls[fieldName].touched);
   }
 }
