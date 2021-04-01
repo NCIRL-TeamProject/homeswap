@@ -1,28 +1,45 @@
 <div class="container">
-    <p class="h4 text-center">Homes for swapping</p>
-    <div class="d-flex justify-content-between p-3 bg-white mb-3 align-items-center">
-        <div id="productsRow" class="row g-4">
+    <div class="row mt-4 mb-4">
+        <div class="col-md-5">
+            <label for="city" class="col-form-label">Where would you like to go?</label>
 
-            <div *ngFor="let home of homes$ | async" class="col-md-3 d-flex align-items-stretch">
-                <div class="card" style="width: 18rem;margin-bottom: 10px;">
+            <input type="search" class="form-control" [(ngModel)]="cityName">
 
-                    <a [routerLink]="['/home-details', home.id]">
-                        <img [src]="home.image" class="card-img-top">
-                    </a>
-                    <div class="card-body">
-                        <h6 class="card-title text-truncate">{{home.title }}</h6>
-                        <p class="card-text text-truncate">{{home.description }}</p>
-                        <p class="card-text">{{home.bedrooms }} bedrooms
-                            <span class="ml-2">
-                                <fa-icon [icon]="faBed" class="mr-2"></fa-icon>{{home.beds }}
-                                <fa-icon [icon]="faBath" class="mr-2"></fa-icon>{{home.bathrooms }}
-                            </span>
-                        </p>
+        </div>
+        <!-- <p class="h4 text-center">Homes for swapping</p> -->
+        <!-- <app-homes-listing-filter></app-homes-listing-filter> -->
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="d-flex justify-content-between p-3 bg-white mb-3 align-items-center">
+                <div id="productsRow" class="row g-4">
+
+                    <div *ngFor="let home of homes$ | async |  homesListingPipe: cityName"
+                        class="col-md-3 d-flex align-items-stretch">
+                        <div class="card" style="width: 18rem;margin-bottom: 10px;">
+
+                            <a [routerLink]="['/home-details', home.id]">
+                                <img [src]="home.image" class="card-img-top">
+                            </a>
+                            <div class="card-body">
+                                <h6 class="card-title text-truncate">{{home.title }}</h6>
+                                <p class="card-text text-truncate">{{home.description }}</p>
+                                <p class="card-text">{{home.bedrooms }} bedrooms
+                                    <span class="ml-2">
+                                        <fa-icon [icon]="faBed" class="mr-2"></fa-icon>{{home.beds }}
+                                        <fa-icon [icon]="faBath" class="mr-2"></fa-icon>{{home.bathrooms }}
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
 
         </div>
     </div>
-
 </div>
