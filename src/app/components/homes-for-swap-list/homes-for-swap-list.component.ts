@@ -13,6 +13,7 @@ export class HomesForSwapListComponent implements OnInit {
   homes$: Observable<Home[]>;
   faBed = faBed;
   faBath = faBath;
+  cityName: string;
   constructor(private homesForSwapping: HomesForSwapServiceService) { }
 
   ngOnInit(): void {

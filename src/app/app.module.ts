@@ -18,13 +18,15 @@ import { HomeComponent } from './components/home/home.component';
 import { HomeProfileComponent } from './components/home-profile/home-profile.component';
 import { AuthInterceptor } from './Infrastructure/auth/auth.interceptor';
 import { LoginComponent } from './components/login/login.component';
-import { HomesForSwapListComponent } from './components/homes-for-swap-list/homes-for-swap-list.component';
 import { HomeDetailComponent } from './components/home-detail/home-detail.component';
 import { agmConfigFactory } from './Infrastructure/agmConfigFactory';
 import { AccountComponent } from './components/account/account.component';
 import { MapComponent } from './components/map/map.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { HomesListingFilterComponent } from './components/homes-listing-filter/homes-listing-filter.component';
 import { StepperComponent } from './components/stepper/stepper.component';
+import { HomesListingPipePipe } from './homes-listing-pipe.pipe';
+import { HomesForSwapListComponent } from './components/homes-for-swap-list/homes-for-swap-list.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -44,7 +46,9 @@ export function tokenGetter() {
     HomeDetailComponent,
     AccountComponent,
     MapComponent,
-    StepperComponent
+    StepperComponent,
+    HomesListingFilterComponent,
+    HomesListingPipePipe
   ],
   imports: [
     BrowserModule,
@@ -87,4 +91,6 @@ export function tokenGetter() {
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}

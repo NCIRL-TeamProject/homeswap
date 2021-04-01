@@ -13,6 +13,7 @@ exports.getHomesForSwapping = (req, res) => {
                     bathrooms: x.bathrooms,
                     beds: x.beds,
                     bedrooms: x.bedrooms,
+                    city: x.city,
                     image: x.image?.toString()
                 }));
                 res.send(homes);
