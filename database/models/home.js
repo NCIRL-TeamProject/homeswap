@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     bedrooms: DataTypes.INTEGER,
     streetAddress: DataTypes.STRING,
     city: DataTypes.STRING,
+    county: DataTypes.STRING,
     country: DataTypes.STRING,
     postCode: DataTypes.STRING,
     published: DataTypes.BOOLEAN,

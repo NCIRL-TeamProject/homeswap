@@ -15,11 +15,14 @@ module.exports = {
     */
 
     const homes = require('./json/homes.json').homes;
+    const addresses = require('./json/addresses.json').addresses;
     const imageBasePath = './database/seeders/images/homes';
     let homeArray = []
 
-    homes.forEach((home) => {
-      const imagePath = path.resolve(imageBasePath, home['image']);
+    homes.forEach((home, i) => {
+      const address = addresses[Math.floor(Math.random() * addresses.length)];
+      const image = home['image'] ?? 'home' + (i + 1) + '.jpg';
+      const imagePath = path.resolve(imageBasePath, image);
       const bitmap = fs.readFileSync(imagePath);
 
       var imageAsBase64 = "data:image/webp;base64,";
@@ -27,16 +30,17 @@ module.exports = {
 
       homeArray.push({
         title: home['title'],
-        description: home['description'],
+        description: home['description'].substring(0, 512),
         userId: home['userId'],
         published: home['published'],
-        streetAddress: home['streetAddress'],
-        city: home['city'],
-        country: home['country'],
-        postCode: home['postCode'],
+        streetAddress: address['addressLine1'],
+        city: address['townCity'],
+        county: address['county'],
+        country: address['country'],
+        postCode: address['postCode'],
         bathrooms: home['bathrooms'],
         bedrooms: home['bedrooms'],
-        beds: home['beds'],
+        beds: home['beds'] ?? 1,
         image: imageAsBase64,
         createdAt: new Date(),
         updatedAt: new Date()

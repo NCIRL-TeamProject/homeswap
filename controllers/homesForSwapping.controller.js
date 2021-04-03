@@ -1,8 +1,27 @@
 const db = require('../database/models/index');
+const { Sequelize } = require('sequelize');
+const Op = Sequelize.Op;
 const Home = db.Home;
 
 exports.getHomesForSwapping = (req, res) => {
-    Home.findAll({ where: { published: true } })
+    var place = req.query.place;
+    var whereFilter = { published: { [Op.eq]: true } };
+
+    if (place !== null && place !== undefined && place !== '') {
+        whereFilter = {
+            [Op.and]: [
+                { published: { [Op.eq]: true } },
+                {
+                    [Op.or]: [
+                        { city: { [Op.iLike]: '%' + place + '%' } },
+                        { county: { [Op.iLike]: '%' + place + '%' } }
+                    ]
+                }
+            ]
+        };
+    }
+
+    Home.findAll({ where: whereFilter })
         .then((h) => {
 
             if (Array.isArray(h)) {
@@ -44,6 +63,7 @@ exports.getHomeDetails = (req, res) => {
                 description: h.description,
                 streetAddress: h.streetAddress,
                 city: h.city,
+                county: h.county,
                 country: h.country,
                 streetAddress: h.streetAddress,
                 postCode: h.postCode,

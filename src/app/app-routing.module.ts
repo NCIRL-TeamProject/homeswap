@@ -5,7 +5,7 @@ import { HomeProfileComponent } from './components/home-profile/home-profile.com
 
 // Content
 import { HomeComponent } from './components/home/home.component';
-import { HowItWorksComponent } from './components/home/how-it-works/how-it-works.component';
+import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrationFormComponent } from './registration/registration-form/registration-form.component';
 import { HomesForSwapListComponent } from './components/homes-for-swap-list/homes-for-swap-list.component';

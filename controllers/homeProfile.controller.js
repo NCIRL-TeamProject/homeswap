@@ -19,6 +19,7 @@ exports.getHomeProfile = (req, res) => {
                 streetAddress: h.streetAddress,
                 city: h.city,
                 postCode: h.postCode,
+                county: h.county,
                 country: h.country,
                 userId: h.userId,
                 bathrooms: h.bathrooms,
@@ -54,6 +55,7 @@ exports.updateHomeProfile = (req, res) => {
                 streetAddress: req.body.streetAddress,
                 city: req.body.city,
                 postCode: req.body.postCode,
+                county: req.body.county,
                 bathrooms: req.body.bathrooms,
                 bedrooms: req.body.bedrooms,
                 beds: req.body.beds,
@@ -74,6 +76,7 @@ exports.updateHomeProfile = (req, res) => {
             h.streetAddress = req.body.streetAddress;
             h.city = req.body.city;
             h.postCode = req.body.postCode;
+            h.county = req.body.county;
             h.country = req.body.country;
             h.bathrooms = req.body.bathrooms;
             h.bedrooms = req.body.bedrooms;

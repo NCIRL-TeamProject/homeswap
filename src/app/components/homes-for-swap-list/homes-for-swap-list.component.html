@@ -1,9 +1,8 @@
 <div class="container">
     <div class="row mt-4 mb-4">
         <div class="col-md-5">
-            <label for="city" class="col-form-label">Where would you like to go?</label>
-
-            <input type="search" class="form-control" [(ngModel)]="cityName">
+            <label for="city" class="col-form-label">Quick filter</label>
+            <input type="search" class="form-control" [(ngModel)]="filter">
 
         </div>
         <!-- <p class="h4 text-center">Homes for swapping</p> -->
@@ -17,8 +16,8 @@
             <div class="d-flex justify-content-between p-3 bg-white mb-3 align-items-center">
                 <div id="productsRow" class="row g-4">
 
-                    <div *ngFor="let home of homes$ | async |  homesListingPipe: cityName"
-                        class="col-md-3 d-flex align-items-stretch">
+                    <div *ngFor="let home of homes$ | async |  homesListingPipe: filter as homes"
+                        [ngClass]="(homes.length ==1)?'col-md-12':'col-md-3'" class="d-flex align-items-stretch">
                         <div class="card" style="width: 18rem;margin-bottom: 10px;">
 
                             <a [routerLink]="['/home-details', home.id]">
@@ -36,7 +35,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 

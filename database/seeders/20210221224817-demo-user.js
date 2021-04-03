@@ -15,7 +15,7 @@ module.exports = {
 
     var users = [];
 
-    for (var i = 1; i <= 12; i++) {
+    for (var i = 1; i <= 170; i++) {
       users.push({
         firstName: 'firstName' + i,
         lastName: 'lastName' + i,

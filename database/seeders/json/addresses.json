@@ -1,0 +1,84 @@
+{
+    "addresses": [
+        {
+            "country": "Ireland",
+            "postCode": null,
+            "addressLine1": "30 Xavier Avenue, North Strand",
+            "addressLine2": null,
+            "townCity": "Dublin 3",
+            "county": "Dublin"
+        },
+        {
+            "country": "Ireland",
+            "postCode": "D01K6W2",
+            "addressLine1": null,
+            "addressLine2": null,
+            "townCity": "Dublin 1",
+            "county": "Dublin"
+        },
+        {
+            "country": "Ireland",
+            "postCode": null,
+            "addressLine1": "150 Belgrove Park",
+            "addressLine2": null,
+            "townCity": "Dublin 3",
+            "county": "Dublin"
+        },
+        {
+            "country": "Ireland",
+            "postCode": "A98 P7X4",
+            "addressLine1": "47 Strand Rd",
+            "addressLine2": null,
+            "townCity": "Bray",
+            "county": "Wicklow"
+        },
+        {
+            "country": "Ireland",
+            "postCode": "A98 X992",
+            "addressLine1": "1 Albert Ave",
+            "addressLine2": null,
+            "townCity": "Bray",
+            "county": "Wicklow"
+        },
+        {
+            "country": "Ireland",
+            "postCode": "F91 HR53",
+            "addressLine1": "Deepwater Quay",
+            "addressLine2": null,
+            "townCity": "Cartron",
+            "county": "Sligo"
+        },
+        {
+            "country": "Ireland",
+            "postCode": "F91 H704",
+            "addressLine1": "23 Finisklin Rd",
+            "addressLine2": null,
+            "townCity": "Finisklin",
+            "county": "Sligo"
+        },
+        {
+            "country": "Ireland",
+            "postCode": "H91 VX4E",
+            "addressLine1": "22 High St",
+            "addressLine2": null,
+            "townCity": null,
+            "county": "Galway"
+        },
+        {
+            "country": "Ireland",
+            "postCode": "T12 RD6E",
+            "addressLine1": "Lapp's Quay",
+            "addressLine2": null,
+            "townCity": "Centre",
+            "county": "Cork"
+        },
+        {
+            "country": "Ireland",
+            "postCode": "T12 HW58",
+            "addressLine1": "60 College Rd",
+            "addressLine2": null,
+            "townCity": "The Lough",
+            "county": "Cork"
+        }
+    ]
+}

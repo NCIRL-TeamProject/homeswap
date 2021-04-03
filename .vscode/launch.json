@@ -20,6 +20,14 @@
             "url": "http://localhost:4200",
             "webRoot": "${workspaceFolder}"
         },
-        
+        {
+            "name": "importer",
+            "program": "${workspaceFolder}/importer/houseImporter.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },
     ]
 }

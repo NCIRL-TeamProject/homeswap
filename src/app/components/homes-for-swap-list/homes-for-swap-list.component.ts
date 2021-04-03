@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Home } from 'src/app/Models/home';
 import { HomesForSwapServiceService } from 'src/app/services/homes-for-swap-service.service';
 import { faBed, faBath } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-homes-for-swap-list',
@@ -13,11 +14,13 @@ export class HomesForSwapListComponent implements OnInit {
   homes$: Observable<Home[]>;
   faBed = faBed;
   faBath = faBath;
-  cityName: string;
-  constructor(private homesForSwapping: HomesForSwapServiceService) { }
+  filter: string;
+  constructor(private homesForSwapping: HomesForSwapServiceService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.homes$ = this.homesForSwapping.getHomesForSwapping();
+    const place = this.activatedRoute.snapshot.paramMap.get("place");
+
+    this.homes$ = this.homesForSwapping.getHomesForSwapping(place);
   }
 
 }
