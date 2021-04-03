@@ -13,7 +13,7 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from 'src/environments/environment';
 import { BaseUrlInterceptor } from './Infrastructure/BaseUrlInterceptor';
-import { HowItWorksComponent } from './components/home/how-it-works/how-it-works.component';
+import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 import { HomeComponent } from './components/home/home.component';
 import { HomeProfileComponent } from './components/home-profile/home-profile.component';
 import { AuthInterceptor } from './Infrastructure/auth/auth.interceptor';
@@ -22,10 +22,10 @@ import { HomeDetailComponent } from './components/home-detail/home-detail.compon
 import { agmConfigFactory } from './Infrastructure/agmConfigFactory';
 import { AccountComponent } from './components/account/account.component';
 import { MapComponent } from './components/map/map.component';
-import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomesListingFilterComponent } from './components/homes-listing-filter/homes-listing-filter.component';
 import { StepperComponent } from './components/stepper/stepper.component';
-import { HomesListingPipePipe } from './homes-listing-pipe.pipe';
+import { HomesListingPipePipe } from './pipes/homes-listing-pipe.pipe';
 import { HomesForSwapListComponent } from './components/homes-for-swap-list/homes-for-swap-list.component';
 
 export function tokenGetter() {

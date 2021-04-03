@@ -36,6 +36,7 @@ export class HomeProfileComponent implements OnInit {
       image: [''],
       fileSource: [''],
       country: ['Ireland'],
+      county: [''],
       streetAddress: [''],
       city: [''],
       eircode: [''],
@@ -59,6 +60,7 @@ export class HomeProfileComponent implements OnInit {
         this.form.controls.streetAddress.patchValue(data.streetAddress);
         this.form.controls.city.patchValue(data.city);
         this.form.controls.country.patchValue(data.country);
+        this.form.controls.county.patchValue(data.county);
         this.form.controls.eircode.patchValue(data.postCode);
         this.form.controls.bedrooms.patchValue(data.bedrooms);
         this.form.controls.beds.patchValue(data.beds);
@@ -80,6 +82,7 @@ export class HomeProfileComponent implements OnInit {
     var image = this.form.get('image').value;
     var streetAddress = this.form.get('streetAddress').value;
     var city = this.form.get('city').value;
+    var county = this.form.get('county').value;
     var country = this.form.get('country').value;
     var postCode = this.form.get('eircode').value;
     var bathrooms = this.form.get('bathrooms').value;
@@ -93,6 +96,7 @@ export class HomeProfileComponent implements OnInit {
       image: image,
       streetAddress: streetAddress,
       city: city,
+      county: county,
       country: country,
       postCode: postCode,
       bathrooms: bathrooms,

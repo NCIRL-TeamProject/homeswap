@@ -95,13 +95,16 @@
             <div class="col-md-6">
                 <label for="country" class="col-form-label">Country</label>
                 <input id="country" formControlName="country" type="text" class="form-control" placeholder="Country"
-                    readonly>
+                    maxlength="50" readonly>
+                <label for="county" class="col-form-label">County</label>
+                <input id="county" formControlName="county" type="text" class="form-control" placeholder="County"
+                    maxlength="50">
                 <label for="streetAddress" class="col-form-label">Street address</label>
                 <input id="streetAddress" formControlName="streetAddress" type="text" class="form-control"
                     placeholder="Street address" maxlength="70" (change)="onaddressLocationChange()">
                 <label for="city" class="col-form-label">City</label>
                 <input id="city" formControlName="city" type="text" class="form-control" placeholder="City"
-                    maxlength="70">
+                    maxlength="50">
                 <label for="eircode" class="col-form-label">Eircode</label>
                 <input id="eircode" formControlName="eircode" type="text" class="form-control" placeholder="Eircode"
                     maxlength="20" (change)="onaddressLocationChange()">

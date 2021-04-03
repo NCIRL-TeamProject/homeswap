@@ -3,6 +3,7 @@ export class Home {
     description: string;
     streetAddress: string;
     city: string;
+    county: string;
     country: string;
     postCode: string;
     image: string;
@@ -16,6 +17,7 @@ export class Home {
         this.description = home.description;
         this.streetAddress = home.streetAddress;
         this.city = home.city;
+        this.county = home.county;
         this.country = home.country;
         this.postCode = home.postCode;
         this.image = home.image;

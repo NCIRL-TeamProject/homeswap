@@ -40,6 +40,10 @@ module.exports = {
         allowNull: true,
         type: Sequelize.STRING
       },
+      county: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
       country: {
         allowNull: true,
         type: Sequelize.STRING

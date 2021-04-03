@@ -11,8 +11,13 @@ export class HomesForSwapServiceService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getHomesForSwapping(): Observable<Home[]> {
-    return this.httpClient.get<Home[]>('api/getHomesForSwapping');
+  getHomesForSwapping(place: string | undefined): Observable<Home[]> {
+    let params = new HttpParams();
+
+    if (place)
+      params = new HttpParams().set('place', place);
+
+    return this.httpClient.get<Home[]>('api/getHomesForSwapping', { params: params });
   }
 
   getHomeDetails(id: string): Observable<Home> {

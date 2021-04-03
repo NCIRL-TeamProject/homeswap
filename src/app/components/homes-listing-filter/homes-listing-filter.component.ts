@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { faPlusCircle, faMinusCircle, faBed } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -11,10 +13,15 @@ export class HomesListingFilterComponent implements OnInit {
   faMinus = faMinusCircle;
   faBed = faBed;
   value = 3;
+  form: FormGroup;
+  constructor(private fb: FormBuilder, private router: Router) {
 
-  constructor() { }
+  }
 
   ngOnInit(): void {
+    this.form = this.fb.group({
+      place: ['']
+    });
   }
 
   increment() {
@@ -27,5 +34,12 @@ export class HomesListingFilterComponent implements OnInit {
 
     if (this.value > 0)
       this.value--;
+  }
+
+  onSubmit() {
+    if (!this.form.valid) return;
+
+    var place = this.form.get('place').value;
+    this.router.navigate(['homes-for-swapping', { place: place }]);
   }
 }

@@ -31,6 +31,7 @@ export class HomeProfileService {
     formData.append("bathrooms", home.bathrooms);
     formData.append("streetAddress", home.streetAddress);
     formData.append("city", home.city);
+    formData.append("county", home.county);
     formData.append("postCode", home.postCode);
 
     return this.httpClient.post('api/homeprofile', formData);
