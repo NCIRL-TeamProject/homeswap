@@ -1,9 +1,11 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../../Models/user';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import {debounceTime} from 'rxjs/operators';
+import {NgbAlert} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -17,13 +19,21 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
   stepOneCompleted = false;
   confirmMatches = false;
+  staticAlertClosed = false;
+  successRedirectMessage: string;
   private subscription: Subscription;
+  private alertMessage = new Subject<string>();
+  private state: any;
+
+  @ViewChild('selfClosingAlert', {static: false}) selfClosingAlert: NgbAlert;
 
   constructor(
     public formBuilder: FormBuilder,
     public authService: AuthService,
     public router: Router
   ) {
+    const navigation = this.router.getCurrentNavigation();
+    this.state = navigation.extras.state;
     this.registerForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.maxLength(20)]],
       lastName: ['', [Validators.required, Validators.maxLength(20)]],
@@ -36,18 +46,30 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+    this.alertMessage.subscribe(message => this.successRedirectMessage = message);
+    this.alertMessage.pipe(debounceTime(5000)).subscribe(() => {
+      if (this.selfClosingAlert) {
+        this.selfClosingAlert.close();
+      }
+    });
+    if (this.state !== undefined){
+      this.setRedirectSucessMessage();
+    }
   }
 
   submitForm(): void {
-    // console.log('step one submitted');
     this.prepareForm();
+  }
+
+  private setRedirectSucessMessage(): void{
+    this.alertMessage.next(`${this.successRedirectMessage = this.state?.data?.message}`);
   }
 
   private prepareForm(): void {
     const formModel = this.registerForm.value;
     if (this.registerForm.valid) {
       if (!this.stepOneCompleted) {
-        // console.log('step one completed');
         this.registerForm.controls['password']
           .setValidators([Validators.required, Validators.pattern(/^(?=.*?[a-z])(?=.*?[A-Z]).{8,}$/)]);
         this.registerForm.controls['confirmPassword']

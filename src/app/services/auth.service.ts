@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -8,7 +8,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { User } from '../Models/user';
 
-//example from here: https://www.techiediaries.com/angular-9-8-mean-stack-authentication-tutorial-and-example-with-node-and-mongodb/
+// example from here: https://www.techiediaries.com/angular-9-8-mean-stack-authentication-tutorial-and-example-with-node-and-mongodb/
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +18,10 @@ export class AuthService {
 
   register(user: User): Observable<any> {
     return this.httpClient.post('api/auth/signup', user).pipe(
-      catchError((err) => { console.log(err); return this.handleError; }));
+      map((res: Response) => {
+        return res || {};
+      }),
+      catchError(this.handleError));
   }
 
   login(email: string, password: string) {
@@ -26,24 +29,25 @@ export class AuthService {
       .pipe(map(res => {
         localStorage.setItem('access_token', res.accessToken);
         localStorage.setItem('user_id', res.id);
-        console.log('user logged-in: ' + res.username);
+        localStorage.setItem('email', email);
         return res;
-      }))
+      }));
   }
 
-  logout() {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("user_id");
+  logout(): void{
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('email');
     this.router.navigate(['/home']);
   }
 
-  public isLoggedIn() {
+  public isLoggedIn(): boolean {
     const token = this.getAccessToken();
 
     return !this.jwtHelper.isTokenExpired(token);
   }
 
-  isLoggedOut() {
+  isLoggedOut(): boolean {
     return !this.isLoggedIn();
   }
 
@@ -51,8 +55,12 @@ export class AuthService {
     return localStorage.getItem('access_token');
   }
 
-  getLoggedInUserId(): any {
+  getLoggedInUserId(): string {
     return this.isLoggedIn() ? localStorage.getItem('user_id') : null;
+  }
+
+  getLoggedInUserEmail(): string {
+    return this.isLoggedIn() ? localStorage.getItem('email') : null;
   }
 
   getUserBasicProfile(id): Observable<Response> {
@@ -63,6 +71,23 @@ export class AuthService {
       }),
       catchError(this.handleError)
     );
+  }
+
+  removeAccount(user: User, id: string): Observable<any> {
+    return this.httpClient.post(`api/user/delete/${id}`, user).pipe(
+      map((res: Response) => {
+        this.clearRemovedUserDetails(res);
+        return res;
+      }),
+      catchError((err) => { console.log(err); return this.handleError; }));
+  }
+
+  private clearRemovedUserDetails(res: any): void{
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('user_id');
+    localStorage.removeItem('email');
+    const navigationExtras: NavigationExtras = {state: {data: res}};
+    this.router.navigate(['/register'], navigationExtras);
   }
 
   handleError(error: HttpErrorResponse): Observable<any> {

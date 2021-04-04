@@ -1,0 +1,27 @@
+<div class="container">
+    <form class="text-center border border-light p-5" [formGroup]="removeAccountForm">
+        <div class="px-4 py-5 my-5 text-center">
+            <h3 class="display-5 fw-bold">Sad to see you go!</h3>
+            <div class="col-lg-6 mx-auto">
+                <p class="lead mb-4">Your account deletion cannot be undone. If you're sure you want to delete your
+                    account
+                    enter your password to confirm.</p>
+                <div class="form-group d-grid gap-3 d-sm-flex justify-content-sm-center">
+                    <input type="password" id="defaultRemoveAccountPasswordForm" class="form-control"
+                        formControlName="password" />
+                </div>
+                <div *ngIf="isValidInput('password') || (isSubmitted && removeAccountForm.controls['password'].untouched) "
+                    class="alert alert-danger">
+                    <div
+                        *ngIf="removeAccountForm.controls['password'].errors?.required">
+                        Password is required.
+                    </div>
+                </div>
+                <button type="button" class="btn btn-link btn-lg px-4 me-sm-3" (click)="removeAccount()">Delete
+                    account</button>
+            </div>
+            <div>
+            </div>
+        </div>
+    </form>
+</div>
