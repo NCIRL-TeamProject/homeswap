@@ -27,6 +27,7 @@ import { HomesListingFilterComponent } from './components/homes-listing-filter/h
 import { StepperComponent } from './components/stepper/stepper.component';
 import { HomesListingPipePipe } from './pipes/homes-listing-pipe.pipe';
 import { HomesForSwapListComponent } from './components/homes-for-swap-list/homes-for-swap-list.component';
+import { AccountRemoveComponent } from './components/account/account-remove/account-remove.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -48,7 +49,8 @@ export function tokenGetter() {
     MapComponent,
     StepperComponent,
     HomesListingFilterComponent,
-    HomesListingPipePipe
+    HomesListingPipePipe,
+    AccountRemoveComponent
   ],
   imports: [
     BrowserModule,

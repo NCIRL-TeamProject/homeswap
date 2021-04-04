@@ -10,7 +10,10 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistrationFormComponent } from './registration/registration-form/registration-form.component';
 import { HomesForSwapListComponent } from './components/homes-for-swap-list/homes-for-swap-list.component';
 import { HomeDetailComponent } from './components/home-detail/home-detail.component';
+
+// Account components
 import { AccountComponent } from './components/account/account.component';
+import { AccountRemoveComponent } from './components/account/account-remove/account-remove.component';
 
 const appRoutes: Routes = [
     // Home
@@ -22,7 +25,8 @@ const appRoutes: Routes = [
     { path: 'how-it-works', component: HowItWorksComponent },
     { path: 'register', component: RegistrationFormComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'account-details', component: AccountComponent, canActivate: [AuthGuard] }
+    { path: 'account-details', component: AccountComponent, canActivate: [AuthGuard] },
+    { path: 'account-remove', component: AccountRemoveComponent, canActivate: [AuthGuard] }
 
 ];
 

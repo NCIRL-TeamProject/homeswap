@@ -1,5 +1,7 @@
 <div class="container">
     <form class="text-center border border-light p-5" [formGroup]="registerForm">
+        <ngb-alert #selfClosingAlert *ngIf="successRedirectMessage != null && successRedirectMessage != undefined" type="success" (closed)="successRedirectMessage = ''">{{ successRedirectMessage }}
+        </ngb-alert>
         <p class="h4 mb-4">Sign up</p>
         <!-- 2 column grid layout with text inputs for the first and last names -->
         <div class="row mb-4">
