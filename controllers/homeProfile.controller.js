@@ -25,6 +25,7 @@ exports.getHomeProfile = (req, res) => {
                 bathrooms: h.bathrooms,
                 bedrooms: h.bedrooms,
                 beds: h.beds,
+                published: h.published,
                 image: h.image?.toString()
             });
         })
@@ -59,16 +60,15 @@ exports.updateHomeProfile = (req, res) => {
                 bathrooms: req.body.bathrooms,
                 bedrooms: req.body.bedrooms,
                 beds: req.body.beds,
-                // country: req.body.country,
+                country: req.body.country,
                 image: imageAsBase64,
-                published: true //This is temporary until publish feature is implemented
+                published: false
             }).then(r => {
                 if (!r) {
                     return res.status(500).send({ message: "Error when trying to create a home" });
                 }
 
-                res.send('home created');
-
+                res.send(r);
             });
         } else {
             h.title = req.body.title;
@@ -77,16 +77,37 @@ exports.updateHomeProfile = (req, res) => {
             h.city = req.body.city;
             h.postCode = req.body.postCode;
             h.county = req.body.county;
-            h.country = req.body.country;
+            // h.country = req.body.country;
             h.bathrooms = req.body.bathrooms;
             h.bedrooms = req.body.bedrooms;
-            h.beds = req.body.beds,
-                h.image = imageAsBase64 === null ? h.image : imageAsBase64;
+            h.beds = req.body.beds;
+            h.image = imageAsBase64 === null ? h.image : imageAsBase64;
             h.save();
 
-            res.send('home updated');
+            res.send(h);
         }
+    })
+        .catch(err => {
+            res.status(500).send({ message: err.message });
+        });
+};
 
+exports.setPublished = (req, res) => {
+    if (!(req.body.homeId && req.body.published !== undefined)) {
+        return res.status(400).send({ message: "Mandatory fields not provided" });
+    }
+
+    Home.findOne({ where: { id: req.body.homeId } }).then((h) => {
+
+        if (!h) {
+            return res.status(500).send({ message: "Error when trying publish/unpublish a home profile" });
+        }
+        else {
+            h.published = req.body.published;
+            h.save();
+
+            res.send({ published: req.body.published });
+        }
     })
         .catch(err => {
             res.status(500).send({ message: err.message });

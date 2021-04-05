@@ -2,10 +2,10 @@ import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ViewChild } from
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { User } from '../../Models/user';
+import { User } from '../../models/user';
 import { Subject, Subscription } from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
-import {NgbAlert} from '@ng-bootstrap/ng-bootstrap';
+import { debounceTime } from 'rxjs/operators';
+import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -25,7 +25,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   private alertMessage = new Subject<string>();
   private state: any;
 
-  @ViewChild('selfClosingAlert', {static: false}) selfClosingAlert: NgbAlert;
+  @ViewChild('selfClosingAlert', { static: false }) selfClosingAlert: NgbAlert;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -53,7 +53,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
         this.selfClosingAlert.close();
       }
     });
-    if (this.state !== undefined){
+    if (this.state !== undefined) {
       this.setRedirectSucessMessage();
     }
   }
@@ -62,7 +62,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     this.prepareForm();
   }
 
-  private setRedirectSucessMessage(): void{
+  private setRedirectSucessMessage(): void {
     this.alertMessage.next(`${this.successRedirectMessage = this.state?.data?.message}`);
   }
 

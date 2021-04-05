@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GeocodeService } from 'src/app/services/geocode.service';
-import { LocationData } from '../../Models/LocationData';
+import { LocationData } from '../../models/LocationData';
 
 @Component({
   selector: 'home-map',

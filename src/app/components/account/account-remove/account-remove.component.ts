@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { User } from 'src/app/Models/user';
+import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -80,7 +80,7 @@ export class AccountRemoveComponent implements OnInit, OnDestroy {
     if (this.removeAccountForm.controls[fieldName].touched) {
       this.isSubmitted = false;
       return this.removeAccountForm.controls[fieldName].touched &&
-      this.removeAccountForm.controls[fieldName].invalid && this.removeAccountForm.controls[fieldName].dirty;
+        this.removeAccountForm.controls[fieldName].invalid && this.removeAccountForm.controls[fieldName].dirty;
     }
   }
 

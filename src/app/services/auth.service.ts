@@ -6,9 +6,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { User } from '../Models/user';
+import { User } from '../models/user';
 
-// example from here: https://www.techiediaries.com/angular-9-8-mean-stack-authentication-tutorial-and-example-with-node-and-mongodb/
 @Injectable({
   providedIn: 'root'
 })
@@ -34,7 +33,7 @@ export class AuthService {
       }));
   }
 
-  logout(): void{
+  logout(): void {
     localStorage.removeItem('access_token');
     localStorage.removeItem('user_id');
     localStorage.removeItem('email');
@@ -82,11 +81,11 @@ export class AuthService {
       catchError((err) => { console.log(err); return this.handleError; }));
   }
 
-  private clearRemovedUserDetails(res: any): void{
+  private clearRemovedUserDetails(res: any): void {
     localStorage.removeItem('access_token');
     localStorage.removeItem('user_id');
     localStorage.removeItem('email');
-    const navigationExtras: NavigationExtras = {state: {data: res}};
+    const navigationExtras: NavigationExtras = { state: { data: res } };
     this.router.navigate(['/register'], navigationExtras);
   }
 

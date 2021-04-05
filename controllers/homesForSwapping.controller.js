@@ -52,7 +52,7 @@ exports.getHomeDetails = (req, res) => {
     if (!homeId)
         return res.status(400).send({ message: "id not provided" });
 
-    Home.findOne({ where: { id: homeId } })
+    Home.findOne({ where: { id: homeId, published: true } })
         .then((h) => {
             if (!h) {
                 return res.status(404).send({ message: "Home Not found, id: " + homeId });

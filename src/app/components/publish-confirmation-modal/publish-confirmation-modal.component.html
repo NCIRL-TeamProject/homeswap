@@ -1,0 +1,26 @@
+<div class="container">
+    <app-alert-messages [errorMessage]="errorMessage" (erroressageChange)="errorMessage=undefined">
+    </app-alert-messages>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">{{published?"Unpublish home profile":"Publish home profile" }}</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div *ngIf="!published" class="modal-body">
+        <p><strong>Are you sure you want to publish your home profile?</strong></p>
+        <p>If you confirm this your home will be available on listing and other people will be able to find your home.
+        </p>
+    </div>
+    <div *ngIf="published" class="modal-body">
+        <p><strong>Are you sure you want to unpublish your home profile?</strong></p>
+        <p>If you confirm this your home won't be available on listing and other people won't be able to find your home.
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+        <button type="button" ngbAutofocus class="btn" [ngClass]="published? 'btn-danger' : 'btn-primary'"
+            (click)="ok()">Ok</button>
+    </div>
+</div>

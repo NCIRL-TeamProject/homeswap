@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Home } from '../../Models/home';
+import { Home } from '../../models/home';
 import { HomeProfileService } from '../../services/home-profile.service';
 import { Subscription } from 'rxjs';
 import { faBed, faBath } from '@fortawesome/free-solid-svg-icons';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PublishConfirmationModalComponent } from '../publish-confirmation-modal/publish-confirmation-modal.component';
 
 @Component({
   selector: 'app-home-profile',
@@ -16,23 +18,26 @@ export class HomeProfileComponent implements OnInit {
   form: FormGroup;
   imageSrc: String;
   errorMessage: String;
-  successfulMessage: String;
+  successMessage: String;
   warningMessage: String;
   address: string;
   subscriptionGet: Subscription;
   subscriptionSave: Subscription;
   faBed = faBed;
   faBath = faBath;
+  published = false;
+  homeId: number | undefined;
 
   constructor(private fb: FormBuilder,
     private authService: AuthService,
-    private homeProfileService: HomeProfileService
+    private homeProfileService: HomeProfileService,
+    private modalService: NgbModal
   ) {
 
     this.form = this.fb.group({
       title: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      userId: [authService.getLoggedInUserId()],
+      userId: [this.authService.getLoggedInUserId()],
       image: [''],
       fileSource: [''],
       country: ['Ireland'],
@@ -49,7 +54,7 @@ export class HomeProfileComponent implements OnInit {
   ngOnInit(): void {
     this.populateHomeProfile();
     this.errorMessage = null;
-    this.successfulMessage = null;
+    this.successMessage = null;
   }
 
   populateHomeProfile() {
@@ -68,7 +73,8 @@ export class HomeProfileComponent implements OnInit {
 
         this.address = data.getAddressLocation();
         this.imageSrc = data.image;
-
+        this.homeId = data.id;
+        this.published = data.published;
       }, (error) => this.handleError(error, "Error when trying to retrieve home profile")
       );
   }
@@ -105,9 +111,10 @@ export class HomeProfileComponent implements OnInit {
     } as Home;
 
     this.subscriptionSave = this.homeProfileService.save(home).subscribe(
-      (error) => this.handleError(error, "Error when trying to update a home profile"),
-      this.handleSuccessful("Home profile updated")
-    )
+      (next) => this.handleSuccessful(next, "Home profile updated"),
+      (error) => this.handleError(error, "Error when trying to update a home profile")
+
+    );
   }
 
   onFileChange(event) {
@@ -133,23 +140,24 @@ export class HomeProfileComponent implements OnInit {
     else {
       this.address = streetAddress;
     }
-
   }
 
   private handleError(error: any, errorMessage: any): void {
     if (error.status === 404) {
+      this.warningMessage = undefined;
       this.warningMessage = "Please complete your home details";
       return;
     }
 
+    this.errorMessage = undefined;
     this.errorMessage = errorMessage;
-    console.log(this.errorMessage + ". Error: " + error);
+    console.log(this.errorMessage + ". Error: " + error.message);
   }
 
-  private handleSuccessful(message: any): () => void {
-    return () => {
-      this.successfulMessage = message;
-    }
+  private handleSuccessful(next: any, message: any) {
+    this.successMessage = message;
+    this.homeId = next.id;
+    this.published = next.published;
   }
 
   ngOnDestroy(): void {
@@ -160,5 +168,18 @@ export class HomeProfileComponent implements OnInit {
   isValidInput(fieldName): boolean {
     return this.form.controls[fieldName].invalid &&
       (this.form.controls[fieldName].dirty || this.form.controls[fieldName].touched);
+  }
+
+  successMessageChange(event: any) {
+    this.successMessage = '';
+  }
+
+  openModal() {
+    const modalRef = this.modalService.open(PublishConfirmationModalComponent);
+    modalRef.componentInstance.homeId = this.homeId;
+    modalRef.componentInstance.published = this.published;
+    modalRef.componentInstance.publishedChange.subscribe((published) => {
+      this.published = published;
+    });
   }
 }

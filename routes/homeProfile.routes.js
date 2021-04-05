@@ -6,4 +6,6 @@ module.exports = function (app) {
     app.route("/api/homeProfile")
         .get([authJwt.verifyToken], controller.getHomeProfile)
         .post([authJwt.verifyToken], upload.single("image"), controller.updateHomeProfile);
+
+    app.post("/api/setPublished", [authJwt.verifyToken], controller.setPublished);
 };

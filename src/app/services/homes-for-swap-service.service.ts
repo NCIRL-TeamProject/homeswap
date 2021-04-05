@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Home } from '../Models/home';
+import { Home } from '../models/home';
 
 @Injectable({
   providedIn: 'root'

@@ -1,0 +1,19 @@
+<div id="alertMessagesArea">
+    <div id="errorResult">
+        <p>
+            <ngb-alert [dismissible]="true" *ngIf="successMessage" type="success" (closed)="clearSuccessMessage()">
+                {{successMessage}}
+            </ngb-alert>
+        </p>
+        <p>
+            <ngb-alert [dismissible]="true" *ngIf="warningMessage" type="warning" (closed)="clearWarningMessage()">
+                {{warningMessage}}
+            </ngb-alert>
+        </p>
+        <p>
+            <ngb-alert [dismissible]="true" *ngIf="errorMessage" type="danger" (closed)="clearErrorMessage()">
+                {{errorMessage}}
+            </ngb-alert>
+        </p>
+    </div>
+</div>

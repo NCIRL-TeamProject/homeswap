@@ -28,6 +28,8 @@ import { StepperComponent } from './components/stepper/stepper.component';
 import { HomesListingPipePipe } from './pipes/homes-listing-pipe.pipe';
 import { HomesForSwapListComponent } from './components/homes-for-swap-list/homes-for-swap-list.component';
 import { AccountRemoveComponent } from './components/account/account-remove/account-remove.component';
+import { PublishConfirmationModalComponent } from './components/publish-confirmation-modal/publish-confirmation-modal.component';
+import { AlertMessagesComponent } from './components/alert-messages/alert-messages.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -50,7 +52,9 @@ export function tokenGetter() {
     StepperComponent,
     HomesListingFilterComponent,
     HomesListingPipePipe,
-    AccountRemoveComponent
+    AccountRemoveComponent,
+    PublishConfirmationModalComponent,
+    AlertMessagesComponent
   ],
   imports: [
     BrowserModule,

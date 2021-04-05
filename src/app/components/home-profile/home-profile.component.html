@@ -1,25 +1,9 @@
 <div class="container">
     <p class="h4 text-center">Home profile</p>
-    <div id="alertMessagesArea">
-        <div id="errorResult">
-            <p>
-                <ngb-alert [dismissible]="true" *ngIf="successfulMessage" type="success"
-                    (closed)="successfulMessage = ''">
-                    {{successfulMessage}}
-                </ngb-alert>
-            </p>
-            <p>
-                <ngb-alert [dismissible]="true" *ngIf="warningMessage" type="warning" (closed)="warningMessage = ''">
-                    {{warningMessage}}
-                </ngb-alert>
-            </p>
-            <p>
-                <ngb-alert [dismissible]="true" *ngIf="errorMessage" type="danger" (closed)="errorMessage = ''">
-                    {{errorMessage}}
-                </ngb-alert>
-            </p>
-        </div>
-    </div>
+    <app-alert-messages [errorMessage]="errorMessage" [successMessage]="successMessage"
+        [warningMessage]="warningMessage" (successMessageChange)="successMessage=undefined"
+        (warningMessageChange)="warningMessage=undefined" (erroressageChange)="errorMessage=undefined">
+    </app-alert-messages>
 
     <form id="homeProfileForm" [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
         <div class="row">
@@ -118,8 +102,11 @@
         <div class="row">
             <div class="col-md-12">
                 <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" *ngIf="homeId && !published" class="btn btn-success ml-2"
+                    (click)="openModal()">Publish</button>
+                <button type="button" *ngIf="homeId && published" class="btn btn-danger ml-2"
+                    (click)="openModal()">Unpublish</button>
             </div>
         </div>
-
     </form>
 </div>

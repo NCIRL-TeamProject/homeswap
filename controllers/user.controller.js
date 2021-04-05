@@ -4,14 +4,6 @@ const User = db.User;
 const config = require("../config/auth.config");
 var jwt = require("jsonwebtoken");
 
-exports.allAccess = (req, res) => {
-    res.status(200).send("Public Content.");
-};
-
-exports.userBoard = (req, res) => {
-    res.status(200).send("User Content.");
-};
-
 exports.userBasicDetails = (req, res) => {
     const userId = req.params.id;
     if (!userId) {

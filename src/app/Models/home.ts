@@ -1,4 +1,5 @@
 export class Home {
+    id: number;
     title: string;
     description: string;
     streetAddress: string;
@@ -11,8 +12,10 @@ export class Home {
     bedrooms: number;
     beds: number;
     bathrooms: number;
+    published: boolean;
 
     constructor(home: Home) {
+        this.id = home.userId;
         this.title = home.title;
         this.description = home.description;
         this.streetAddress = home.streetAddress;
@@ -25,6 +28,7 @@ export class Home {
         this.bathrooms = home.bathrooms;
         this.bedrooms = home.bedrooms;
         this.beds = home.beds;
+        this.published = home.published;
     }
 
     getAddressLocation() {
