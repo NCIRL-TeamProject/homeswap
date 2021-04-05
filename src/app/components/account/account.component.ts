@@ -3,7 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/Models/user';
 
 @Component({
   selector: 'app-account',

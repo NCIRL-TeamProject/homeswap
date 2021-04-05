@@ -15,7 +15,7 @@ export class Home {
     published: boolean;
 
     constructor(home: Home) {
-        this.id = home.userId;
+        this.id = home.id;
         this.title = home.title;
         this.description = home.description;
         this.streetAddress = home.streetAddress;

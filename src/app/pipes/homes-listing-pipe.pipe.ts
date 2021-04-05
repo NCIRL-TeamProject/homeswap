@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Home } from '../models/home';
+import { Home } from '../Models/home';
 
 @Pipe({
   name: 'homesListingPipe'

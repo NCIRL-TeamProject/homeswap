@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Home } from 'src/app/models/home';
+import { Home } from 'src/app/Models/home';
 import { HomesForSwapServiceService } from 'src/app/services/homes-for-swap-service.service';
 import { faBed, faBath } from '@fortawesome/free-solid-svg-icons';
 

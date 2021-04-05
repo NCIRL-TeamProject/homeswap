@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { faBed, faBath } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PublishConfirmationModalComponent } from '../publish-confirmation-modal/publish-confirmation-modal.component';
-import { Home } from 'src/app/models/home';
+import { Home } from 'src/app/Models/home';
 
 @Component({
   selector: 'app-home-profile',

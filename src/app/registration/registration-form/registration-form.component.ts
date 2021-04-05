@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/Models/user';
 
 @Component({
   // tslint:disable-next-line:component-selector
