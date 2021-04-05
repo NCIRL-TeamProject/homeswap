@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Home } from '../../models/home';
 import { HomeProfileService } from '../../services/home-profile.service';
 import { Subscription } from 'rxjs';
 import { faBed, faBath } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PublishConfirmationModalComponent } from '../publish-confirmation-modal/publish-confirmation-modal.component';
+import { Home } from 'src/app/models/home';
 
 @Component({
   selector: 'app-home-profile',

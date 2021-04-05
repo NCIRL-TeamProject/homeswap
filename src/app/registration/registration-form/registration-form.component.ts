@@ -2,10 +2,10 @@ import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ViewChild } from
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { User } from '../../models/user';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
+import { User } from 'src/app/models/user';
 
 @Component({
   // tslint:disable-next-line:component-selector
