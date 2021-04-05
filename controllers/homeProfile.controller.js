@@ -14,6 +14,7 @@ exports.getHomeProfile = (req, res) => {
             }
 
             res.send({
+                id: h.id,
                 title: h.title,
                 description: h.description,
                 streetAddress: h.streetAddress,
@@ -71,6 +72,7 @@ exports.updateHomeProfile = (req, res) => {
                 res.send(r);
             });
         } else {
+            h.id;
             h.title = req.body.title;
             h.description = req.body.description;
             h.streetAddress = req.body.streetAddress;
