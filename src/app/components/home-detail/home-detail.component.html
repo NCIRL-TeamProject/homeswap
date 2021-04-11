@@ -1,8 +1,15 @@
 <button type="button" class="btn btn-outline-primary" (click)="onBack()">Back</button>
 
-<div class="container mt-4">
-
-    <div class="row" *ngIf="home">
+<div class="container mt-4" *ngIf="home">
+    <div class="row">
+        <div class="col-md-12">
+            <app-alert-messages [errorMessage]="errorMessage" [successMessage]="successMessage"
+                [warningMessage]="warningMessage" (successMessageChange)="successMessage=undefined"
+                (warningMessageChange)="warningMessage=undefined" (erroressageChange)="errorMessage=undefined">
+            </app-alert-messages>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-8">
             <img [src]="home.image" *ngIf="home.image" class="custom-image">
             <h3>{{home.title}}</h3>
@@ -20,11 +27,14 @@
             <p>user name</p>
             <p>user image</p>
             <p>user reviews</p>
+            <app-send-home-swap-request [homeId]="home.id" (successMessageEvent)="successMessage=$event"
+                (errorMessageEvent)="errorMessage=$event">
+            </app-send-home-swap-request>
         </div>
 
     </div>
 
-    <div class="row" *ngIf="home">
+    <div class="row">
 
         <div class="col-md-8">
 

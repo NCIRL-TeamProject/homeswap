@@ -2,6 +2,10 @@ const db = require('../database/models/index');
 const { Sequelize } = require('sequelize');
 const Op = Sequelize.Op;
 const Home = db.Home;
+const HomeSwapRequest = db.HomeSwapRequest;
+
+const HomeRequestStatusEnum = { "AwaitingForApproval": 1, "Approved": 2, "Rejected": 3 };
+Object.freeze(HomeRequestStatusEnum);
 
 exports.getHomesForSwapping = (req, res) => {
     var place = req.query.place;
@@ -59,6 +63,8 @@ exports.getHomeDetails = (req, res) => {
             }
 
             res.send({
+                id: h.id,
+                userId: h.userId,
                 title: h.title,
                 description: h.description,
                 streetAddress: h.streetAddress,
@@ -77,3 +83,30 @@ exports.getHomeDetails = (req, res) => {
             res.status(500).send({ message: err.message });
         });;
 };
+
+exports.requestHomeSwap = (req, res) => {
+    const homeIdTo = req.body.homeIdTo;
+    const userIdFrom = req.body.userIdFrom;
+    const checkin = req.body.checkin;
+    const checkout = req.body.checkout;
+
+    if (!homeIdTo || !userIdFrom || !checkin || !checkout)
+        return res.status(400).send({ message: "Mandatory fields not provided" });
+    const pp = HomeRequestStatusEnum.AwaitingForApproval;
+
+    HomeSwapRequest.create({
+        checkin: checkin,
+        checkout: checkout,
+        fromUserId: userIdFrom,
+        toHomeId: homeIdTo,
+        status: HomeRequestStatusEnum.AwaitingForApproval
+    }).then(r => {
+        if (!r) {
+            return res.status(500).send({ message: "Error when trying to create a HomeSwapRequest" });
+        }
+
+        res.send(r);
+    }).catch(err => {
+        res.status(500).send({ message: err.message });
+    });
+}

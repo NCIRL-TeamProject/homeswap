@@ -30,6 +30,13 @@ import { HomesForSwapListComponent } from './components/homes-for-swap-list/home
 import { AccountRemoveComponent } from './components/account/account-remove/account-remove.component';
 import { PublishConfirmationModalComponent } from './components/publish-confirmation-modal/publish-confirmation-modal.component';
 import { AlertMessagesComponent } from './components/alert-messages/alert-messages.component';
+import { SendHomeSwapRequestComponent } from './components/send-home-swap-request/send-home-swap-request.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { HomeSwapRequestConfirmationModalComponent } from './components/home-swap-request-confirmation-modal/home-swap-request-confirmation-modal.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -54,7 +61,9 @@ export function tokenGetter() {
     HomesListingPipePipe,
     AccountRemoveComponent,
     PublishConfirmationModalComponent,
-    AlertMessagesComponent
+    AlertMessagesComponent,
+    SendHomeSwapRequestComponent,
+    HomeSwapRequestConfirmationModalComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +82,12 @@ export function tokenGetter() {
       apiKey: 'innitialKey',
       libraries: ['places']
     }),
-    FontAwesomeModule
+    FontAwesomeModule,
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [
     {
@@ -93,6 +107,7 @@ export function tokenGetter() {
       useClass: BaseUrlInterceptor,
       multi: true,
     },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
