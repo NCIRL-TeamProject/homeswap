@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Home.belongsTo(models.User, { foreignKey: 'userId', as: 'user' })
+      Home.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+      Home.hasMany(models.HomeSwapRequest, { foreignKey: 'toHomeId', as: 'homeswaprequests' });
     }
   };
   Home.init({

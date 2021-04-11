@@ -1,0 +1,25 @@
+<div class="container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="row">
+
+            <mat-form-field appearance="fill" (ngSubmit)="onSubmit()">
+                <mat-label>Check-in and check-out</mat-label>
+                <mat-date-range-input [formGroup]="form" [rangePicker]="picker">
+                    <input matStartDate formControlName="start" placeholder="Check-in">
+                    <input matEndDate formControlName="end" placeholder="Check-out">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+
+                <mat-error *ngIf="form.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+                <mat-error *ngIf="form.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+            </mat-form-field>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-danger">Request swap</button>
+            </div>
+        </div>
+    </form>
+</div>

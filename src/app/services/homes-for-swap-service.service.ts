@@ -27,4 +27,15 @@ export class HomesForSwapServiceService {
       return home;
     }));
   }
+
+  requestHomeSwap(checkin: Date, checkout: Date, homeIdTo: number, userIdFrom: number): Observable<any> {
+    var body = {
+      checkin: checkin,
+      checkout: checkout,
+      homeIdTo: homeIdTo,
+      userIdFrom: userIdFrom
+    };
+
+    return this.httpClient.post<any>('api/requestHomeSwap', body);
+  }
 }
