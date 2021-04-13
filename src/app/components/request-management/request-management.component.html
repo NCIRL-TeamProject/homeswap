@@ -7,7 +7,7 @@
                         <mat-selection-list #rRequests [multiple]="false"
                             (selectionChange)="receivedRequestSelectionChange($event)">
                             <mat-list-option *ngFor="let request of receivedRequests  as rRequests , let i = index"
-                                [value]="request.fromHomeId" [selected]="request && i == 0">
+                                [value]="request" [selected]="request && i == 0">
                                 <div mat-line>
                                     <img [src]="request.fromUser?.profileImage" *ngIf="request.fromUser?.profileImage"
                                         class="custom-image-userProfile">
