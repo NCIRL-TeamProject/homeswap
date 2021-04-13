@@ -42,6 +42,7 @@ import { MatListModule } from '@angular/material/list';
 import { HomeSwapRequestConfirmationModalComponent } from './components/home-swap-request-confirmation-modal/home-swap-request-confirmation-modal.component';
 import { RequestManagementComponent } from './components/request-management/request-management.component';
 import { RequestStatusPipe } from './pipes/request-status.pipe';
+import { MatTabsModule } from '@angular/material/tabs';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -97,7 +98,8 @@ export function tokenGetter() {
     MatInputModule,
     MatExpansionModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatTabsModule
   ],
   providers: [
     {

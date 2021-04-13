@@ -3,10 +3,13 @@
   height: 10vw;
   object-fit: cover;
 }
-.mat-select-panel mat-option.mat-option {
-  height: unset;
-}
 
-.mat-option-text.mat-option-text {
-  white-space: normal;
+.tab-box {
+  display: flex;
+  justify-content: center;
+  margin: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  height: 500px;
+  overflow-y: auto;
 }

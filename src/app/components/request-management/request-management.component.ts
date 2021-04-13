@@ -15,27 +15,53 @@ export class RequestManagementComponent implements OnInit {
   home: Home;
   faBed = faBed;
   faBath = faBath;
-  receivedRequests$: Observable<HomeSwapRequest[]>;
-  sentRequests$: Observable<HomeSwapRequest[]>;
+  toHomeId;
+  fromHomeId;
+  receivedRequests: HomeSwapRequest[];
+  sentRequests: HomeSwapRequest[];
+
   constructor(private service: HomesForSwapServiceService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.receivedRequests$ = this.service.getReceivedRequests(this.authService.getLoggedInUserId());
-    this.sentRequests$ = this.service.getSentRequests(this.authService.getLoggedInUserId());
+    this.service.getSentRequests(this.authService.getLoggedInUserId()).subscribe(requests => {
+      this.sentRequests = requests;
+      if (requests.length > 0) {
+        this.toHomeId = requests[0].toHomeId;
+      }
+    })
+
+    this.service.getReceivedRequests(this.authService.getLoggedInUserId()).subscribe((requests) => {
+      this.receivedRequests = requests;
+
+      if (requests.length > 0) {
+        this.fromHomeId = requests[0].fromHomeId;
+        this.setHomeDetailsFor(requests[0].fromHomeId.toString());
+      }
+    })
   }
 
-  receivedRequestSelected(event: any) {
-    console.log(event)
-    console.log(event.option.value)
-    this.service.getHomeDetails(event.option.value.fromHomeId).subscribe((data: Home) => {
-      this.home = data;
-    });
+  receivedRequestSelectionChange(event: any) {
+    this.fromHomeId = event.option.value.fromHomeId;
+    this.setHomeDetailsFor(event.option.value.fromHomeId);
   }
 
-  sentRequestSelected(event: any) {
-    console.log(event)
-    console.log(event.option.value)
-    this.service.getHomeDetails(event.option.value.toHomeId).subscribe((data: Home) => {
+  sentRequestSelectionChange(event: any) {
+    this.toHomeId = event.option.value.toHomeId;
+    this.setHomeDetailsFor(event.option.value.toHomeId);
+  }
+
+  tabChanged(event: any) {
+    if (event.index == 1 && this.sentRequests.length > 0) {
+      //Requests sent tab     
+      this.setHomeDetailsFor(this.toHomeId);
+    } else if (event.index == 0 && this.receivedRequests.length > 0) {
+      //Requests received tab
+      this.setHomeDetailsFor(this.fromHomeId);
+    }
+  }
+
+  private setHomeDetailsFor(homeId: any) {
+    this.service.getHomeDetails(homeId).subscribe((data: Home) => {
       this.home = data;
     });
   }
