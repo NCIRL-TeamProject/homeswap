@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasMany(models.Home, { foreignKey: 'userId', as: 'homes' });
-      User.hasMany(models.HomeSwapRequest, { foreignKey: 'fromUserId', as: 'homeswaprequests' });
+      User.hasMany(models.HomeSwapRequest, { foreignKey: 'fromUserId', as: 'fromhomeswaprequests' });
+      User.hasMany(models.HomeSwapRequest, { foreignKey: 'toUserId', as: 'tohomeswaprequests' });
     }
   };
   User.init({

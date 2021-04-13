@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Home } from '../Models/home';
+import { HomeSwapRequest } from '../Models/HomeSwapRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,11 @@ export class HomesForSwapServiceService {
     }));
   }
 
+  validateHomeIsPublished(userId: string): Observable<Home> {
+    const params = new HttpParams().set('userId', userId);
+    return this.httpClient.get<Home>('api/validateHomeIsPublished', { params })
+  }
+
   requestHomeSwap(checkin: Date, checkout: Date, homeIdTo: number, userIdFrom: number): Observable<any> {
     var body = {
       checkin: checkin,
@@ -37,5 +43,15 @@ export class HomesForSwapServiceService {
     };
 
     return this.httpClient.post<any>('api/requestHomeSwap', body);
+  }
+
+  getReceivedRequests(userId: string): Observable<HomeSwapRequest[]> {
+    const params = new HttpParams().set('userId', userId);
+    return this.httpClient.get<HomeSwapRequest[]>('api/receivedRequests', { params });
+  }
+
+  getSentRequests(userId: string): Observable<HomeSwapRequest[]> {
+    const params = new HttpParams().set('userId', userId);
+    return this.httpClient.get<HomeSwapRequest[]>('api/sentRequests', { params });
   }
 }

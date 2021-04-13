@@ -33,10 +33,15 @@ import { AlertMessagesComponent } from './components/alert-messages/alert-messag
 import { SendHomeSwapRequestComponent } from './components/send-home-swap-request/send-home-swap-request.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import { HomeSwapRequestConfirmationModalComponent } from './components/home-swap-request-confirmation-modal/home-swap-request-confirmation-modal.component';
+import { RequestManagementComponent } from './components/request-management/request-management.component';
+import { RequestStatusPipe } from './pipes/request-status.pipe';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -63,7 +68,9 @@ export function tokenGetter() {
     PublishConfirmationModalComponent,
     AlertMessagesComponent,
     SendHomeSwapRequestComponent,
-    HomeSwapRequestConfirmationModalComponent
+    HomeSwapRequestConfirmationModalComponent,
+    RequestManagementComponent,
+    RequestStatusPipe
   ],
   imports: [
     BrowserModule,
@@ -87,7 +94,10 @@ export function tokenGetter() {
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatExpansionModule,
+    MatIconModule,
+    MatListModule
   ],
   providers: [
     {

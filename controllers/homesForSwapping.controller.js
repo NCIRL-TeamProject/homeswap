@@ -2,6 +2,7 @@ const db = require('../database/models/index');
 const { Sequelize } = require('sequelize');
 const Op = Sequelize.Op;
 const Home = db.Home;
+const User = db.User;
 const HomeSwapRequest = db.HomeSwapRequest;
 
 const HomeRequestStatusEnum = { "AwaitingForApproval": 1, "Approved": 2, "Rejected": 3 };
@@ -54,7 +55,7 @@ exports.getHomeDetails = (req, res) => {
     const homeId = req.query.id;
 
     if (!homeId)
-        return res.status(400).send({ message: "id not provided" });
+        return res.status(400).send({ message: "homeId not provided" });
 
     Home.findOne({ where: { id: homeId, published: true } })
         .then((h) => {
@@ -84,6 +85,28 @@ exports.getHomeDetails = (req, res) => {
         });;
 };
 
+exports.validateHomeIsPublished = (req, res) => {
+    const userId = req.query.userId;
+
+    if (!userId)
+        return res.status(400).send({ message: "userId not provided" });
+
+    Home.findOne({ where: { userId: userId } })
+        .then((h) => {
+            if (!h) {
+                return res.status(404).send({ message: "Home not found, id: " + userId });
+            }
+
+            res.send({
+                id: h.id,
+                published: h.published
+            });
+        })
+        .catch(err => {
+            res.status(500).send({ message: err.message });
+        });;
+}
+
 exports.requestHomeSwap = (req, res) => {
     const homeIdTo = req.body.homeIdTo;
     const userIdFrom = req.body.userIdFrom;
@@ -92,21 +115,88 @@ exports.requestHomeSwap = (req, res) => {
 
     if (!homeIdTo || !userIdFrom || !checkin || !checkout)
         return res.status(400).send({ message: "Mandatory fields not provided" });
-    const pp = HomeRequestStatusEnum.AwaitingForApproval;
 
-    HomeSwapRequest.create({
-        checkin: checkin,
-        checkout: checkout,
-        fromUserId: userIdFrom,
-        toHomeId: homeIdTo,
-        status: HomeRequestStatusEnum.AwaitingForApproval
-    }).then(r => {
-        if (!r) {
-            return res.status(500).send({ message: "Error when trying to create a HomeSwapRequest" });
-        }
+    Home.findOne({ where: { userId: userIdFrom } })
+        .then((homeFrom) => {
 
-        res.send(r);
-    }).catch(err => {
-        res.status(500).send({ message: err.message });
-    });
+            Home.findOne({ where: { id: homeIdTo } })
+                .then((homeTo) => {
+
+                    HomeSwapRequest.create({
+                        checkin: checkin,
+                        checkout: checkout,
+                        fromUserId: userIdFrom,
+                        fromHomeId: homeFrom.id,
+                        toHomeId: homeIdTo,
+                        toUserId: homeTo.userId,
+                        status: HomeRequestStatusEnum.AwaitingForApproval
+                    }).then(r => {
+                        res.send(r);
+                    }).catch(err => {
+                        res.status(500).send({ message: err.message });
+                    });
+
+                })
+                .catch(err => {
+                    res.status(500).send({ message: err.message });
+                });
+        })
+        .catch(err => {
+            res.status(500).send({ message: err.message });
+        });
+}
+
+
+exports.receivedRequests = (req, res) => {
+    const userId = req.query.userId;
+
+    if (!userId)
+        return res.status(400).send({ message: "userId not provided" });
+
+    HomeSwapRequest.findAll({ where: { toUserId: userId }, include: ["fromUser", "fromHome"] })
+        .then((h) => {
+            var requests = h.map(x => ({
+                createdAt: x.createdAt,
+                checkin: x.checkin,
+                checkout: x.checkout,
+                fromUserId: x.fromUserId,
+                fromHomeId: x.fromHomeId,
+                toUserId: x.toUserId,
+                toHomeId: x.toHomeId,
+                status: x.status,
+                fromUser: x.fromUser,
+                fromHome: x.fromHome
+            }));
+            res.send(requests);
+        })
+        .catch(err => {
+            res.status(500).send({ message: err.message });
+        });
+}
+
+exports.sentRequests = (req, res) => {
+    const userId = req.query.userId;
+
+    if (!userId)
+        return res.status(400).send({ message: "userId not provided" });
+
+    HomeSwapRequest.findAll({ where: { fromUserId: userId }, include: ["toUser", "toHome"] })
+        .then((h) => {
+            var requests = h.map(x => ({
+                createdAt: x.createdAt,
+                checkin: x.checkin,
+                checkout: x.checkout,
+                fromUserId: x.fromUserId,
+                fromHomeId: x.fromHomeId,
+                toUserId: x.toUserId,
+                toHomeId: x.toHomeId,
+                status: x.status,
+                toUser: x.toUser,
+                toHome: x.toHome
+            }));
+            res.send(requests);
+        })
+        .catch(err => {
+            res.status(500).send({ message: err.message });
+        });
 }

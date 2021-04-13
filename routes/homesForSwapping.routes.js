@@ -4,4 +4,7 @@ module.exports = function (app) {
     app.route("/api/getHomesForSwapping").get(controller.getHomesForSwapping);
     app.route("/api/getHomeDetails").get(controller.getHomeDetails);
     app.route("/api/requestHomeSwap").post(controller.requestHomeSwap);
+    app.route("/api/validateHomeIsPublished").get(controller.validateHomeIsPublished);
+    app.route("/api/receivedRequests").get(controller.receivedRequests);
+    app.route("/api/sentRequests").get(controller.sentRequests);
 };

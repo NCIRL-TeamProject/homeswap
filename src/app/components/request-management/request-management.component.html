@@ -1,0 +1,84 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <mat-accordion class="example-headers-align">
+                <mat-expansion-panel [expanded]="true" class="">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Received
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            <mat-icon>question_answer</mat-icon>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+
+
+                    <mat-selection-list #rRequests [multiple]="false"
+                        (selectionChange)="receivedRequestSelected($event)">
+                        <mat-list-option *ngFor="let request of receivedRequests$  | async as rRequests"
+                            [value]="request">
+                            <div mat-line>
+                                <img [src]="request.fromUser?.profileImage" *ngIf="request.fromUser?.profileImage"
+                                    class="custom-image-userProfile">
+                                <p>{{request.fromUser?.firstName}}, {{request.fromHome?.city}}, {{request.createdAt |
+                                    date:
+                                    'dd/MM/yyyy'}}</p>
+                            </div>
+                            <div mat-line>
+                                <p>{{request.checkin | date: 'dd/MM/yyyy'}} - {{request.checkout | date: 'dd/MM/yyyy'}}
+                                </p>
+                            </div>
+                            <div mat-line>
+                                <p>{{request.status | requestStatus}}</p>
+                            </div>
+
+                        </mat-list-option>
+                    </mat-selection-list>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Sent
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            <mat-icon>question_answer</mat-icon>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <mat-selection-list [multiple]="false" (selectionChange)="sentRequestSelected($event)">
+                        <mat-list-option *ngFor="let request of sentRequests$  | async" [value]="request">
+                            <div mat-line>
+                                <img [src]="request.toUser?.profileImage" *ngIf="request.toUser?.profileImage"
+                                    class="custom-image-userProfile">
+                                {{request.toUser?.firstName}}, {{request.toHome?.city}}, {{request.createdAt | date:
+                                'dd/MM/yyyy'}}
+                            </div>
+                            <div mat-line> {{request.checkin | date: 'dd/MM/yyyy'}} - {{request.checkout | date:
+                                'dd/MM/yyyy'}}
+                            </div>
+                            <div mat-line> {{request.status | requestStatus}}
+                            </div>
+                        </mat-list-option>
+                    </mat-selection-list>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+        <div class="col-md-6">
+            messages a
+            <!-- {{hRequests.selectedOptions.selected[0]?.value?.toHomeId}} -->
+        </div>
+        <div class="col-md-3">
+            <div *ngIf="home">
+                <img [src]="home.image" *ngIf="home.image" class="custom-image">
+                <h3>{{home.title}}</h3>
+                <p>{{home.bedrooms }} bedrooms
+                    <span class="ml-2">
+                        <fa-icon [icon]="faBed" class="mr-2"></fa-icon>{{home.beds }}
+                        <fa-icon [icon]="faBath" class="mr-2"></fa-icon>{{home.bathrooms }}
+                    </span>
+                </p>
+                <p placeholder="Description" maxlength="512" rows="7">{{home.description}}</p>
+            </div>
+        </div>
+    </div>
+</div>

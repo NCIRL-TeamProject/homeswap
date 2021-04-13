@@ -7,6 +7,7 @@ import { HomesForSwapServiceService } from 'src/app/services/homes-for-swap-serv
   templateUrl: './home-swap-request-confirmation-modal.component.html',
   styleUrls: ['./home-swap-request-confirmation-modal.component.css']
 })
+
 export class HomeSwapRequestConfirmationModalComponent implements OnInit {
   @Input() public checkin;
   @Input() public checkout;
@@ -16,9 +17,14 @@ export class HomeSwapRequestConfirmationModalComponent implements OnInit {
   @Output() successMessageEvent = new EventEmitter<string>();
   @Output() errorMessageEvent = new EventEmitter<string>();
 
+  published;
+
   constructor(public modal: NgbActiveModal, private service: HomesForSwapServiceService) { }
 
   ngOnInit(): void {
+    this.service.validateHomeIsPublished(this.userId).subscribe((home) => {
+      this.published = home.published;
+    });
   }
 
   send() {

@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       HomeSwapRequest.belongsTo(models.User, { foreignKey: 'fromUserId', as: 'fromUser' });
+      HomeSwapRequest.belongsTo(models.Home, { foreignKey: 'fromHomeId', as: 'fromHome' });
+      HomeSwapRequest.belongsTo(models.User, { foreignKey: 'toUserId', as: 'toUser' });
       HomeSwapRequest.belongsTo(models.Home, { foreignKey: 'toHomeId', as: 'toHome' });
     }
   };
@@ -20,7 +22,10 @@ module.exports = (sequelize, DataTypes) => {
     checkout: DataTypes.DATE,
     status: DataTypes.INTEGER,
     toHomeId: DataTypes.INTEGER,
-    fromUserId: DataTypes.INTEGER
+    toUserId: DataTypes.INTEGER,
+    fromHomeId: DataTypes.INTEGER,
+    fromUserId: DataTypes.INTEGER,
+    createdAt: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'HomeSwapRequest',

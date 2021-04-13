@@ -6,12 +6,20 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body">
+    <div *ngIf="published" class="modal-body">
         <p><strong>Please confirm your home swap request</strong></p>
         <p>If you confirm this your request will be sent</p>
     </div>
+    <div *ngIf="!published" class="modal-body">
+        <p>
+            <ngb-alert [dismissible]="false" type="warning">
+                Ups!!! It looks like your home profile is not published
+            </ngb-alert>
+        </p>
+        <p>For sending home swap requests you have to publish your home profile</p>
+    </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
-        <button type="button" ngbAutofocus class="btn btn-primary" (click)="send()">Send</button>
+        <button type="button" *ngIf="published" ngbAutofocus class="btn btn-primary" (click)="send()">Send</button>
     </div>
 </div>

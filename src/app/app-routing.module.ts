@@ -14,6 +14,7 @@ import { HomeDetailComponent } from './components/home-detail/home-detail.compon
 // Account components
 import { AccountComponent } from './components/account/account.component';
 import { AccountRemoveComponent } from './components/account/account-remove/account-remove.component';
+import { RequestManagementComponent } from './components/request-management/request-management.component';
 
 const appRoutes: Routes = [
     // Home
@@ -26,8 +27,8 @@ const appRoutes: Routes = [
     { path: 'register', component: RegistrationFormComponent },
     { path: 'login', component: LoginComponent },
     { path: 'account-details', component: AccountComponent, canActivate: [AuthGuard] },
-    { path: 'account-remove', component: AccountRemoveComponent, canActivate: [AuthGuard] }
-
+    { path: 'account-remove', component: AccountRemoveComponent, canActivate: [AuthGuard] },
+    { path: 'request-management', component: RequestManagementComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

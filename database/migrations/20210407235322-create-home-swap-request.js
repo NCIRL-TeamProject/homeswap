@@ -9,18 +9,30 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       checkin: {
+        allowNull: false,
         type: Sequelize.DATE
       },
       checkout: {
+        allowNull: false,
         type: Sequelize.DATE
       },
       status: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       toHomeId: {
         type: Sequelize.INTEGER
       },
+      toUserId: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
+      fromHomeId: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
       fromUserId: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       createdAt: {
@@ -35,7 +47,29 @@ module.exports = {
       .then(() => queryInterface.addConstraint('HomeSwapRequests', {
         fields: ['toHomeId'],
         type: 'FOREIGN KEY',
-        name: 'FK_homeSwapRequests_homes',
+        name: 'FK_homeSwapRequests_toHomes',
+        references: {
+          table: 'Homes',
+          field: 'id',
+        },
+        onDelete: 'restrict',
+        onUpdate: 'restrict',
+      }))
+      .then(() => queryInterface.addConstraint('HomeSwapRequests', {
+        fields: ['toUserId'],
+        type: 'FOREIGN KEY',
+        name: 'FK_homeSwapRequests_toUsers',
+        references: {
+          table: 'Users',
+          field: 'id',
+        },
+        onDelete: 'restrict',
+        onUpdate: 'restrict',
+      }))
+      .then(() => queryInterface.addConstraint('HomeSwapRequests', {
+        fields: ['fromHomeId'],
+        type: 'FOREIGN KEY',
+        name: 'FK_homeSwapRequests_fromHomes',
         references: {
           table: 'Homes',
           field: 'id',
@@ -46,7 +80,7 @@ module.exports = {
       .then(() => queryInterface.addConstraint('HomeSwapRequests', {
         fields: ['fromUserId'],
         type: 'FOREIGN KEY',
-        name: 'FK_homeSwapRequests_users',
+        name: 'FK_homeSwapRequests_fromUsers',
         references: {
           table: 'Users',
           field: 'id',
@@ -56,8 +90,10 @@ module.exports = {
       }));
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeConstraint("HomeSwapRequests", "FK_homeSwapRequests_homes")
-      .then(() => queryInterface.removeConstraint("HomeSwapRequests", "FK_homeSwapRequests_users"))
+    await queryInterface.removeConstraint("HomeSwapRequests", "FK_homeSwapRequests_toHomes")
+      .then(() => queryInterface.removeConstraint("HomeSwapRequests", "FK_homeSwapRequests_toUsers"))
+      .then(() => queryInterface.removeConstraint("HomeSwapRequests", "FK_homeSwapRequests_fromHomes"))
+      .then(() => queryInterface.removeConstraint("HomeSwapRequests", "FK_homeSwapRequests_fromUsers"))
       .then(() => queryInterface.dropTable('HomeSwapRequests'));
   }
 };
