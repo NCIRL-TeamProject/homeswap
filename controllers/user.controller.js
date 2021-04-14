@@ -18,7 +18,8 @@ exports.userBasicDetails = (req, res) => {
                 email: u.email,
                 firstName: u.firstName,
                 lastName: u.lastName,
-                dbo: u.dbo
+                dbo: u.dbo,
+                profileImage: u.profileImage?.toString()
             });
         })
         .catch(err => {

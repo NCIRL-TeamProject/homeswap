@@ -2,7 +2,7 @@
   "name": "importer",
   "version": "1.0.0",
   "description": "",
-  "main": "houseImporter.js",
+  "main": "userImporter.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
