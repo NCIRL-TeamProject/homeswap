@@ -23,8 +23,7 @@ function getRandomDob() {
     day = "0" + day;
   }
   //concatenates random dob in mm/dd/yyyy format;
-  //dd/mm/yyyy
-  dob = day + "/" + month + "/" + year;
+  dob = month + "/" + day + "/" + year;
 
   return dob;
 }
