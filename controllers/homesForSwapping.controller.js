@@ -155,18 +155,27 @@ exports.receivedRequests = (req, res) => {
 
     HomeSwapRequest.findAll({ where: { toUserId: userId }, include: ["fromUser", "fromHome"] })
         .then((h) => {
-            var requests = h.map(x => ({
-                createdAt: x.createdAt,
-                checkin: x.checkin,
-                checkout: x.checkout,
-                fromUserId: x.fromUserId,
-                fromHomeId: x.fromHomeId,
-                toUserId: x.toUserId,
-                toHomeId: x.toHomeId,
-                status: x.status,
-                fromUser: x.fromUser,
-                fromHome: x.fromHome
-            }));
+            var requests = h.map(x => {
+                var user = {
+                    id: x.fromUser.id,
+                    firstName: x.fromUser.firstName,
+                    profileImage: x.fromUser.profileImage?.toString()
+                };
+
+                return ({
+                    createdAt: x.createdAt,
+                    checkin: x.checkin,
+                    checkout: x.checkout,
+                    fromUserId: x.fromUserId,
+                    fromHomeId: x.fromHomeId,
+                    toUserId: x.toUserId,
+                    toHomeId: x.toHomeId,
+                    status: x.status,
+                    fromUser: user,
+                    fromHome: x.fromHome
+                })
+            }
+            );
             res.send(requests);
         })
         .catch(err => {
@@ -182,18 +191,26 @@ exports.sentRequests = (req, res) => {
 
     HomeSwapRequest.findAll({ where: { fromUserId: userId }, include: ["toUser", "toHome"] })
         .then((h) => {
-            var requests = h.map(x => ({
-                createdAt: x.createdAt,
-                checkin: x.checkin,
-                checkout: x.checkout,
-                fromUserId: x.fromUserId,
-                fromHomeId: x.fromHomeId,
-                toUserId: x.toUserId,
-                toHomeId: x.toHomeId,
-                status: x.status,
-                toUser: x.toUser,
-                toHome: x.toHome
-            }));
+            var requests = h.map(x => {
+                var user = {
+                    id: x.toUser.id,
+                    firstName: x.toUser.firstName,
+                    profileImage: x.toUser.profileImage?.toString()
+                };
+
+                return ({
+                    createdAt: x.createdAt,
+                    checkin: x.checkin,
+                    checkout: x.checkout,
+                    fromUserId: x.fromUserId,
+                    fromHomeId: x.fromHomeId,
+                    toUserId: x.toUserId,
+                    toHomeId: x.toHomeId,
+                    status: x.status,
+                    toUser: user,
+                    toHome: x.toHome
+                })
+            });
             res.send(requests);
         })
         .catch(err => {
