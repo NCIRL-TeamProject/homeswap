@@ -61,9 +61,9 @@ module.exports = {
         const user = usersFromJson[i];
 
         users.push({
-          firstName: user['firstName'],
-          lastName: user['lastName'],
-          email: user['firstName'] + '@hsapp.com',
+          firstName: user['firstname'],
+          lastName: user['lastname'],
+          email: user['email'],
           password: password,
           dbo: getRandomDob(),
           profileImage: imageAsBase64,
