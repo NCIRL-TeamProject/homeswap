@@ -23,9 +23,11 @@ function getRandomDob() {
     day = "0" + day;
   }
   //concatenates random dob in mm/dd/yyyy format;
-  dob = month + "/" + day + "/" + year;
+  //dd/mm/yyyy
+  // dob = day + "/" + month + "/" + year;
 
-  return dob;
+  //This fix issue when trying to insert dates in different environments
+  return new Date(year, month, day)
 }
 
 module.exports = {
