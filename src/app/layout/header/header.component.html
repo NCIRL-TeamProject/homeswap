@@ -15,51 +15,25 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/homes-for-swapping" routerLinkActive="active">Homes for swapping</a>
       </li>
-  </ul>
-     <!--- <li class="nav-item">
-        <a class="nav-link" routerLink="/home-profile" routerLinkActive="active" *ngIf="authService.isLoggedIn()">Home
-          Profile</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/homes-for-swapping" routerLinkActive="active">Homes for swapping</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/login" routerLinkActive="active" *ngIf="!authService.isLoggedIn()">Login</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/logout" (click)="logout()" *ngIf="authService.isLoggedIn()">Logout</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/account-details" routerLinkActive="active"
-          *ngIf="authService.isLoggedIn()">View Account Details</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/account-remove" routerLinkActive="active"
-          *ngIf="authService.isLoggedIn()">Delete Account</a>
-      </li>-->
-
-      <!-----comment above items in here for dropdown(to minimize button in navbar)-->
-      <div class="col text-right">
-        <div ngbDropdown class="d-inline-block">
-          <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Account<i class="fa fa-caret-down"></i></button>
-          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
-              <a class="nav-link" routerLink="/home-profile" routerLinkActive="active" *ngIf="authService.isLoggedIn()">Home
-              Profile</a>
-              <a class="nav-link" routerLink="/account-details" routerLinkActive="active"
-                *ngIf="authService.isLoggedIn()">Account Details</a>
-             <a class="nav-link" routerLink="/request-management" routerLinkActive="active"
-          *ngIf="authService.isLoggedIn()">Requests Management</a>
-              <a class="nav-link" routerLink="/homes-for-swapping" routerLinkActive="active">Homes for swapping</a>
-              <a class="nav-link" routerLink="/login" routerLinkActive="active" *ngIf="!authService.isLoggedIn()">Login</a>
-                <a class="nav-link" routerLink="/logout" (click)="logout()" *ngIf="authService.isLoggedIn()">Logout</a>
-                <a class="nav-link" routerLink="/account-remove" routerLinkActive="active"
-                  *ngIf="authService.isLoggedIn()">Delete Account</a>  
-          </div>
+    </ul>
+    <div class="col text-right">
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Account<i
+            class="fa fa-caret-down"></i></button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+          <a class="nav-link" routerLink="/account-details" routerLinkActive="active"
+            *ngIf="authService.isLoggedIn()">Account</a>
+          <a class="nav-link" routerLink="/home-profile" routerLinkActive="active" *ngIf="authService.isLoggedIn()">Home
+            Profile</a>
+          <a class="nav-link" routerLink="/request-management" routerLinkActive="active"
+            *ngIf="authService.isLoggedIn()">Requests</a>
+          <a class="nav-link" routerLink="/login" routerLinkActive="active" *ngIf="!authService.isLoggedIn()">Login</a>
+          <a class="nav-link" routerLink="/account-remove" routerLinkActive="active"
+            *ngIf="authService.isLoggedIn()">Delete Account</a>
+          <a class="nav-link" routerLink="/logout" (click)="logout()" *ngIf="authService.isLoggedIn()">Logout</a>
         </div>
-       </div> 
+      </div>
+    </div>
   </div>
 </nav>
