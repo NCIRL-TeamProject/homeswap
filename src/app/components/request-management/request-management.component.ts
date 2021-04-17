@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Home } from 'src/app/Models/home';
-import { HomeSwapRequest } from 'src/app/Models/homeSwapRequest';
 import { AuthService } from 'src/app/services/auth.service';
 import { HomesForSwapServiceService } from 'src/app/services/homes-for-swap-service.service';
 import { faBed, faBath } from '@fortawesome/free-solid-svg-icons';
+import { HomeSwapRequest } from 'src/app/Models/homeSwapRequest';
 
 @Component({
   selector: 'app-request-management',

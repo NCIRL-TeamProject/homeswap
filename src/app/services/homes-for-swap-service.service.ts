@@ -1,9 +1,10 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Home } from '../Models/home';
-import { HomeSwapRequest } from '../Models/homeSwapRequest';
+import { HttpClient, HttpParams } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
+import { Home } from "../Models/home";
+import { HomeSwapRequest } from "../Models/homeSwapRequest";
+
 
 @Injectable({
   providedIn: 'root'

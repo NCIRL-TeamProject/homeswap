@@ -1,9 +1,9 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/services/auth.service';
-import { RequestMessage } from '../../../Models/RequestMessage';
-import { RequestMessagesService } from '../../../services/request-messages.service';
+import { Component, Input, OnInit, SimpleChanges } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Observable } from "rxjs";
+import { RequestMessage } from "src/app/Models/requestMessage";
+import { AuthService } from "src/app/services/auth.service";
+import { RequestMessagesService } from "src/app/services/request-messages.service";
 
 @Component({
   selector: 'app-request-messages',
