@@ -6,33 +6,17 @@
 
                     <mat-list>
                         <mat-list-item *ngFor="let requestMessage of messages  | async">
-                            <div mat-line class="text-wrap">
-                                <div class="d-flex flex-md-row">
-                                    <div class="p2">
-                                        <img [src]="requestMessage.user?.profileImage"
-                                            *ngIf="requestMessage.user?.profileImage" class="custom-image-userProfile">
-                                    </div>
+                            <img mat-list-avatar [src]="requestMessage.user?.profileImage" />
+                            <div mat-line>
+                                <b>{{requestMessage.user.firstName + " "+
+                                    requestMessage.user.lastName}}</b> {{requestMessage.createdAt | date: 'dd/MM/yyyy
+                                hh:mm' }}
 
-                                    <div class="ml-2">
-                                        <div class="d-flex flex-column">
-                                            <div class="p2">
-                                                <div class="d-flex flex-md-row">
-                                                    <div class="p2">
-                                                        <b>{{requestMessage.user.firstName + " "+
-                                                            requestMessage.user.lastName}}</b>
-
-                                                    </div>
-                                                    <div class="p2">
-                                                        {{requestMessage.createdAt | date: 'dd/MM/yyyy hh:mm' }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="p2">{{requestMessage.message}}</div>
-                                        </div>
-                                    </div>
-
-                                </div>
                             </div>
+                            <div mat-line>
+                                {{requestMessage.message}}
+                            </div>
+
                         </mat-list-item>
                     </mat-list>
                 </div>
