@@ -23,10 +23,11 @@
         </div>
 
         <div class="col-md-4">
-            <h5>User profile information</h5>
+            <app-user-details [userId]="home.userId"></app-user-details>
+            <!-- <h5>User profile information</h5>
             <p>user name</p>
             <p>user image</p>
-            <p>user reviews</p>
+            <p>user reviews</p> -->
             <app-send-home-swap-request [homeId]="home.id" (successMessageEvent)="successMessage=$event"
                 (errorMessageEvent)="errorMessage=$event">
             </app-send-home-swap-request>

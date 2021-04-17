@@ -62,14 +62,8 @@ export class AuthService {
     return this.isLoggedIn() ? localStorage.getItem('email') : null;
   }
 
-  getUserBasicProfile(id): Observable<Response> {
-    return this.httpClient.get(`api/users/profile/${id}`
-    ).pipe(
-      map((res: Response) => {
-        return res || {};
-      }),
-      catchError(this.handleError)
-    );
+  getUserBasicProfile(id): Observable<User> {
+    return this.httpClient.get<User>(`api/users/profile/${id}`);
   }
 
   removeAccount(user: User, id: string): Observable<any> {

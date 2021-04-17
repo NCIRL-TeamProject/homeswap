@@ -4,6 +4,7 @@ import { Home } from 'src/app/Models/home';
 import { HomesForSwapServiceService } from 'src/app/services/homes-for-swap-service.service';
 import { faBed, faBath } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-homes-for-swap-list',
@@ -15,12 +16,14 @@ export class HomesForSwapListComponent implements OnInit {
   faBed = faBed;
   faBath = faBath;
   filter: string;
-  constructor(private homesForSwapping: HomesForSwapServiceService, private activatedRoute: ActivatedRoute) { }
+  constructor(private homesForSwapping: HomesForSwapServiceService,
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     const place = this.activatedRoute.snapshot.paramMap.get("place");
 
-    this.homes$ = this.homesForSwapping.getHomesForSwapping(place);
+    this.homes$ = this.homesForSwapping.getHomesForSwapping(place, this.authService.getLoggedInUserId());
   }
 
 }

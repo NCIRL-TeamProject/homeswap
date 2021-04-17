@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form id="homeProfileForm" [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+                <div class="row">
+
+                    <mat-list>
+                        <mat-list-item *ngFor="let requestMessage of messages  | async">
+                            <div mat-line class="text-wrap">
+                                <div class="d-flex flex-md-row">
+                                    <div class="p2">
+                                        <img [src]="requestMessage.user?.profileImage"
+                                            *ngIf="requestMessage.user?.profileImage" class="custom-image-userProfile">
+                                    </div>
+
+                                    <div class="ml-2">
+                                        <div class="d-flex flex-column">
+                                            <div class="p2">
+                                                <div class="d-flex flex-md-row">
+                                                    <div class="p2">
+                                                        <b>{{requestMessage.user.firstName + " "+
+                                                            requestMessage.user.lastName}}</b>
+
+                                                    </div>
+                                                    <div class="p2">
+                                                        {{requestMessage.createdAt | date: 'dd/MM/yyyy hh:mm' }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="p2">{{requestMessage.message}}</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+                <div class="row ">
+
+                    <div class="col-md-7">
+
+                        <input type="text" formControlName="message" class="form-control" placeholder="Message"
+                            maxlength="256" required>
+                    </div>
+
+                    <div class="col-md-5 d-flex  align-items-end">
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </div>
+
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

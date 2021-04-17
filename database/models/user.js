@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Home, { foreignKey: 'userId', as: 'homes' });
       User.hasMany(models.HomeSwapRequest, { foreignKey: 'fromUserId', as: 'fromhomeswaprequests' });
       User.hasMany(models.HomeSwapRequest, { foreignKey: 'toUserId', as: 'tohomeswaprequests' });
+      User.hasMany(models.RequestMessage, { foreignKey: 'userId', as: 'requestmessages' });
     }
   };
   User.init({

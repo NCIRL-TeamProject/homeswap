@@ -4,5 +4,6 @@ export class User {
     email: string;
     dbo: string;
     password: string;
+    joinedIn: Date;
     profileImage: string;
 }

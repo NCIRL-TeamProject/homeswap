@@ -1,0 +1,7 @@
+<div class="d-flex align-items-center">
+    <img [src]=" user.profileImage" class="profileImage">
+    <div class="ml-2">
+        <h4>{{user.firstName + " "+ user.lastName}}</h4>
+        <p>Joined in {{user.joinedIn | date: 'dd/MM/yyyy'}}</p>
+    </div>
+</div>
