@@ -10,8 +10,10 @@ Object.freeze(HomeRequestStatusEnum);
 
 exports.getHomesForSwapping = (req, res) => {
     var place = req.query.place;
-    var whereFilter = { published: { [Op.eq]: true } };
+    var userId = req.query.userId ? parseInt(req.query.userId) : -1;
+    var whereFilter = { published: { [Op.eq]: true }, userId: { [Op.ne]: userId } };
 
+    console.log(userId)
     if (place !== null && place !== undefined && place !== '') {
         whereFilter = {
             [Op.and]: [
@@ -21,6 +23,9 @@ exports.getHomesForSwapping = (req, res) => {
                         { city: { [Op.iLike]: '%' + place + '%' } },
                         { county: { [Op.iLike]: '%' + place + '%' } }
                     ]
+                },
+                {
+                    userId: { [Op.ne]: userId }
                 }
             ]
         };
@@ -29,22 +34,21 @@ exports.getHomesForSwapping = (req, res) => {
     Home.findAll({ where: whereFilter })
         .then((h) => {
 
-            if (Array.isArray(h)) {
-                var homes = h.map(x => ({
-                    id: x.id,
-                    title: x.title,
-                    description: x.description,
-                    bathrooms: x.bathrooms,
-                    beds: x.beds,
-                    bedrooms: x.bedrooms,
-                    city: x.city,
-                    image: x.image?.toString()
-                }));
-                res.send(homes);
-                return;
-            }
+            var homes = h.map(x => ({
+                id: x.id,
+                title: x.title,
+                description: x.description,
+                bathrooms: x.bathrooms,
+                beds: x.beds,
+                bedrooms: x.bedrooms,
+                city: x.city,
+                image: x.image?.toString()
+            }));
+            res.send(homes);
+            return;
 
-            res.status(400).send({ message: "Error when trying to retrieve homes for swapping" });
+
+
         })
         .catch(err => {
             res.status(500).send({ message: err.message });
@@ -163,6 +167,7 @@ exports.receivedRequests = (req, res) => {
                 };
 
                 return ({
+                    id: x.id,
                     createdAt: x.createdAt,
                     checkin: x.checkin,
                     checkout: x.checkout,
@@ -199,6 +204,7 @@ exports.sentRequests = (req, res) => {
                 };
 
                 return ({
+                    id: x.id,
                     createdAt: x.createdAt,
                     checkin: x.checkin,
                     checkout: x.checkout,
