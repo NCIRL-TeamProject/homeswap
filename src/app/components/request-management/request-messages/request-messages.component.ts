@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, SimpleChanges } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit, SimpleChanges } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Observable } from "rxjs";
+import { combineLatest, concat, interval, merge, Observable, Subject, Subscription, timer } from "rxjs";
+import { mergeAll, retry, share, startWith, switchMap, take, takeUntil, tap } from "rxjs/operators";
 import { RequestMessage } from "src/app/Models/requestMessage";
 import { AuthService } from "src/app/services/auth.service";
 import { RequestMessagesService } from "src/app/services/request-messages.service";
@@ -10,30 +11,39 @@ import { RequestMessagesService } from "src/app/services/request-messages.servic
   templateUrl: './request-messages.component.html',
   styleUrls: ['./request-messages.component.css']
 })
-export class RequestMessagesComponent implements OnInit {
+export class RequestMessagesComponent implements OnInit, OnDestroy {
 
   @Input() requestId;
-  messages: Observable<RequestMessage[]>;
+  messages: RequestMessage[];
   form: FormGroup;
+
+  private stopPolling = new Subject();
+
   constructor(private fb: FormBuilder, private service: RequestMessagesService, private authService: AuthService) {
   }
-
 
   ngOnInit(): void {
     this.form = this.fb.group({
       message: ['', [Validators.required, Validators.maxLength(512)]]
     });
-
-    if (!this.requestId) return;
-
-    this.messages = this.service.retrieveMessages(this.requestId);
   }
 
+  pollingData: Subscription;
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['requestId'] !== undefined) {
-      this.requestId = changes['requestId'].currentValue;
-      this.messages = this.service.retrieveMessages(this.requestId);
+    this.requestId = changes['requestId']?.currentValue;
+
+    if (this.requestId !== undefined) {
+      this.pollingData = interval(3000)
+        .pipe(
+          startWith(0),
+          switchMap(() => this.service.retrieveMessages(this.requestId))).subscribe(data => this.messages = data),
+        retry(),
+        takeUntil(this.stopPolling)
+    }
+    else {
+      this.messages = undefined;
+      this.stopPolling.next();
     }
   }
 
@@ -41,8 +51,16 @@ export class RequestMessagesComponent implements OnInit {
     if (!this.form.valid) return;
 
     var message = this.form.get('message').value;
-    this.service.sendMessage(this.requestId, this.authService.getLoggedInUserId(), message).subscribe(data => {
-      console.log(data);
-    }, error => { console.log(error) });
+    this.form.controls.message.setValue('');
+
+    this.service.sendMessage(this.requestId, this.authService.getLoggedInUserId(), message)
+      .subscribe(data => {
+        this.messages.push(data);
+      })
+  }
+
+  ngOnDestroy() {
+    this.stopPolling.next();
+    this.pollingData.unsubscribe();
   }
 }

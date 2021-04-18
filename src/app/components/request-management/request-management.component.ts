@@ -50,15 +50,18 @@ export class RequestManagementComponent implements OnInit {
   tabChanged(event: any) {
     if (event.index == 1 && this.sentRequests.length > 0) {
       //Requests sent tab     
-      this.populateHomeDetailsAndMessages(this.selectedSentRequest.toHomeId, this.selectedSentRequest.id);
+      this.populateHomeDetailsAndMessages(this.selectedSentRequest?.toHomeId, this.selectedSentRequest?.id);
     } else if (event.index == 0 && this.receivedRequests.length > 0) {
       //Requests received tab
-      this.populateHomeDetailsAndMessages(this.selectedReceivedRequest.fromHomeId, this.selectedReceivedRequest.id);
+      this.populateHomeDetailsAndMessages(this.selectedReceivedRequest?.fromHomeId, this.selectedReceivedRequest?.id);
     }
   }
 
   private populateHomeDetailsAndMessages(homeId: any, requestId: any) {
     this.requestId = requestId;
+
+    if (!homeId) return;
+
     this.service.getHomeDetails(homeId).subscribe((data: Home) => {
       this.home = data;
     });

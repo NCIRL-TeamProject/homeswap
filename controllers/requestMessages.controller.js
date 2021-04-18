@@ -9,7 +9,10 @@ exports.retrieveMessages = (req, res) => {
         return res.status(400).send({ message: "Mandatory fields not provided: requestId" });
 
     //TODO: add order by
-    RequestMessage.findAll({ where: { requestId: requestId }, include: ["user"] })
+    RequestMessage.findAll({
+        where: { requestId: requestId }, include: ["user"],
+        order: [['createdAt', 'ASC']]
+    })
         .then((r) => {
 
             const requests = r.map(h => {
@@ -49,8 +52,34 @@ exports.sendMessage = (req, res) => {
         requestId: requestId,
         userId: userId,
         message: message
-    }).then(r => {
-        res.send(r);
+    },
+        {
+            include: [{
+                model: db.User,
+                as: 'user'
+            }]
+        }
+    ).then(r => {
+
+        db.User.findOne({ where: { id: r.userId } })
+            .then(u => {
+                var user = {
+                    id: r.userId,
+                    firstName: u.firstName,
+                    lastName: u.lastName,
+                    profileImage: u.profileImage?.toString()
+                };
+
+                res.send({
+                    requestId: r.requestId,
+                    message: r.message,
+                    userId: r.userId,
+                    createdAt: r.createdAt,
+                    user: user
+                });
+            });
+
+
     }).catch(err => {
         res.status(500).send({ message: err.message });
     });

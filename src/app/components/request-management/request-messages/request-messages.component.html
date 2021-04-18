@@ -5,8 +5,9 @@
                 <div class="row">
 
                     <mat-list>
-                        <mat-list-item *ngFor="let requestMessage of messages  | async">
-                            <img mat-list-avatar [src]="requestMessage.user?.profileImage" />
+                        <mat-list-item *ngFor="let requestMessage of messages  ">
+                            <img mat-list-avatar [src]="requestMessage.user?.profileImage"
+                                class="custom-image-userProfile" />
                             <div mat-line>
                                 <b>{{requestMessage.user.firstName + " "+
                                     requestMessage.user.lastName}}</b> {{requestMessage.createdAt | date: 'dd/MM/yyyy

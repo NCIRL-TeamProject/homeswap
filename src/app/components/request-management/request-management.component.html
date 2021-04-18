@@ -8,9 +8,9 @@
                             (selectionChange)="receivedRequestSelectionChange($event)">
                             <mat-list-option *ngFor="let request of receivedRequests  as rRequests , let i = index"
                                 [value]="request" [selected]="request && i == 0">
+                                <img mat-list-avatar [src]="request.fromUser?.profileImage"
+                                    class="custom-image-userProfile" />
                                 <div mat-line>
-                                    <img [src]="request.fromUser?.profileImage" *ngIf="request.fromUser?.profileImage"
-                                        class="custom-image-userProfile">
                                     {{request.fromUser?.firstName}}, {{request.fromHome?.city}}, {{request.createdAt
                                     |
                                     date:
@@ -34,9 +34,13 @@
                         <mat-selection-list [multiple]="false" (selectionChange)="sentRequestSelectionChange($event)">
                             <mat-list-option *ngFor="let request of sentRequests  as sRequests, let i = index"
                                 [value]="request" [selected]="request && i == 0">
+
+                                <img mat-list-avatar [src]="request.toUser?.profileImage"
+                                    class="custom-image-userProfile">
                                 <div mat-line>
-                                    <img [src]="request.toUser?.profileImage" *ngIf="request.toUser?.profileImage"
-                                        class="custom-image-userProfile">
+
+                                    <!-- <img [src]="request.toUser?.profileImage" *ngIf="request.toUser?.profileImage"
+                                        class="custom-image-userProfile"> -->
                                     {{request.toUser?.firstName}}, {{request.toHome?.city}}, {{request.createdAt | date:
                                     'dd/MM/yyyy'}}
                                 </div>
