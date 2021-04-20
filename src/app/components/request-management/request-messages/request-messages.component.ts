@@ -34,10 +34,12 @@ export class RequestMessagesComponent implements OnInit, OnDestroy {
     this.requestId = changes['requestId']?.currentValue;
 
     if (this.requestId !== undefined) {
-      this.pollingData = interval(3000)
+
+      this.pollingData = interval(5000)
         .pipe(
           startWith(0),
           switchMap(() => this.service.retrieveMessages(this.requestId))).subscribe(data => this.messages = data),
+        share(),
         retry(),
         takeUntil(this.stopPolling)
     }

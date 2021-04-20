@@ -1,10 +1,27 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">HomeSwap</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+  <a class="navbar-brand" [routerLink]="'.'">HomeSwap</a>
+  <div *ngIf="mobile" class="col text-right d-flex justify-content-end">
+    <div class="ap-2">
+      <a class="nav-link" style="color: rgba(0, 0, 0, 0.5);!important" routerLink="/how-it-works"
+        routerLinkActive="active">How it works</a>
+    </div>
+    <div class="ap-2">
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>menu</mat-icon>
+        <mat-icon
+          *ngIf="!authService.isLoggedIn() || (authService.isLoggedIn() && !authService.getLoggedInUserProfile())">
+          account_circle</mat-icon>
+        <img *ngIf="authService.isLoggedIn() && authService.getLoggedInUserProfile()"
+          [src]="authService.getLoggedInUserProfile()" class="profileImage">
+      </button>
+    </div>
+  </div>
+  <!-- <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
+    &#9776;
+  </button> -->
+
+  <!-- <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse"> -->
+  <div *ngIf="!mobile" [ngbCollapse]="false" class="navbar acollapse navbar-collapse">
     <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
@@ -16,24 +33,31 @@
         <a class="nav-link" routerLink="/homes-for-swapping" routerLinkActive="active">Homes for swapping</a>
       </li>
     </ul>
+
     <div class="col text-right">
-      <div ngbDropdown class="d-inline-block">
-        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Account<i
-            class="fa fa-caret-down"></i></button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
-          <a class="nav-link" routerLink="/account-details" routerLinkActive="active"
-            *ngIf="authService.isLoggedIn()">Account</a>
-          <a class="nav-link" routerLink="/home-profile" routerLinkActive="active" *ngIf="authService.isLoggedIn()">Home
-            Profile</a>
-          <a class="nav-link" routerLink="/request-management" routerLinkActive="active"
-            *ngIf="authService.isLoggedIn()">Requests</a>
-          <a class="nav-link" routerLink="/login" routerLinkActive="active" *ngIf="!authService.isLoggedIn()">Login</a>
-          <a class="nav-link" routerLink="/account-remove" routerLinkActive="active"
-            *ngIf="authService.isLoggedIn()">Delete Account</a>
-          <a class="nav-link" routerLink="/logout" (click)="logout()" *ngIf="authService.isLoggedIn()">Logout</a>
-        </div>
-      </div>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>menu</mat-icon>
+        <mat-icon
+          *ngIf="!authService.isLoggedIn() || (authService.isLoggedIn() && !authService.getLoggedInUserProfile())">
+          account_circle</mat-icon>
+        <img *ngIf="authService.isLoggedIn() && authService.getLoggedInUserProfile()"
+          [src]="authService.getLoggedInUserProfile()" class="profileImage">
+      </button>
+
     </div>
+
   </div>
 </nav>
+<mat-menu #menu="matMenu">
+  <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+  <a class="nav-link" routerLink="/account-details" routerLinkActive="active"
+    *ngIf="authService.isLoggedIn()">Account</a>
+  <a class="nav-link" routerLink="/home-profile" routerLinkActive="active" *ngIf="authService.isLoggedIn()">Home
+    Profile</a>
+  <a class="nav-link" routerLink="/request-management" routerLinkActive="active"
+    *ngIf="authService.isLoggedIn()">Requests</a>
+  <a class="nav-link" routerLink="/login" routerLinkActive="active" *ngIf="!authService.isLoggedIn()">Login</a>
+  <a class="nav-link" routerLink="/account-remove" routerLinkActive="active" *ngIf="authService.isLoggedIn()">Delete
+    Account</a>
+  <a class="nav-link" routerLink="/logout" (click)="logout()" *ngIf="authService.isLoggedIn()">Logout</a>
+</mat-menu>

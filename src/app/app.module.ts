@@ -14,6 +14,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -44,6 +46,7 @@ import { HeaderComponent } from './layout/header/header.component';
 import { HomesListingPipePipe } from './pipes/homes-listing-pipe.pipe';
 import { RequestStatusPipe } from './pipes/request-status.pipe';
 import { RegistrationFormComponent } from './registration/registration-form/registration-form.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -102,7 +105,10 @@ export function tokenGetter() {
     MatExpansionModule,
     MatIconModule,
     MatListModule,
-    MatTabsModule
+    MatTabsModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatButtonToggleModule
   ],
   providers: [
     {

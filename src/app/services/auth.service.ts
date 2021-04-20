@@ -4,7 +4,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { User } from '../Models/user';
 
@@ -14,6 +14,16 @@ import { User } from '../Models/user';
 
 export class AuthService {
   constructor(private httpClient: HttpClient, private router: Router, private jwtHelper: JwtHelperService) { }
+
+  loggedInUser$ = new BehaviorSubject<User>(undefined);
+
+  getLoggedInUser(): Observable<User> {
+    return this.loggedInUser$.asObservable();
+  }
+
+  setLoggedInUser(loggedInUser: User) {
+    this.loggedInUser$.next(loggedInUser);
+  }
 
   register(user: User): Observable<any> {
     return this.httpClient.post('api/auth/signup', user).pipe(
@@ -29,6 +39,17 @@ export class AuthService {
         localStorage.setItem('access_token', res.accessToken);
         localStorage.setItem('user_id', res.id);
         localStorage.setItem('email', email);
+        localStorage.setItem('profileImage', res.profileImage);
+
+        var user = new User();
+        user.firstName = res.firstName;
+        user.lastName = res.lastName;
+        user.dbo = res.dbo;
+        user.email = res.email;
+        user.profileImage = res.profileImage;
+
+        this.setLoggedInUser(user);
+
         return res;
       }));
   }
@@ -37,6 +58,9 @@ export class AuthService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('user_id');
     localStorage.removeItem('email');
+    localStorage.setItremoveItemem('profileImage');
+
+    this.setLoggedInUser(undefined);
     this.router.navigate(['/home']);
   }
 
@@ -62,9 +86,20 @@ export class AuthService {
     return this.isLoggedIn() ? localStorage.getItem('email') : null;
   }
 
+  getLoggedInUserProfile(): string {
+    return this.isLoggedIn() ? localStorage.getItem('profileImage') : null;
+  }
+
   getUserBasicProfile(id): Observable<User> {
     return this.httpClient.get<User>(`api/users/profile/${id}`);
   }
+
+  // getLoggedInUser(): Observable<User> {
+  //   const userId = this.getLoggedInUserId();
+
+  //   if (!userId) return;
+  //   return this.httpClient.get<User>(`api/users/profile/${userId}`);
+  // }
 
   removeAccount(user: User, id: string): Observable<any> {
     return this.httpClient.post(`api/user/delete/${id}`, user).pipe(

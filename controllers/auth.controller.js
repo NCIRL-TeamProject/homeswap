@@ -60,7 +60,10 @@ exports.signin = (req, res) => {
             res.send({
                 id: user.id,
                 username: user.firstName + " " + user.lastName,
+                firstName: user.firstName,
+                lastName: user.lastName,
                 email: user.email,
+                profileImage: user.profileImage?.toString(),
                 accessToken: token
             });
         })
