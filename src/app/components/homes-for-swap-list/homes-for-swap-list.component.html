@@ -21,7 +21,7 @@
                         <div class="card" style="width: 18rem;margin-bottom: 10px;">
 
                             <a [routerLink]="['/home-details', home.id]">
-                                <img [src]="home.image" class="card-img-top">
+                                <img [src]="home.image? home.image : notAvailableImage.imageSrc" class="card-img-top">
                             </a>
                             <div class="card-body">
                                 <h6 class="card-title text-truncate">{{home.title }}</h6>

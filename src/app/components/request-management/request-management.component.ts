@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HomesForSwapServiceService } from 'src/app/services/homes-for-swap-service.service';
 import { faBed, faBath } from '@fortawesome/free-solid-svg-icons';
 import { HomeSwapRequest } from 'src/app/Models/homeSwapRequest';
+import { NotAvailableImageService } from 'src/app/services/not-available-image.service';
 
 @Component({
   selector: 'app-request-management',
@@ -20,11 +21,17 @@ export class RequestManagementComponent implements OnInit {
   selectedSentRequest: HomeSwapRequest | undefined;
   requestId;
 
-  constructor(private service: HomesForSwapServiceService, private authService: AuthService) { }
+  constructor(private service: HomesForSwapServiceService,
+    private authService: AuthService,
+    public notAvailableImageService: NotAvailableImageService) { }
 
   ngOnInit(): void {
     this.service.getSentRequests(this.authService.getLoggedInUserId()).subscribe(requests => {
       this.sentRequests = requests;
+
+      if (requests.length > 0) {
+        this.selectedSentRequest = requests[0];
+      }
     })
 
     this.service.getReceivedRequests(this.authService.getLoggedInUserId()).subscribe((requests) => {

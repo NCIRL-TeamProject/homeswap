@@ -11,7 +11,7 @@
     </div>
     <div class="row">
         <div class="col-md-8">
-            <img [src]="home.image" *ngIf="home.image" class="custom-image">
+            <img [src]="home.image ? home.image: notAvailableImage.imageSrc" class="custom-image">
             <h3>{{home.title}}</h3>
             <p>{{home.bedrooms }} bedrooms
                 <span class="ml-2">

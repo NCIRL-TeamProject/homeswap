@@ -1,5 +1,5 @@
 <div class="container">
-    <p class="h4 text-center">Home profile</p>
+    <p class="h4 text-left">Home profile</p>
     <app-alert-messages [errorMessage]="errorMessage" [successMessage]="successMessage"
         [warningMessage]="warningMessage" (successMessageChange)="successMessage=undefined"
         (warningMessageChange)="warningMessage=undefined" (erroressageChange)="errorMessage=undefined">
@@ -17,7 +17,6 @@
                         Title is required.
                     </div>
                 </div>
-
                 <label for="description" class="col-form-label">Description</label>
                 <textarea id="description" formControlName="description" class="form-control" placeholder="Description"
                     maxlength="512" rows="7" required></textarea>
@@ -58,15 +57,10 @@
                         Please select a number of bathrooms
                     </div>
                 </div>
-                <!-- <span style="display:inline-flex">
-                    <fa-icon [icon]="faBath" class="mr-2">
-                    </fa-icon>
-                    <app-stepper></app-stepper>
-                </span> -->
             </div>
 
             <div class=" col-md-6">
-                <img [src]="imageSrc" *ngIf="imageSrc" style="height: 300px; width:500px">
+                <img [src]="imageSrc ? imageSrc: notAvailableImage.imageSrc" style="height: 300px; width:500px">
                 <div class="custom-file">
                     <input type="file" id="inputFileId" class="custom-file-input" (change)="onFileChange($event)">
                     <label class="custom-file-label" for="validatedCustomFile">Choose a picture...</label>

@@ -29,11 +29,17 @@ export class HomeProfileService {
     formData.append("beds", home.beds);
     formData.append("bedrooms", home.bedrooms);
     formData.append("bathrooms", home.bathrooms);
-    formData.append("streetAddress", home.streetAddress);
-    formData.append("city", home.city);
-    formData.append("county", home.county);
-    formData.append("country", home.country);
-    formData.append("postCode", home.postCode);
+
+    if (home.streetAddress)
+      formData.append("streetAddress", home.streetAddress);
+    if (home.city)
+      formData.append("city", home.city);
+    if (home.county)
+      formData.append("county", home.county);
+    if (home.country)
+      formData.append("country", home.country);
+    if (home.postCode)
+      formData.append("postCode", home.postCode);
 
     return this.httpClient.post<any>('api/homeprofile', formData);
   }

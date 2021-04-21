@@ -5,6 +5,7 @@ import { HomesForSwapServiceService } from 'src/app/services/homes-for-swap-serv
 import { faBed, faBath } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { NotAvailableImageService } from 'src/app/services/not-available-image.service';
 
 @Component({
   selector: 'app-homes-for-swap-list',
@@ -18,7 +19,8 @@ export class HomesForSwapListComponent implements OnInit {
   filter: string;
   constructor(private homesForSwapping: HomesForSwapServiceService,
     private activatedRoute: ActivatedRoute,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    public notAvailableImage: NotAvailableImageService) { }
 
   ngOnInit(): void {
     const place = this.activatedRoute.snapshot.paramMap.get("place");

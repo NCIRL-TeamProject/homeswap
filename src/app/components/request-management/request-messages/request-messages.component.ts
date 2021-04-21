@@ -63,6 +63,6 @@ export class RequestMessagesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.stopPolling.next();
-    this.pollingData.unsubscribe();
+    this.pollingData?.unsubscribe();
   }
 }

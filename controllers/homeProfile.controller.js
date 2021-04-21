@@ -40,6 +40,7 @@ exports.updateHomeProfile = (req, res) => {
         return res.status(400).send({ message: "Mandatory fields not provided" });
     }
 
+    console.log(req.body)
     Home.findOne({ where: { userId: req.body.userId } }).then((h) => {
 
         var imageAsBase64 = undefined;
@@ -72,13 +73,12 @@ exports.updateHomeProfile = (req, res) => {
                 res.send(r);
             });
         } else {
-            h.id;
             h.title = req.body.title;
             h.description = req.body.description;
-            h.streetAddress = req.body.streetAddress;
-            h.city = req.body.city;
-            h.postCode = req.body.postCode;
-            h.county = req.body.county;
+            h.streetAddress = req.body.streetAddress ? req.body.streetAddress : null;
+            h.city = req.body.city ? req.body.city : null;
+            h.postCode = req.body.postCode ? req.body.postCode : null;
+            h.county = req.body.county ? req.body.county : null;
             // h.country = req.body.country;
             h.bathrooms = req.body.bathrooms;
             h.bedrooms = req.body.bedrooms;

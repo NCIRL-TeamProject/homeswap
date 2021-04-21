@@ -7,6 +7,7 @@ import { faBed, faBath } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PublishConfirmationModalComponent } from './publish-confirmation-modal/publish-confirmation-modal.component';
 import { Home } from 'src/app/Models/home';
+import { NotAvailableImageService } from 'src/app/services/not-available-image.service';
 
 @Component({
   selector: 'app-home-profile',
@@ -31,7 +32,8 @@ export class HomeProfileComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private authService: AuthService,
     private homeProfileService: HomeProfileService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public notAvailableImage: NotAvailableImageService
   ) {
 
     this.form = this.fb.group({

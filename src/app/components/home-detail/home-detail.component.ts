@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Home } from 'src/app/Models/home';
 import { HomesForSwapServiceService } from 'src/app/services/homes-for-swap-service.service';
 import { faBed, faBath } from '@fortawesome/free-solid-svg-icons';
+import { NotAvailableImageService } from 'src/app/services/not-available-image.service';
 
 @Component({
   selector: 'app-home-detail',
@@ -18,7 +19,8 @@ export class HomeDetailComponent implements OnInit {
 
   constructor(private ActivatedRoute: ActivatedRoute,
     private service: HomesForSwapServiceService,
-    private router: Router) { }
+    private router: Router,
+    public notAvailableImage: NotAvailableImageService) { }
 
   ngOnInit(): void {
     this.id = this.ActivatedRoute.snapshot.paramMap.get("id");

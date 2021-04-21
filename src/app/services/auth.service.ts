@@ -39,7 +39,9 @@ export class AuthService {
         localStorage.setItem('access_token', res.accessToken);
         localStorage.setItem('user_id', res.id);
         localStorage.setItem('email', email);
-        localStorage.setItem('profileImage', res.profileImage);
+
+        if (res.profileImage)
+          localStorage.setItem('profileImage', res.profileImage);
 
         var user = new User();
         user.firstName = res.firstName;
@@ -58,7 +60,7 @@ export class AuthService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('user_id');
     localStorage.removeItem('email');
-    localStorage.setItremoveItemem('profileImage');
+    localStorage.removeItem('profileImage');
 
     this.setLoggedInUser(undefined);
     this.router.navigate(['/home']);
