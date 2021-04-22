@@ -9,6 +9,10 @@ const HomeRequestStatusEnum = { "AwaitingForApproval": 1, "Approved": 2, "Reject
 Object.freeze(HomeRequestStatusEnum);
 
 exports.getHomesForSwapping = (req, res) => {
+    let offset = parseInt(req.query.offset) || 0;
+    let size = parseInt(req.query.limit) || Users.length;
+    let from = offset * size;
+    let to = from + size;
     var place = req.query.place;
     var userId = req.query.userId ? parseInt(req.query.userId) : -1;
     var whereFilter = { published: { [Op.eq]: true }, userId: { [Op.ne]: userId } };
@@ -31,10 +35,11 @@ exports.getHomesForSwapping = (req, res) => {
         };
     }
 
-    Home.findAll({ where: whereFilter })
+    Home.findAll({ where: whereFilter, order: [['updatedAt', 'DESC']] })
         .then((h) => {
 
-            var homes = h.map(x => ({
+            homesBeforeMap = h.slice(from, to);
+            var homes = homesBeforeMap.map(x => ({
                 id: x.id,
                 title: x.title,
                 description: x.description,
@@ -44,7 +49,7 @@ exports.getHomesForSwapping = (req, res) => {
                 city: x.city,
                 image: x.image?.toString()
             }));
-            res.send(homes);
+            res.send({ homes: homes, total: h.length });
             return;
 
 

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Home } from 'src/app/Models/home';
 import { HomesForSwapServiceService } from 'src/app/services/homes-for-swap-service.service';
 import { faBed, faBath } from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +12,9 @@ import { NotAvailableImageService } from 'src/app/services/not-available-image.s
   styleUrls: ['./homes-for-swap-list.component.css']
 })
 export class HomesForSwapListComponent implements OnInit {
-  homes$: Observable<Home[]>;
+  homes: Home[];
+  total;
+  pageSize = 16;
   faBed = faBed;
   faBath = faBath;
   filter: string;
@@ -23,9 +24,33 @@ export class HomesForSwapListComponent implements OnInit {
     public notAvailableImage: NotAvailableImageService) { }
 
   ngOnInit(): void {
-    const place = this.activatedRoute.snapshot.paramMap.get("place");
-
-    this.homes$ = this.homesForSwapping.getHomesForSwapping(place, this.authService.getLoggedInUserId());
+    this.getData(0, this.pageSize);
   }
 
+  onPageChange($event) {
+    let pageIndex = $event.pageIndex;
+    let pageSize = $event.pageSize;
+    let previousSize = pageSize * pageIndex;
+    this.getNextData(previousSize, (pageIndex).toString(), pageSize.toString());
+  }
+
+  private getData(offset: any, limit: any) {
+    const place = this.activatedRoute.snapshot.paramMap.get("place");
+
+    this.homesForSwapping.getHomesForSwapping(offset, limit, place, this.authService.getLoggedInUserId()).subscribe(data => {
+      this.homes = data.homes;
+      this.total = data.total;
+    })
+  }
+
+  getNextData(currentSize, offset, limit) {
+    const place = this.activatedRoute.snapshot.paramMap.get("place");
+
+    this.homesForSwapping.getHomesForSwapping(offset, limit, place, this.authService.getLoggedInUserId()).subscribe(data => {
+
+      this.homes.length = currentSize;
+      this.homes.push(...data.homes);
+      this.total = data.total;
+    })
+  }
 }

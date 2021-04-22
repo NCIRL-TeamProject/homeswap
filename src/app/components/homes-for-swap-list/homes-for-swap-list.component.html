@@ -3,11 +3,7 @@
         <div class="col-md-5">
             <label for="city" class="col-form-label">Quick filter</label>
             <input type="search" class="form-control" [(ngModel)]="filter">
-
         </div>
-        <!-- <p class="h4 text-center">Homes for swapping</p> -->
-        <!-- <app-homes-listing-filter></app-homes-listing-filter> -->
-
     </div>
 
     <div class="row">
@@ -15,8 +11,7 @@
 
             <div class="d-flex justify-content-between p-3 bg-white mb-3 align-items-center">
                 <div id="productsRow" class="row g-4">
-
-                    <div *ngFor="let home of homes$ | async |  homesListingPipe: filter as homes"
+                    <div *ngFor="let home of homes |  homesListingPipe: filter"
                         [ngClass]="(homes.length ==1)?'col-md-12':'col-md-3'" class="d-flex align-items-stretch">
                         <div class="card" style="width: 18rem;margin-bottom: 10px;">
 
@@ -37,7 +32,9 @@
                     </div>
                 </div>
             </div>
-
+            <mat-paginator (page)="onPageChange($event)" [length]="total" [pageSize]="pageSize"
+                [pageSizeOptions]="[16, 32, 64, 100]">
+            </mat-paginator>
         </div>
     </div>
 </div>

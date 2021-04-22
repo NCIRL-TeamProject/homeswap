@@ -47,6 +47,7 @@ import { HomesListingPipePipe } from './pipes/homes-listing-pipe.pipe';
 import { RequestStatusPipe } from './pipes/request-status.pipe';
 import { RegistrationFormComponent } from './registration/registration-form/registration-form.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -108,7 +109,8 @@ export function tokenGetter() {
     MatTabsModule,
     MatMenuModule,
     MatButtonModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatPaginatorModule
   ],
   providers: [
     {

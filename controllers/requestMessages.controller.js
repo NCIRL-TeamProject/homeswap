@@ -8,7 +8,6 @@ exports.retrieveMessages = (req, res) => {
     if (!requestId)
         return res.status(400).send({ message: "Mandatory fields not provided: requestId" });
 
-    //TODO: add order by
     RequestMessage.findAll({
         where: { requestId: requestId }, include: ["user"],
         order: [['createdAt', 'ASC']]
