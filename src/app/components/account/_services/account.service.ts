@@ -10,8 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
   providedIn: 'root'
 })
 export class AccountService {
-  subscription: any;
   private statusMessage: any;
+  private defaultImageSrc = 'assets/account-assets/user_avatar.jpg';
   constructor(private authService: AuthService, private router: Router) { }
 
   public validatesUserIsLoggedIn(): void {
@@ -41,6 +41,13 @@ export class AccountService {
 
   private getUserById(id: any): Observable<any> {
     return this.authService.getUserBasicProfile(id);
+  }
+
+  public getProfileImage(profileImage: string): string {
+    if (profileImage != null && profileImage !== '' && profileImage !== undefined) {
+      return profileImage;
+    }
+    return this.defaultImageSrc;
   }
 
   public updateUser(user: User, userId: string): Observable<any> {

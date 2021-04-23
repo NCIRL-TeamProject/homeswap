@@ -234,10 +234,7 @@ export class AccountUpdateComponent implements OnInit, OnDestroy {
   }
 
   public getProfileImage(): string {
-    if (this.userDetails.profileImage != null && this.userDetails.profileImage !== '' && this.userDetails.profileImage !== undefined) {
-      return this.userDetails.profileImage;
-    }
-    return this.defaultImageSrc;
+    return this.accountService.getProfileImage(this.userDetails.profileImage);
   }
 
   private canUpdatePicture(): boolean {
