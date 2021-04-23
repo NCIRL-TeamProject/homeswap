@@ -5,6 +5,8 @@ import { HomesForSwapServiceService } from 'src/app/services/homes-for-swap-serv
 import { faBed, faBath } from '@fortawesome/free-solid-svg-icons';
 import { HomeSwapRequest } from 'src/app/Models/homeSwapRequest';
 import { NotAvailableImageService } from 'src/app/services/not-available-image.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ApproveOrRejectRequestComponent } from './approve-or-reject-request/approve-or-reject-request.component';
 
 @Component({
   selector: 'app-request-management',
@@ -24,7 +26,8 @@ export class RequestManagementComponent implements OnInit {
   selectedTab = 0;
   constructor(private service: HomesForSwapServiceService,
     private authService: AuthService,
-    public notAvailableImageService: NotAvailableImageService) { }
+    public notAvailableImageService: NotAvailableImageService,
+    private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.service.getSentRequests(this.authService.getLoggedInUserId()).subscribe(requests => {
@@ -35,6 +38,10 @@ export class RequestManagementComponent implements OnInit {
       }
     })
 
+    this.getReceivedRequests();
+  }
+
+  private getReceivedRequests() {
     this.service.getReceivedRequests(this.authService.getLoggedInUserId()).subscribe((requests) => {
       this.receivedRequests = requests;
 
@@ -43,7 +50,7 @@ export class RequestManagementComponent implements OnInit {
         this.setRequestStatus(this.selectedReceivedRequest);
         this.populateHomeDetailsAndMessages(requests[0].fromHomeId.toString(), requests[0].id);
       }
-    })
+    });
   }
 
   receivedRequestSelectionChange(event: any) {
@@ -84,5 +91,14 @@ export class RequestManagementComponent implements OnInit {
 
   private setRequestStatus(request: HomeSwapRequest) {
     this.requestStatus = request?.status;
+  }
+
+  onSubmit(approve: boolean) {
+    const modalRef = this.modalService.open(ApproveOrRejectRequestComponent);
+    modalRef.componentInstance.approve = approve;
+    modalRef.componentInstance.requestId = this.selectedReceivedRequest.id;
+    modalRef.componentInstance.changeStatusEvent.subscribe((status) => {
+      this.getReceivedRequests();
+    });
   }
 }

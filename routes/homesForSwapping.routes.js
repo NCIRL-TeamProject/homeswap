@@ -7,4 +7,6 @@ module.exports = function (app) {
     app.route("/api/validateHomeIsPublished").get(controller.validateHomeIsPublished);
     app.route("/api/receivedRequests").get(controller.receivedRequests);
     app.route("/api/sentRequests").get(controller.sentRequests);
-};
+    app.route("/api/approveRequest").post(controller.approveRequest);
+    app.route("/api/rejectRequest").post(controller.rejectRequest);
+}

@@ -155,7 +155,6 @@ exports.requestHomeSwap = (req, res) => {
         });
 }
 
-
 exports.receivedRequests = (req, res) => {
     const userId = req.query.userId;
 
@@ -223,6 +222,42 @@ exports.sentRequests = (req, res) => {
                 })
             });
             res.send(requests);
+        })
+        .catch(err => {
+            res.status(500).send({ message: err.message });
+        });
+}
+
+
+exports.approveRequest = (req, res) => {
+    const requestId = req.body.requestId;
+
+    if (!requestId)
+        return res.status(400).send({ message: "Mandatory fields not provided" });
+
+    HomeSwapRequest.findOne({ where: { id: requestId } })
+        .then((request) => {
+            request.status = 2;
+            request.save();
+            res.send(request);
+        })
+        .catch(err => {
+            res.status(500).send({ message: err.message });
+        });
+}
+
+
+exports.rejectRequest = (req, res) => {
+    const requestId = req.body.requestId;
+
+    if (!requestId)
+        return res.status(400).send({ message: "Mandatory fields not provided" });
+
+    HomeSwapRequest.findOne({ where: { id: requestId } })
+        .then((request) => {
+            request.status = 3;
+            request.save();
+            res.send(request);
         })
         .catch(err => {
             res.status(500).send({ message: err.message });

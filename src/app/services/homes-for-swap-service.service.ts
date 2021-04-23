@@ -60,4 +60,21 @@ export class HomesForSwapServiceService {
     const params = new HttpParams().set('userId', userId);
     return this.httpClient.get<HomeSwapRequest[]>('api/sentRequests', { params });
   }
+
+  approveRequest(requestId: number): Observable<any> {
+    var body = {
+      requestId: requestId
+    };
+
+    return this.httpClient.post<any>('api/approveRequest', body);
+  }
+
+
+  rejectRequest(requestId: number): Observable<any> {
+    var body = {
+      requestId: requestId
+    };
+
+    return this.httpClient.post<any>('api/rejectRequest', body);
+  }
 }

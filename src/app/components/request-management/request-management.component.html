@@ -12,7 +12,9 @@
                                     [src]="request.fromUser?.profileImage ? request.fromUser?.profileImage:  notAvailableImageService.imageSrc"
                                     class="custom-image-userProfile" />
                                 <div mat-line>
-                                    {{request.fromUser?.firstName}}, {{request.fromHome?.city}}, {{request.createdAt
+                                    {{request.fromUser?.firstName}}, {{request.fromHome?.city ?request.fromHome?.city:
+                                    (request.fromHome?.county?request.fromHome?.county : request.fromHome?.country ) }},
+                                    {{request.createdAt
                                     |
                                     date:
                                     'dd/MM/yyyy'}}
@@ -57,8 +59,21 @@
         </div>
         <div class="col-md-6  mt-3">
             <div *ngIf="requestStatus" class="row">
-                <div class="col-md-12">
+                <div class="col-md-4">
                     Status: {{requestStatus | requestStatus}}
+                </div>
+                <div *ngIf="selectedTab===0 &&  requestStatus && requestStatus ===1 && selectedReceivedRequest?.id"
+                    class="col-md-8">
+                    <div class="d-flex flex-row">
+                        <div class="aa-2">
+                            <button type="button" (click)="onSubmit(true)"
+                                class="btn btn-outline-success">Approve</button>
+                        </div>
+                        <div class="ml-2">
+                            <button type="button" (click)="onSubmit(false)"
+                                class="btn btn-outline-danger">Reject</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row mt-4">

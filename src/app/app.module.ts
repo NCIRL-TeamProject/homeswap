@@ -48,6 +48,7 @@ import { RequestStatusPipe } from './pipes/request-status.pipe';
 import { RegistrationFormComponent } from './registration/registration-form/registration-form.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ApproveOrRejectRequestComponent } from './components/request-management/approve-or-reject-request/approve-or-reject-request.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -78,7 +79,8 @@ export function tokenGetter() {
     RequestManagementComponent,
     RequestStatusPipe,
     RequestMessagesComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    ApproveOrRejectRequestComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Request approvement</h4>
+        <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div *ngIf="approve" class="modal-body">
+        <p>Please confirm that you wish to approve the home swap request</p>
+    </div>
+    <div *ngIf="!approve" class="modal-body">
+        <p>Please confirm that you wish to reject the home swap request</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+        <button type="button" *ngIf="approve" ngbAutofocus class="btn btn-primary"
+            (click)="approveRequest()">Approve</button>
+        <button type="button" *ngIf="!approve" ngbAutofocus class="btn btn-danger"
+            (click)="rejectRequest()">Reject</button>
+    </div>
+</div>

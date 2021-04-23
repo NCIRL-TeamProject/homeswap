@@ -33,19 +33,18 @@ export class RequestMessagesComponent implements OnInit, OnDestroy {
   ngOnChanges(changes: SimpleChanges) {
     this.requestId = changes['requestId']?.currentValue;
 
+    this.pollingData?.unsubscribe();
+
     if (this.requestId !== undefined) {
 
       this.pollingData = interval(5000)
         .pipe(
           startWith(0),
           switchMap(() => this.service.retrieveMessages(this.requestId))).subscribe(data => this.messages = data),
-        share(),
-        retry(),
-        takeUntil(this.stopPolling)
+        retry();
     }
     else {
       this.messages = undefined;
-      this.stopPolling.next();
     }
   }
 
@@ -62,7 +61,6 @@ export class RequestMessagesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.stopPolling.next();
     this.pollingData?.unsubscribe();
   }
 }
