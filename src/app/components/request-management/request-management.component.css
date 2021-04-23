@@ -4,6 +4,19 @@
   object-fit: cover;
 }
 
+.custom-image-userProfile {
+  width: 48px !important;
+  height: 48px !important;
+
+  /* box-sizing: border-box;
+  background-clip: content-box;
+  border: 2px solid transparent;
+  border-radius: 49.9%; */
+}
+
+.custom-image {
+  object-fit: fill;
+}
 .tab-box {
   display: flex;
   justify-content: center;
@@ -12,4 +25,9 @@
   border-radius: 8px;
   height: 500px;
   overflow-y: auto;
+}
+
+.viewport-size {
+  max-width: 100vw;
+  max-height: 100vh;
 }

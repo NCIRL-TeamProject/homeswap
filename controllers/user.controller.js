@@ -21,6 +21,7 @@ exports.userBasicDetails = (req, res) => {
                 firstName: u.firstName,
                 lastName: u.lastName,
                 dbo: u.dbo,
+                joinedIn: u.createdAt,
                 profileImage: u.profileImage?.toString()
             });
         })

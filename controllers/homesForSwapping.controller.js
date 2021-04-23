@@ -9,9 +9,15 @@ const HomeRequestStatusEnum = { "AwaitingForApproval": 1, "Approved": 2, "Reject
 Object.freeze(HomeRequestStatusEnum);
 
 exports.getHomesForSwapping = (req, res) => {
+    let offset = parseInt(req.query.offset) || 0;
+    let size = parseInt(req.query.limit) || Users.length;
+    let from = offset * size;
+    let to = from + size;
     var place = req.query.place;
-    var whereFilter = { published: { [Op.eq]: true } };
+    var userId = req.query.userId ? parseInt(req.query.userId) : -1;
+    var whereFilter = { published: { [Op.eq]: true }, userId: { [Op.ne]: userId } };
 
+    console.log(userId)
     if (place !== null && place !== undefined && place !== '') {
         whereFilter = {
             [Op.and]: [
@@ -21,30 +27,33 @@ exports.getHomesForSwapping = (req, res) => {
                         { city: { [Op.iLike]: '%' + place + '%' } },
                         { county: { [Op.iLike]: '%' + place + '%' } }
                     ]
+                },
+                {
+                    userId: { [Op.ne]: userId }
                 }
             ]
         };
     }
 
-    Home.findAll({ where: whereFilter })
+    Home.findAll({ where: whereFilter, order: [['updatedAt', 'DESC']] })
         .then((h) => {
 
-            if (Array.isArray(h)) {
-                var homes = h.map(x => ({
-                    id: x.id,
-                    title: x.title,
-                    description: x.description,
-                    bathrooms: x.bathrooms,
-                    beds: x.beds,
-                    bedrooms: x.bedrooms,
-                    city: x.city,
-                    image: x.image?.toString()
-                }));
-                res.send(homes);
-                return;
-            }
+            homesBeforeMap = h.slice(from, to);
+            var homes = homesBeforeMap.map(x => ({
+                id: x.id,
+                title: x.title,
+                description: x.description,
+                bathrooms: x.bathrooms,
+                beds: x.beds,
+                bedrooms: x.bedrooms,
+                city: x.city,
+                image: x.image?.toString()
+            }));
+            res.send({ homes: homes, total: h.length });
+            return;
 
-            res.status(400).send({ message: "Error when trying to retrieve homes for swapping" });
+
+
         })
         .catch(err => {
             res.status(500).send({ message: err.message });
@@ -155,18 +164,28 @@ exports.receivedRequests = (req, res) => {
 
     HomeSwapRequest.findAll({ where: { toUserId: userId }, include: ["fromUser", "fromHome"] })
         .then((h) => {
-            var requests = h.map(x => ({
-                createdAt: x.createdAt,
-                checkin: x.checkin,
-                checkout: x.checkout,
-                fromUserId: x.fromUserId,
-                fromHomeId: x.fromHomeId,
-                toUserId: x.toUserId,
-                toHomeId: x.toHomeId,
-                status: x.status,
-                fromUser: x.fromUser,
-                fromHome: x.fromHome
-            }));
+            var requests = h.map(x => {
+                var user = {
+                    id: x.fromUser.id,
+                    firstName: x.fromUser.firstName,
+                    profileImage: x.fromUser.profileImage?.toString()
+                };
+
+                return ({
+                    id: x.id,
+                    createdAt: x.createdAt,
+                    checkin: x.checkin,
+                    checkout: x.checkout,
+                    fromUserId: x.fromUserId,
+                    fromHomeId: x.fromHomeId,
+                    toUserId: x.toUserId,
+                    toHomeId: x.toHomeId,
+                    status: x.status,
+                    fromUser: user,
+                    fromHome: x.fromHome
+                })
+            }
+            );
             res.send(requests);
         })
         .catch(err => {
@@ -182,18 +201,27 @@ exports.sentRequests = (req, res) => {
 
     HomeSwapRequest.findAll({ where: { fromUserId: userId }, include: ["toUser", "toHome"] })
         .then((h) => {
-            var requests = h.map(x => ({
-                createdAt: x.createdAt,
-                checkin: x.checkin,
-                checkout: x.checkout,
-                fromUserId: x.fromUserId,
-                fromHomeId: x.fromHomeId,
-                toUserId: x.toUserId,
-                toHomeId: x.toHomeId,
-                status: x.status,
-                toUser: x.toUser,
-                toHome: x.toHome
-            }));
+            var requests = h.map(x => {
+                var user = {
+                    id: x.toUser.id,
+                    firstName: x.toUser.firstName,
+                    profileImage: x.toUser.profileImage?.toString()
+                };
+
+                return ({
+                    id: x.id,
+                    createdAt: x.createdAt,
+                    checkin: x.checkin,
+                    checkout: x.checkout,
+                    fromUserId: x.fromUserId,
+                    fromHomeId: x.fromHomeId,
+                    toUserId: x.toUserId,
+                    toHomeId: x.toHomeId,
+                    status: x.status,
+                    toUser: user,
+                    toHome: x.toHome
+                })
+            });
             res.send(requests);
         })
         .catch(err => {

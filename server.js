@@ -65,6 +65,7 @@ require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 require('./routes/homeProfile.routes')(app);
 require('./routes/homesForSwapping.routes')(app);
+require('./routes/requestMessages.routes')(app);
 
 app.get('/gm/getKey', function (req, res) {
     res.send({ key: process.env.GMAPS_API_KEY });

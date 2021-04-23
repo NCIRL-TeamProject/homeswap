@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       HomeSwapRequest.belongsTo(models.Home, { foreignKey: 'fromHomeId', as: 'fromHome' });
       HomeSwapRequest.belongsTo(models.User, { foreignKey: 'toUserId', as: 'toUser' });
       HomeSwapRequest.belongsTo(models.Home, { foreignKey: 'toHomeId', as: 'toHome' });
+      HomeSwapRequest.hasMany(models.RequestMessage, { foreignKey: 'requestId', as: 'messages' });
     }
   };
   HomeSwapRequest.init({

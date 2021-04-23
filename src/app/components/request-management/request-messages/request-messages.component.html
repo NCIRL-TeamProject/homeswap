@@ -1,0 +1,35 @@
+<div class="container overflow-auto" style="max-height: 78vh !important">
+    <form id="homeProfileForm" [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+        <div class="row">
+
+            <mat-list>
+                <mat-list-item *ngFor="let requestMessage of messages  ">
+                    <img mat-list-avatar [src]="requestMessage.user?.profileImage" class="custom-image-userProfile" />
+                    <div mat-line>
+                        <b>{{requestMessage.user.firstName + " "+
+                            requestMessage.user.lastName}}</b> {{requestMessage.createdAt | date: 'dd/MM/yyyy
+                        hh:mm' }}
+                    </div>
+                    <div mat-line>
+                        {{requestMessage.message}}
+                    </div>
+
+                </mat-list-item>
+            </mat-list>
+        </div>
+        <div class="row mt-3">
+
+            <div class="col-md-7">
+
+                <input type="text" formControlName="message" class="form-control" placeholder="Message" maxlength="256"
+                    required>
+            </div>
+
+            <div class="col-md-5 d-flex  align-items-end">
+                <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+
+
+        </div>
+    </form>
+</div>

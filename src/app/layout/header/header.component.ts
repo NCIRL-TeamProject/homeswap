@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, HostListener } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -10,14 +10,32 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(public authService: AuthService) {
+  loggedInUser;
+  isMenuCollapsed = true;
+  mobile = false;
+  innerWidth;
 
+  constructor(public authService: AuthService) {
   }
 
   ngOnInit(): void {
+    this.setMobile(window.innerWidth);
+
+    this.authService.getLoggedInUser().subscribe(user => {
+      this.loggedInUser = user;;
+    });
   }
 
   logout() {
     this.authService.logout();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.setMobile(window.innerWidth);
+  }
+
+  setMobile(width: any) {
+    this.mobile = width <= 1000;
   }
 }

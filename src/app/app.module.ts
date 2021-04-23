@@ -3,34 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbDateAdapter, NgbDateParserFormatter, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
-import { AppComponent } from './app.component';
-import { RegistrationFormComponent } from './registration/registration-form/registration-form.component';
 import { AgmCoreModule, LAZY_MAPS_API_CONFIG } from '@agm/core';
 import { JwtModule } from '@auth0/angular-jwt';
-
-import { HeaderComponent } from './layout/header/header.component';
-import { FooterComponent } from './layout/footer/footer.component';
-import { AppRoutingModule } from './app-routing.module';
-import { environment } from 'src/environments/environment';
-import { BaseUrlInterceptor } from './Infrastructure/BaseUrlInterceptor';
-import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
-import { HomeComponent } from './components/home/home.component';
-import { HomeProfileComponent } from './components/home-profile/home-profile.component';
-import { AuthInterceptor } from './Infrastructure/auth/auth.interceptor';
-import { LoginComponent } from './components/login/login.component';
-import { HomeDetailComponent } from './components/home-detail/home-detail.component';
-import { agmConfigFactory } from './Infrastructure/agmConfigFactory';
-import { AccountComponent } from './components/account/account.component';
-import { MapComponent } from './components/map/map.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HomesListingFilterComponent } from './components/homes-listing-filter/homes-listing-filter.component';
-import { StepperComponent } from './components/stepper/stepper.component';
-import { HomesListingPipePipe } from './pipes/homes-listing-pipe.pipe';
-import { HomesForSwapListComponent } from './components/homes-for-swap-list/homes-for-swap-list.component';
-import { AccountRemoveComponent } from './components/account/account-remove/account-remove.component';
-import { PublishConfirmationModalComponent } from './components/publish-confirmation-modal/publish-confirmation-modal.component';
-import { AlertMessagesComponent } from './components/alert-messages/alert-messages.component';
-import { SendHomeSwapRequestComponent } from './components/send-home-swap-request/send-home-swap-request.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -39,13 +13,45 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { HomeSwapRequestConfirmationModalComponent } from './components/home-swap-request-confirmation-modal/home-swap-request-confirmation-modal.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { environment } from 'src/environments/environment';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { AccountRemoveComponent } from './components/account/account-remove/account-remove.component';
+import { AccountComponent } from './components/account/account.component';
+import { AlertMessagesComponent } from './components/alert-messages/alert-messages.component';
+import { HomeDetailComponent } from './components/home-detail/home-detail.component';
+import { HomeSwapRequestConfirmationModalComponent } from './components/home-detail/home-swap-request-confirmation-modal/home-swap-request-confirmation-modal.component';
+import { SendHomeSwapRequestComponent } from './components/home-detail/send-home-swap-request/send-home-swap-request.component';
+import { UserDetailsComponent } from './components/home-detail/user-details/user-details.component';
+import { HomeProfileComponent } from './components/home-profile/home-profile.component';
+import { PublishConfirmationModalComponent } from './components/home-profile/publish-confirmation-modal/publish-confirmation-modal.component';
+import { HomeComponent } from './components/home/home.component';
+import { HomesForSwapListComponent } from './components/homes-for-swap-list/homes-for-swap-list.component';
+import { HomesListingFilterComponent } from './components/homes-listing-filter/homes-listing-filter.component';
+import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
+import { LoginComponent } from './components/login/login.component';
+import { MapComponent } from './components/map/map.component';
 import { RequestManagementComponent } from './components/request-management/request-management.component';
+import { RequestMessagesComponent } from './components/request-management/request-messages/request-messages.component';
+import { StepperComponent } from './components/stepper/stepper.component';
+import { agmConfigFactory } from './Infrastructure/agmConfigFactory';
+import { AuthInterceptor } from './Infrastructure/auth/auth.interceptor';
+import { BaseUrlInterceptor } from './Infrastructure/BaseUrlInterceptor';
+import { FooterComponent } from './layout/footer/footer.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { HomesListingPipePipe } from './pipes/homes-listing-pipe.pipe';
 import { RequestStatusPipe } from './pipes/request-status.pipe';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AccountUpdateComponent } from './components/account/account-update/account-update.component';
 import { CustomAdapter } from './common/date-utilities/custom-adapter';
 import { CustomDateParserFormatter } from './common/date-utilities/custom-date-parser-formatter';
+import { RegistrationFormComponent } from './registration/registration-form/registration-form.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -76,6 +82,8 @@ export function tokenGetter() {
     RequestManagementComponent,
     RequestStatusPipe,
     AccountUpdateComponent
+    RequestMessagesComponent,
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +111,11 @@ export function tokenGetter() {
     MatExpansionModule,
     MatIconModule,
     MatListModule,
-    MatTabsModule
+    MatTabsModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatPaginatorModule
   ],
   providers: [
     {
