@@ -40,6 +40,7 @@ export class AccountRemoveComponent implements OnInit, OnDestroy {
       }
     }
     else {
+      // TODO: improve this by redirecting to login instead
       this.router.navigate(['register']);
     }
     this.isSubmitted = false;
