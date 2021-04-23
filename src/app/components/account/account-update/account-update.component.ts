@@ -30,6 +30,7 @@ export class AccountUpdateComponent implements OnInit, OnDestroy {
   warningMessage: string;
   private subscription: Subscription;
   defaultImageSrc = 'assets/account-assets/user_avatar.jpg';
+
   constructor(public formBuilder: FormBuilder,
               public router: Router,
               private modalService: NgbModal,
@@ -56,7 +57,7 @@ export class AccountUpdateComponent implements OnInit, OnDestroy {
     });
   }
 
-  private initializeUserSecurityForm(): void{
+  private initializeUserSecurityForm(): void {
     this.userSecurityForm = this.formBuilder.group({
       currentPassword: ['',
         [Validators.required, Validators.pattern(/^(?=.*?[a-z])(?=.*?[A-Z]).{8,}$/)]],
@@ -71,7 +72,7 @@ export class AccountUpdateComponent implements OnInit, OnDestroy {
       lastName: this.userDetails.lastName,
       email: this.userDetails.email,
       dbo: this.userDetails.dbo,
-      image: '',
+      image: this.userDetails.profileImage,
       fileInput: ''
     });
   }
@@ -227,9 +228,16 @@ export class AccountUpdateComponent implements OnInit, OnDestroy {
         ), catchError((err) => { this.errorMessage = err; return err; }))
         .toPromise().finally(() => {
           this.userBasicDetailsForm.patchValue({ fileInput: null });
-          this.userBasicDetailsForm.patchValue({ image: null });
         });
+      this.populateUserDetails();
     }
+  }
+
+  public getProfileImage(): string {
+    if (this.userDetails.profileImage != null && this.userDetails.profileImage !== '' && this.userDetails.profileImage !== undefined) {
+      return this.userDetails.profileImage;
+    }
+    return this.defaultImageSrc;
   }
 
   private canUpdatePicture(): boolean {
@@ -241,7 +249,7 @@ export class AccountUpdateComponent implements OnInit, OnDestroy {
   }
 
   private isNewImageProvided(): boolean {
-    const imageUploaded = this.userBasicDetailsForm.controls['image'].value;
+    const imageUploaded = this.userBasicDetailsForm.controls['fileInput'].value;
     if (imageUploaded !== '' && imageUploaded !== undefined && imageUploaded != null) {
       return true;
     }
