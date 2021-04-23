@@ -18,10 +18,12 @@ export class UserDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getUserBasicProfile(this.userId).pipe(
       map((res: Response) => {
+        this.user = new User();
         this.user.firstName = res['firstName'];
         this.user.lastName = res['lastName'];
         this.user.email = res['email'];
         this.user.dbo = res['dbo'];
+        this.user.profileImage = res['profileImage'];
         return this.user;
       })).toPromise();
   }

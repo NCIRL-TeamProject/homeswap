@@ -1,4 +1,4 @@
-<div class="d-flex align-items-center">
+<div *ngIf="user" class="d-flex align-items-center">
     <img [src]="user.profileImage ?user.profileImage: notAvailableImage.imageSrc" class="profileImage">
     <div class="ml-2">
         <h4>{{user.firstName + " "+ user.lastName}}</h4>
