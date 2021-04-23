@@ -68,18 +68,44 @@ export class AuthService {
       map((res: Response) => {
         return res || {};
       }),
-      catchError(this.handleError)
+      catchError((err) => this.handleError(err))
     );
   }
 
+  // refactor this to be delete
   removeAccount(user: User, id: string): Observable<any> {
     return this.httpClient.post(`api/user/delete/${id}`, user).pipe(
       map((res: Response) => {
         this.clearRemovedUserDetails(res);
         return res;
       }),
-      catchError((err) => { console.log(err); return this.handleError; }));
+      catchError((err) => { console.log(err); return this.handleError(err); }));
   }
+
+   updateAccount(user: User, id: string): Observable<any> {
+      return this.httpClient.put(`api/user/update/${id}`, user).pipe(
+        map((res: Response) => {
+          return res;
+        }),
+        catchError((err) => { console.log(err); return this.handleError(err); }));
+    }
+
+    updatePassword(user: User, id: string): Observable<any> {
+      return this.httpClient.put(`api/user/update/password/${id}`, user).pipe(
+        map((res: Response) => {
+          return res;
+        }),
+        catchError((err) => { console.log(err); return this.handleError(err); }));
+    }
+
+    updateProfilePicture(user: User, id: string): Observable<any> {
+      const formData: any = new FormData();
+      formData.append('profileImage', user.profileImage);
+      return this.httpClient.put(`api/user/update/picture/${id}`, formData).pipe(
+        map((res: Response) => {
+          return res;
+        }), catchError((err) => this.handleError(err)));
+    }
 
   private clearRemovedUserDetails(res: any): void {
     localStorage.removeItem('access_token');
@@ -96,7 +122,8 @@ export class AuthService {
       msg = error.error.message;
     } else {
       // server-side error
-      msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      // for testing: msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      msg = `Error Code: ${error.status}\nMessage: ${error.error.message}`;
     }
     return throwError(msg);
   }

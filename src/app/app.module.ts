@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateAdapter, NgbDateParserFormatter, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { RegistrationFormComponent } from './registration/registration-form/registration-form.component';
@@ -43,6 +43,9 @@ import { HomeSwapRequestConfirmationModalComponent } from './components/home-swa
 import { RequestManagementComponent } from './components/request-management/request-management.component';
 import { RequestStatusPipe } from './pipes/request-status.pipe';
 import { MatTabsModule } from '@angular/material/tabs';
+import { AccountUpdateComponent } from './components/account/account-update/account-update.component';
+import { CustomAdapter } from './common/date-utilities/custom-adapter';
+import { CustomDateParserFormatter } from './common/date-utilities/custom-date-parser-formatter';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -71,7 +74,8 @@ export function tokenGetter() {
     SendHomeSwapRequestComponent,
     HomeSwapRequestConfirmationModalComponent,
     RequestManagementComponent,
-    RequestStatusPipe
+    RequestStatusPipe,
+    AccountUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -120,6 +124,8 @@ export function tokenGetter() {
       multi: true,
     },
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    {provide: NgbDateAdapter, useClass: CustomAdapter},
+    {provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter},
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
