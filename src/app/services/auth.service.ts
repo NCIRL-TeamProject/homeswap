@@ -17,6 +17,10 @@ export class AuthService {
 
   loggedInUser$ = new BehaviorSubject<User>(undefined);
 
+  getLoggedInUserProfile(): string {
+    return this.isLoggedIn() ? localStorage.getItem('profileImage') : null;
+  }
+  
   getLoggedInUser(): Observable<User> {
     return this.loggedInUser$.asObservable();
   }

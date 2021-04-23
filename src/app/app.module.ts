@@ -45,7 +45,6 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { HomesListingPipePipe } from './pipes/homes-listing-pipe.pipe';
 import { RequestStatusPipe } from './pipes/request-status.pipe';
-import { MatTabsModule } from '@angular/material/tabs';
 import { AccountUpdateComponent } from './components/account/account-update/account-update.component';
 import { CustomAdapter } from './common/date-utilities/custom-adapter';
 import { CustomDateParserFormatter } from './common/date-utilities/custom-date-parser-formatter';
@@ -81,7 +80,7 @@ export function tokenGetter() {
     HomeSwapRequestConfirmationModalComponent,
     RequestManagementComponent,
     RequestStatusPipe,
-    AccountUpdateComponent
+    AccountUpdateComponent,
     RequestMessagesComponent,
     UserDetailsComponent
   ],

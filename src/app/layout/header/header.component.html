@@ -46,6 +46,8 @@
   <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
   <a class="nav-link" routerLink="/account-details" routerLinkActive="active"
     *ngIf="authService.isLoggedIn()">Account</a>
+    <a class="nav-link" routerLink="/account-update" routerLinkActive="active"
+    *ngIf="authService.isLoggedIn()">Update Account</a>
   <a class="nav-link" routerLink="/home-profile" routerLinkActive="active" *ngIf="authService.isLoggedIn()">Home
     Profile</a>
   <a class="nav-link" routerLink="/request-management" routerLinkActive="active"
