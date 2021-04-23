@@ -35,7 +35,7 @@ exports.getHomesForSwapping = (req, res) => {
         };
     }
 
-    Home.findAll({ where: whereFilter, order: [['updatedAt', 'DESC']] })
+    Home.findAll({ where: whereFilter })
         .then((h) => {
 
             homesBeforeMap = h.slice(from, to);

@@ -1,6 +1,6 @@
-<div class="container overflow-auto" style="max-height: 78vh !important">
+<div class="container" style="max-height: 58vh !important; min-height: 58vh !important">
     <form id="homeProfileForm" [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
-        <div class="row">
+        <div class="row overflow-auto align-items-end" style="max-height: 58vh !important; min-height: 58vh !important">
 
             <mat-list>
                 <mat-list-item *ngFor="let requestMessage of messages  ">
@@ -17,7 +17,7 @@
                 </mat-list-item>
             </mat-list>
         </div>
-        <div class="row mt-3">
+        <div class="row aheight:40% mt-4">
 
             <div class="col-md-7">
 

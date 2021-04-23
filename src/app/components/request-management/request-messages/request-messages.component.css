@@ -10,3 +10,9 @@
 .mat-list-base .mat-list-item .mat-line {
   white-space: normal !important;
 }
+
+mat-list {
+  flex-grow: 1;
+  /* border: 3px solid green; */
+  overflow: auto;
+}

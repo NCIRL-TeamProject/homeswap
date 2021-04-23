@@ -20,7 +20,8 @@ export class RequestManagementComponent implements OnInit {
   selectedReceivedRequest: HomeSwapRequest | undefined;
   selectedSentRequest: HomeSwapRequest | undefined;
   requestId;
-
+  requestStatus;
+  selectedTab = 0;
   constructor(private service: HomesForSwapServiceService,
     private authService: AuthService,
     public notAvailableImageService: NotAvailableImageService) { }
@@ -39,6 +40,7 @@ export class RequestManagementComponent implements OnInit {
 
       if (requests.length > 0) {
         this.selectedReceivedRequest = requests[0];
+        this.setRequestStatus(this.selectedReceivedRequest);
         this.populateHomeDetailsAndMessages(requests[0].fromHomeId.toString(), requests[0].id);
       }
     })
@@ -46,19 +48,25 @@ export class RequestManagementComponent implements OnInit {
 
   receivedRequestSelectionChange(event: any) {
     this.selectedReceivedRequest = event.option.value;
+    this.setRequestStatus(this.selectedReceivedRequest);
     this.populateHomeDetailsAndMessages(event.option.value.fromHomeId, event.option.value.id);
   }
 
   sentRequestSelectionChange(event: any) {
     this.selectedSentRequest = event.option.value;
+    this.setRequestStatus(this.selectedSentRequest);
     this.populateHomeDetailsAndMessages(event.option.value.toHomeId, event.option.value.id);
   }
 
   tabChanged(event: any) {
     if (event.index == 1 && this.sentRequests.length > 0) {
+      this.selectedTab = 1;
+      this.setRequestStatus(this.selectedSentRequest);
       //Requests sent tab     
       this.populateHomeDetailsAndMessages(this.selectedSentRequest?.toHomeId, this.selectedSentRequest?.id);
     } else if (event.index == 0 && this.receivedRequests.length > 0) {
+      this.selectedTab = 0;
+      this.setRequestStatus(this.selectedReceivedRequest);
       //Requests received tab
       this.populateHomeDetailsAndMessages(this.selectedReceivedRequest?.fromHomeId, this.selectedReceivedRequest?.id);
     }
@@ -72,5 +80,9 @@ export class RequestManagementComponent implements OnInit {
     this.service.getHomeDetails(homeId).subscribe((data: Home) => {
       this.home = data;
     });
+  }
+
+  private setRequestStatus(request: HomeSwapRequest) {
+    this.requestStatus = request?.status;
   }
 }
