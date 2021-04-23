@@ -38,13 +38,15 @@ export class AccountComponent implements OnInit {
     return userId;
   }
 
-  private getUserDetails(id: any) {
-    this.authService.getUserBasicProfile(id).subscribe((user) => {
-      this.userDetails.firstName = user.firstName;
-      this.userDetails.lastName = user.lastName;
-      this.userDetails.email = user.email;
-      this.userDetails.dbo = user.dbo;
-      return user;
-    });
+  private getUserDetails(id: any): User {
+    this.authService.getUserBasicProfile(id).pipe(
+      map((res: Response) => {
+        this.userDetails.firstName = res['firstName'];
+        this.userDetails.lastName = res['lastName'];
+        this.userDetails.email = res['email'];
+        this.userDetails.dbo = res['dbo'];
+        return this.userDetails;
+      })).toPromise();
+    return null;
   }
 }

@@ -17,6 +17,10 @@ export class AuthService {
 
   loggedInUser$ = new BehaviorSubject<User>(undefined);
 
+  getLoggedInUserProfile(): string {
+    return this.isLoggedIn() ? localStorage.getItem('profileImage') : null;
+  }
+  
   getLoggedInUser(): Observable<User> {
     return this.loggedInUser$.asObservable();
   }
@@ -88,29 +92,50 @@ export class AuthService {
     return this.isLoggedIn() ? localStorage.getItem('email') : null;
   }
 
-  getLoggedInUserProfile(): string {
-    return this.isLoggedIn() ? localStorage.getItem('profileImage') : null;
+  getUserBasicProfile(id): Observable<Response> {
+    return this.httpClient.get(`api/users/profile/${id}`
+    ).pipe(
+      map((res: Response) => {
+        return res || {};
+      }),
+      catchError((err) => this.handleError(err))
+    );
   }
 
-  getUserBasicProfile(id): Observable<User> {
-    return this.httpClient.get<User>(`api/users/profile/${id}`);
-  }
-
-  // getLoggedInUser(): Observable<User> {
-  //   const userId = this.getLoggedInUserId();
-
-  //   if (!userId) return;
-  //   return this.httpClient.get<User>(`api/users/profile/${userId}`);
-  // }
-
+  // refactor this to be delete
   removeAccount(user: User, id: string): Observable<any> {
     return this.httpClient.post(`api/user/delete/${id}`, user).pipe(
       map((res: Response) => {
         this.clearRemovedUserDetails(res);
         return res;
       }),
-      catchError((err) => { console.log(err); return this.handleError; }));
+      catchError((err) => { console.log(err); return this.handleError(err); }));
   }
+
+   updateAccount(user: User, id: string): Observable<any> {
+      return this.httpClient.put(`api/user/update/${id}`, user).pipe(
+        map((res: Response) => {
+          return res;
+        }),
+        catchError((err) => { console.log(err); return this.handleError(err); }));
+    }
+
+    updatePassword(user: User, id: string): Observable<any> {
+      return this.httpClient.put(`api/user/update/password/${id}`, user).pipe(
+        map((res: Response) => {
+          return res;
+        }),
+        catchError((err) => { console.log(err); return this.handleError(err); }));
+    }
+
+    updateProfilePicture(user: User, id: string): Observable<any> {
+      const formData: any = new FormData();
+      formData.append('profileImage', user.profileImage);
+      return this.httpClient.put(`api/user/update/picture/${id}`, formData).pipe(
+        map((res: Response) => {
+          return res;
+        }), catchError((err) => this.handleError(err)));
+    }
 
   private clearRemovedUserDetails(res: any): void {
     localStorage.removeItem('access_token');
@@ -127,7 +152,8 @@ export class AuthService {
       msg = error.error.message;
     } else {
       // server-side error
-      msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      // for testing: msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      msg = `Error Code: ${error.status}\nMessage: ${error.error.message}`;
     }
     return throwError(msg);
   }
