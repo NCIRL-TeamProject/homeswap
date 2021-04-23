@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { User } from 'src/app/Models/user';
+import { AccountService } from './_services/account.service';
+import { NgbCalendar, NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-account',
@@ -12,9 +11,10 @@ import { User } from 'src/app/Models/user';
 })
 export class AccountComponent implements OnInit {
   userDetails: User;
-  private subscription: Subscription;
 
-  constructor(public authService: AuthService, public router: Router) { }
+  constructor(private router: Router, private accountService: AccountService,
+              private ngbCalendar: NgbCalendar, private dateAdapter: NgbDateAdapter<string>,
+              private customDateParserFormatter: NgbDateParserFormatter) { }
 
   ngOnInit(): void {
     this.populateUserDetails();
@@ -22,7 +22,7 @@ export class AccountComponent implements OnInit {
 
   populateUserDetails(): void {
     this.userDetails = new User();
-    const userId: any = this.getUserLoggedId();
+    const userId: any = this.accountService.getUserId();
     if (userId != null) {
       this.getUserDetails(userId);
     }
@@ -32,21 +32,30 @@ export class AccountComponent implements OnInit {
     }
   }
 
-  private getUserLoggedId(): string {
-    let userId: string = null;
-    userId = this.authService.getLoggedInUserId();
-    return userId;
+  public getProfileImage(): string {
+    return this.accountService.getProfileImage(this.userDetails.profileImage);
   }
 
-  private getUserDetails(id: any): User {
-    this.authService.getUserBasicProfile(id).pipe(
-      map((res: Response) => {
-        this.userDetails.firstName = res['firstName'];
-        this.userDetails.lastName = res['lastName'];
-        this.userDetails.email = res['email'];
-        this.userDetails.dbo = res['dbo'];
-        return this.userDetails;
-      })).toPromise();
-    return null;
+  // needed for ngdatepicker
+  get today(): string {
+    return this.dateAdapter.toModel(this.ngbCalendar.getToday());
+  }
+
+  private getUserDetails(userId: string): void {
+    this.userDetails = new User();
+    if (userId != null) {
+      this.accountService.getUserDetails(userId).subscribe(user => {
+      const formattedDate = this.customDateParserFormatter.parse(user.dbo);
+      this.userDetails.email = user.email;
+      this.userDetails.dbo = this.customDateParserFormatter.format(formattedDate);
+      this.userDetails.firstName = user.firstName;
+      this.userDetails.lastName = user.lastName;
+      this.userDetails.profileImage = user.profileImage;
+      });
+    }
+    else {
+      // session expired
+      this.router.navigate(['login']);
+    }
   }
 }
