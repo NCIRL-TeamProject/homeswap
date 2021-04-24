@@ -25,7 +25,8 @@ exports.getHomesForSwapping = (req, res) => {
                 {
                     [Op.or]: [
                         { city: { [Op.iLike]: '%' + place + '%' } },
-                        { county: { [Op.iLike]: '%' + place + '%' } }
+                        { county: { [Op.iLike]: '%' + place + '%' } },
+                        { country: { [Op.iLike]: '%' + place + '%' } }
                     ]
                 },
                 {

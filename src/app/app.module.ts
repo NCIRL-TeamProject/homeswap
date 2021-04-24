@@ -52,6 +52,7 @@ import { RegistrationFormComponent } from './registration/registration-form/regi
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ApproveOrRejectRequestComponent } from './components/request-management/approve-or-reject-request/approve-or-reject-request.component';
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -103,6 +104,7 @@ export function tokenGetter() {
       apiKey: 'innitialKey',
       libraries: ['places']
     }),
+    MatGoogleMapsAutocompleteModule,
     FontAwesomeModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
@@ -116,7 +118,8 @@ export function tokenGetter() {
     MatMenuModule,
     MatButtonModule,
     MatButtonToggleModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+
   ],
   providers: [
     {
@@ -137,8 +140,8 @@ export function tokenGetter() {
       multi: true,
     },
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
-    {provide: NgbDateAdapter, useClass: CustomAdapter},
-    {provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter},
+    { provide: NgbDateAdapter, useClass: CustomAdapter },
+    { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter },
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

@@ -23,6 +23,7 @@ export class UserDetailsComponent implements OnInit {
         this.user.lastName = res['lastName'];
         this.user.email = res['email'];
         this.user.dbo = res['dbo'];
+        this.user.joinedIn = res['joinedIn'];
         this.user.profileImage = res['profileImage'];
         return this.user;
       })).toPromise();

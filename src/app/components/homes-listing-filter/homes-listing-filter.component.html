@@ -1,32 +1,5 @@
-<form id="homeProfileForm" [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
-    <div class="row">
-
-        <div class="col-md-7">
-
-            <label for="place" class="col-form-label">Where would you like to go?</label>
-            <input id="place" type="text" formControlName="place" class="form-control"
-                placeholder="Enter any place in Ireland" maxlength="20" required>
-        </div>
-        <!-- <div>
-                Beds
-                <fa-icon [icon]="faPlus" (click)="increment()">
-                </fa-icon>
-                {{value}}
-                <fa-icon [icon]="faMinus" (click)="decrement()">
-                </fa-icon>
-            </div>
-            <div>
-                Bedrooms
-                <fa-icon [icon]="faPlus" (click)="increment()">
-                </fa-icon>
-                {{value}}
-                <fa-icon [icon]="faMinus" (click)="decrement()">
-                </fa-icon>
-            </div> -->
-
-        <div class="col-md-5 d-flex  align-items-end">
-            <button type="submit" class="btn btn-primary">Search homes for swapping</button>
-        </div>
-
-    </div>
-</form>
+<mat-google-maps-autocomplete [country]="['ie']" type="cities" addressLabelText="Where would you like to go?"
+    placeholderText="Enter any place in Ireland" (onAutocompleteSelected)="onAutocompleteSelected($event)"
+    (onLocationSelected)="onLocationSelected($event)" invalidErrorText="The place is not valid"
+    [appearance]="appearance.OUTLINE">
+</mat-google-maps-autocomplete>
