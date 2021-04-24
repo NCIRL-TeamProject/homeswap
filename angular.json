@@ -28,8 +28,9 @@
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.css"
             ],
-            "scripts": [
-             
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "rxjs/internal/Subject"
             ]
           },
           "configurations": {
