@@ -12,7 +12,7 @@
                                     [src]="request.fromUser?.profileImage ? request.fromUser?.profileImage:  notAvailableImageService.imageSrc"
                                     class="custom-image-userProfile" />
                                 <div mat-line>
-                                    {{request.fromUser?.firstName}}, {{request.fromHome?.city ?request.fromHome?.city:
+                                    {{request.fromUser?.firstName}}, {{request.fromHome?.city ? request.fromHome?.city:
                                     (request.fromHome?.county?request.fromHome?.county : request.fromHome?.country ) }},
                                     {{request.createdAt
                                     |
@@ -42,8 +42,9 @@
                                     [src]="request.toUser?.profileImage ? request.toUser?.profileImage:notAvailableImageService.imageSrc"
                                     class="custom-image-userProfile">
                                 <div mat-line>
-
-                                    {{request.toUser?.firstName}}, {{request.toHome?.city}}, {{request.createdAt | date:
+                                    {{request.toUser?.firstName}}, {{request.toHome?.city ? request.toHome?.city:
+                                    (request.toHome?.county?request.toHome?.county : request.toHome?.country ) }},
+                                    {{request.createdAt | date:
                                     'dd/MM/yyyy'}}
                                 </div>
                                 <div mat-line> {{request.checkin | date: 'dd/MM/yyyy'}} - {{request.checkout | date:
@@ -84,8 +85,10 @@
         </div>
         <div class="col-md-3">
             <div *ngIf="home">
-                <img [src]="home.image ? home.image: notAvailableImageService.imageSrc" class="custom-image">
-                <h3>{{home.title}}</h3>
+                <a [routerLink]="['/home-details', home.id]" routerLinkActive="active">
+                    <img [src]="home.image ? home.image: notAvailableImageService.imageSrc" class="custom-image">
+                    <h3 style="color: black;">{{home.title}}</h3>
+                </a>
                 <p>{{home.bedrooms }} bedrooms
                     <span class="ml-2">
                         <fa-icon [icon]="faBed" class="mr-2"></fa-icon>{{home.beds }}

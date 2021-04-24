@@ -11,7 +11,7 @@
 
             <div class="d-flex justify-content-between p-3 bg-white mb-3 align-items-center">
                 <div id="productsRow" class="row g-4">
-                    <div *ngFor="let home of homes |  homesListingPipe: filter as filtered"
+                    <div *ngFor="let home of homes | homesListingPipe: filter as filtered"
                         [ngClass]="(filtered.length ==1)?'col-md-12':'col-md-3'" class="d-flex align-items-stretch">
                         <div class="card" style="width: 18rem;margin-bottom: 10px;">
 
