@@ -16,6 +16,11 @@ app.use(express.json({ limit: '50mb' }));
 
 if (process.env.NODE_ENV !== 'production') {
     app.use(cors());
+} else if (process.env.REDIRECT_TO_HTTPS) {
+    var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
+    const ignoreHosts = [];
+    const ignoreRoutes = [];
+    app.use(redirectToHTTPS(ignoreHosts, ignoreRoutes));
 }
 
 // Serve only the static files form the dist directory
