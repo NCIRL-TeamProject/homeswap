@@ -6,16 +6,16 @@
         <form [formGroup]="userBasicDetailsForm">
           <div class="row">
             <div class="col-md-4 border-right">
-              <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                <img class="img-fluid" [src]="getProfileImage()" alt="profileImage"
-                  width="90">
+              <div class="d-flex flex-column align-items-center text-center p-3
+                py-5">
+                <img class="img-fluid" [src]="getProfileImage()" alt="profileImage" width="90">
                 <span class="font-weight-bold">{{userDetails.firstName}}</span>
                 <span class="text-black-50">{{userDetails.email}}</span><span></span>
               </div>
               <div class="form-group">
                 <div class="input-group shadow">
-                  <input type="file" id="inputFileId" class="upload btn-outline-primary" formControlName="fileInput"
-                    (change)="onFileChange($event)">
+                  <input type="file" id="inputFileId" class="upload
+                    btn-outline-primary" formControlName="fileInput" (change)="onFileChange($event)">
                   <hidden id="image" ngDefaultControl formControlName="image"></hidden>
                 </div>
               </div>
@@ -25,7 +25,8 @@
             </div>
             <div class="col-md-8">
               <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="d-flex justify-content-between align-items-center
+                  mb-3">
                   <div class="d-flex flex-row align-items-center back"><i class="fa fa-long-arrow-left mr-1 mb-1"></i>
                     <h6>Profile</h6>
                   </div>
@@ -63,29 +64,16 @@
                   </div>
                 </div>
                 <div class="row mt-3">
-                  <div class="col-md-12">
-                    <label for="dateOfBirth">Date of birth</label>
-                    <div class="input-group">
-                      <input class="form-control" placeholder="dd/mm/yyyy" name="dbo" formControlName="dbo"
-                        ngbDatepicker #dbo="ngbDatepicker">
-                      <div class="input-group-append">
-                        <button class="btn btn-outline-secondary calendar" (click)="dbo.toggle()"
-                          type="button"></button>
-                      </div>
-                    </div>
-                    <div *ngIf="isInvalidUserBasicDetailsFormInput('dbo')" class="alert alert-danger">
-                      <div *ngIf="userBasicDetailsForm.controls['dbo'].errors.required">
-                        Date of birth is required.
-                      </div>
-                      <div *ngIf="userBasicDetailsForm.controls['dbo'].errors.pattern">
-                        Must be a valid date format. Valid format 'DD/MM/YYYY'.
-                      </div>
-                    </div>
+                  <div class="col-md-12"> <input disabled formControlName="dbo" matInput placeholder="Date of Birth"
+                      [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker disabled="false"></mat-datepicker>
                   </div>
                 </div>
                 <ng-template #content let-modal>
                   <div class="modal-header">
-                    <h4 class="modal-title" id="modal-basic-title">Please enter your password</h4>
+                    <h4 class="modal-title" id="modal-basic-title">Please enter
+                      your password</h4>
                     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -102,8 +90,10 @@
                           Password is required.
                         </div>
                         <div *ngIf="userBasicDetailsForm.controls['password'].errors.pattern">
-                          A Minimum of 8 Characters input with one lowercase letter
-                          and one uppercase letter and any possible character accepted.
+                          A Minimum of 8 Characters input with one lowercase
+                          letter
+                          and one uppercase letter and any possible character
+                          accepted.
                         </div>
                       </div>
                     </div>
@@ -137,8 +127,10 @@
                         Current Password is required.
                       </div>
                       <div *ngIf="userSecurityForm.controls['currentPassword'].errors.pattern">
-                        A Minimum of 8 Characters input with one lowercase letter
-                        and one uppercase letter and any possible character accepted.
+                        A Minimum of 8 Characters input with one lowercase
+                        letter
+                        and one uppercase letter and any possible character
+                        accepted.
                       </div>
                     </div>
                   </div>
@@ -153,15 +145,18 @@
                         New Password is required.
                       </div>
                       <div *ngIf="userSecurityForm.controls['newPassword'].errors.pattern">
-                        A Minimum of 8 Characters input with one lowercase letter
-                        and one uppercase letter and any possible character accepted.
+                        A Minimum of 8 Characters input with one lowercase
+                        letter
+                        and one uppercase letter and any possible character
+                        accepted.
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="row mt-2">
                   <div class="col-md-6">
-                    <label class="form-label" for="confirmNewPasswordForm">Confirm New Password</label>
+                    <label class="form-label" for="confirmNewPasswordForm">Confirm
+                      New Password</label>
                     <input type="password" formControlName="confirmNewPassword" id="confirmNewPasswordForm"
                       class="form-control" required />
                     <div *ngIf="isInvalidUserSecurityFormInput('confirmNewPassword')" class="alert alert-danger">
@@ -169,27 +164,31 @@
                         Confirm New Password is required.
                       </div>
                       <div *ngIf="userSecurityForm.controls['confirmNewPassword'].errors.pattern">
-                        A Minimum of 8 Characters input with one lowercase letter
-                        and one uppercase letter and any possible character accepted.
+                        A Minimum of 8 Characters input with one lowercase
+                        letter
+                        and one uppercase letter and any possible character
+                        accepted.
                       </div>
                     </div>
-                    <div class="alert alert-danger" *ngIf="!passwordMatch() && userSecurityForm.controls['confirmNewPassword'].touched">
+                    <div class="alert alert-danger" *ngIf="!passwordMatch() &&
+                      userSecurityForm.controls['confirmNewPassword'].touched">
                       New Password and Confirm Password don't match.
-                     </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <button type="button" class="btn btn-lg btn-outline-primary" *ngIf="canUpdatePassword()" (click)="updatePassword()">Save</button>
+              <button type="button" class="btn btn-lg btn-outline-primary" *ngIf="canUpdatePassword()"
+                (click)="updatePassword()">Save</button>
             </div>
           </div>
         </form>
       </ng-template>
     </li>
   </ul>
-  <app-alert-messages [errorMessage]="errorMessage" [successMessage]="successMessage"
-  [warningMessage]="warningMessage" (successMessageChange)="successMessage=undefined"
-  (warningMessageChange)="warningMessage=undefined" (erroressageChange)="errorMessage=undefined">
-</app-alert-messages>
+  <app-alert-messages [errorMessage]="errorMessage" [successMessage]="successMessage" [warningMessage]="warningMessage"
+    (successMessageChange)="successMessage=undefined" (warningMessageChange)="warningMessage=undefined"
+    (erroressageChange)="errorMessage=undefined">
+  </app-alert-messages>
   <div [ngbNavOutlet]="nav" class="mt-2">
   </div>
 </div>

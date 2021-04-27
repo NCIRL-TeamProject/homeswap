@@ -32,12 +32,10 @@
                 <div class="row mt-3">
                     <div class="col-md-12">
                         <label for="dateOfBirth">Date of birth</label>
-                        <div class="input-group">
-                            <input class="form-control" placeholder="dd/mm/yyyy" name="dbo" value="{{userDetails.dbo}}"
-                                ngbDatepicker #dbo="ngbDatepicker" disabled="true">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary calendar" type="button" disabled="true"></button>
-                            </div>
+                        <div class="col-md-12"> <input disabled value="{{userDetails.dbo}}" matInput placeholder="Date of Birth"
+                            [matDatepicker]="picker">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker disabled="true"></mat-datepicker>
                         </div>
                     </div>
                 </div>
