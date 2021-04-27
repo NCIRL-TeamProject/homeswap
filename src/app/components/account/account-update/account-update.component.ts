@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/Models/user';
-import { NgbModal, ModalDismissReasons, NgbCalendar, NgbDateAdapter, NgbNav, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbNav } from '@ng-bootstrap/ng-bootstrap';
 import { AccountService } from '../_services/account.service';
 import { catchError, map } from 'rxjs/operators';
 
@@ -34,8 +34,7 @@ export class AccountUpdateComponent implements OnInit, OnDestroy {
   constructor(public formBuilder: FormBuilder,
               public router: Router,
               private modalService: NgbModal,
-              private accountService: AccountService, private ngbCalendar: NgbCalendar, private dateAdapter: NgbDateAdapter<string>,
-              private customDateParserFormatter: NgbDateParserFormatter) {
+              private accountService: AccountService) {
     this.initializeUserBasicDetailsForm();
     this.initializeUserSecurityForm();
   }
@@ -50,7 +49,7 @@ export class AccountUpdateComponent implements OnInit, OnDestroy {
       email: [{ value: '', disabled: true }, Validators.required],
       firstName: ['', [Validators.required, Validators.maxLength(20)]],
       lastName: ['', [Validators.required, Validators.maxLength(20)]],
-      dbo: ['', [Validators.required, Validators.pattern(/^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/)]],
+      dbo: ['', [Validators.required]],
       password: ['', Validators.pattern(/^(?=.*?[a-z])(?=.*?[A-Z]).{8,}$/)],
       image: [''],
       fileInput: ['']
@@ -77,22 +76,16 @@ export class AccountUpdateComponent implements OnInit, OnDestroy {
     });
   }
 
-  // needed for ngdatepicker
-  get today(): string {
-    return this.dateAdapter.toModel(this.ngbCalendar.getToday());
-  }
-
   populateUserDetails(): void {
     this.userDetails = new User();
     const userId: any = this.accountService.getUserId();
     if (userId != null) {
       this.accountService.getUserDetails(userId).subscribe(user => {
         this.userDetails.email = user.email;
-        const formattedDate = this.customDateParserFormatter.parse(user.dbo);
-        this.userDetails.dbo = this.dateAdapter.toModel(formattedDate);
         this.userDetails.firstName = user.firstName;
         this.userDetails.lastName = user.lastName;
         this.userDetails.profileImage = user.profileImage;
+        this.userDetails.dbo = user.dbo;
         this.populateUserBasicDetailsForm();
       });
     }
@@ -144,10 +137,9 @@ export class AccountUpdateComponent implements OnInit, OnDestroy {
   private getUserToBeUpdated(user: User): User {
     if (this.userBasicDetailsForm.valid) {
       const formModel = this.userBasicDetailsForm.value;
-      const formattedDate = this.dateAdapter.fromModel(formModel.dbo);
       user.firstName = formModel.firstName;
       user.lastName = formModel.lastName;
-      user.dbo = this.customDateParserFormatter.format(formattedDate);
+      user.dbo = formModel.dbo;
       user.password = formModel.password;
       return user;
     }
@@ -163,7 +155,6 @@ export class AccountUpdateComponent implements OnInit, OnDestroy {
   }
 
   private updateUser(user: User, userId: string): void {
-    this.accountService.updateUser(user, userId);
     this.accountService.updateUser(user, userId).pipe(
       map(
         (res) => {
