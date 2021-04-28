@@ -23,10 +23,12 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     dbo: DataTypes.STRING,
-    profileImage: DataTypes.BLOB
+    profileImage: DataTypes.BLOB,
+    deletedAt: DataTypes.DATE
   }, {
     sequelize,
-    modelName: 'User',
+    paranoid: true,
+    modelName: 'User'
   });
   return User;
 };

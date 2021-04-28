@@ -33,6 +33,7 @@ exports.userBasicDetails = (req, res) => {
 
 exports.accountRemove = (req, res) => {
     const userId = req.params.id;
+    const deletedValue = 'deleted';
     if (!userId) {
         return res.status(400).send({ message: "User Not found." });
     }
@@ -61,13 +62,21 @@ exports.accountRemove = (req, res) => {
                     message: "Invalid Password"
                 });
             }
+            // The below line will perform a soft delete as we have included a paranoid property in the model
+            // and when we send destroy without "force: true" it will change the deletedAt date and any subsequent get will not retrieve records with a timestamp for the deletedAt
+            // https://sequelize.org/master/class/lib/model.js~Model.html#instance-method-isSoftDeleted
+            user.destroy();
+            //
 
-            User.destroy({
-                where: {
-                    id: userId
-                }
+            user.update({
+                email: deletedValue,
+                firstName: deletedValue,
+                profileImage: deletedValue,
+                lastName: deletedValue
             })
+
                 .then(() => {
+
                     res.send({ message: "User was removed successfully" });
                 })
                 .catch(err => {
@@ -77,7 +86,9 @@ exports.accountRemove = (req, res) => {
         .catch(err => {
             res.status(500).send({ message: err.message });
         });
+
 };
+
 
 exports.accountUpdateBasicDetails = (req, res) => {
     const userId = req.params.id;

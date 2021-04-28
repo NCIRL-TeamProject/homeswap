@@ -26,9 +26,11 @@ module.exports = (sequelize, DataTypes) => {
     toUserId: DataTypes.INTEGER,
     fromHomeId: DataTypes.INTEGER,
     fromUserId: DataTypes.INTEGER,
-    createdAt: DataTypes.DATE
+    createdAt: DataTypes.DATE,
+    deletedAt: DataTypes.DATE
   }, {
     sequelize,
+    paranoid: true,
     modelName: 'HomeSwapRequest',
   });
   return HomeSwapRequest;
