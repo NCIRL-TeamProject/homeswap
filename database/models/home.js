@@ -28,9 +28,11 @@ module.exports = (sequelize, DataTypes) => {
     postCode: DataTypes.STRING,
     published: DataTypes.BOOLEAN,
     userId: DataTypes.INTEGER,
-    image: DataTypes.BLOB
+    image: DataTypes.BLOB,
+    deletedAt: DataTypes.DATE
   }, {
     sequelize,
+    paranoid: true,
     modelName: 'Home',
   });
   return Home;

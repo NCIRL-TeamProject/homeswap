@@ -17,9 +17,11 @@ module.exports = (sequelize, DataTypes) => {
   };
   RequestMessage.init({
     message: DataTypes.STRING,
-    userId: DataTypes.INTEGER
+    userId: DataTypes.INTEGER,
+    deletedAt: DataTypes.DATE
   }, {
     sequelize,
+    paranoid: true,
     modelName: 'RequestMessage',
   });
   return RequestMessage;

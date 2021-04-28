@@ -6,4 +6,5 @@ export class User {
     password: string;
     joinedIn: Date;
     profileImage: string;
+    deletedAt: Date;
 }
