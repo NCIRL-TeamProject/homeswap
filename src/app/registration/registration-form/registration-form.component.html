@@ -1,6 +1,7 @@
 <div class="container">
     <form class="text-center border border-light p-5" [formGroup]="registerForm">
-        <ngb-alert #selfClosingAlert *ngIf="successRedirectMessage != null && successRedirectMessage != undefined" type="success" (closed)="successRedirectMessage = ''">{{ successRedirectMessage }}
+        <ngb-alert #selfClosingAlert *ngIf="successRedirectMessage != null && successRedirectMessage != undefined"
+            type="success" (closed)="successRedirectMessage = ''">{{ successRedirectMessage }}
         </ngb-alert>
         <p class="h4 mb-4">Sign up</p>
         <!-- 2 column grid layout with text inputs for the first and last names -->
@@ -10,25 +11,26 @@
                     <label class="form-label" for="firstName">First name</label>
                     <input type="text" id="defaultRegisterFormFirstName" class="form-control"
                         formControlName="firstName" required>
-                        <div *ngIf="isValidInput('firstName')" class="alert alert-danger">
-                            <div *ngIf="registerForm.controls['firstName'].errors.required">
-                                First name is required.
-                            </div>
-                            <div *ngIf="registerForm.controls['firstName'].errors.maxlength">
-                                Max number of characters is 20.
-                            </div>
+                    <div *ngIf="isValidInput('firstName')" class="alert alert-danger">
+                        <div *ngIf="registerForm.controls['firstName'].errors.required">
+                            First name is required.
                         </div>
+                        <div *ngIf="registerForm.controls['firstName'].errors.maxlength">
+                            Max number of characters is 20.
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col">
                 <div class="form-outline"><label class="form-label" for="lastName">Last name</label>
-                    <input type="text" id="defaultRegisterFormLastName" class="form-control" formControlName="lastName" required>
+                    <input type="text" id="defaultRegisterFormLastName" class="form-control" formControlName="lastName"
+                        required>
                     <div *ngIf="isValidInput('lastName')" class="alert alert-danger">
                         <div *ngIf="registerForm.controls['lastName'].errors.required">
                             Last name is required.
                         </div>
                         <div *ngIf="registerForm.controls['lastName'].errors.maxlength">
-                           Max number of characters is 20.
+                            Max number of characters is 20.
                         </div>
                     </div>
                 </div>
@@ -52,54 +54,56 @@
             </div>
             <div class="col">
                 <div class="form-outline"><label class="form-label" for="form3Example2">Date of birth</label>
-                    <input type="text" id="defaultRegisterFormDBO" class="form-control mb-4" placeholder="DD/MM/YYYY" formControlName="dbo"
-                        required>
-                        <div *ngIf="isValidInput('dbo')" class="alert alert-danger">
-                            <div *ngIf="registerForm.controls['dbo'].errors.required">
-                                Date of birth is required.
-                            </div>
-                            <div *ngIf="registerForm.controls['dbo'].errors.pattern">
-                                Must be a valid date format. Valid format 'DD/MM/YYYY'. 
-                            </div>
+                    <div class="d-flex flex-row">
+                        <input disabled class="form-control mb-4" formControlName="dbo" matInput
+                            [matDatepicker]="picker" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker disabled="false"></mat-datepicker>
+                    </div>
+                    <div *ngIf="isValidInput('dbo')" class="alert alert-danger">
+                        <div *ngIf="registerForm.controls['dbo'].errors.required">
+                            Date of birth is required.
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div *ngIf="!stepOneCompleted">
-        <button type="submit" class="btn btn-primary btn-block mb-4" (click)="submitForm()">Continue</button></div>
+            <button type="submit" class="btn btn-primary btn-block mb-4" (click)="submitForm()">Continue</button>
+        </div>
         <div *ngIf="stepOneCompleted">
             <!-- Password input -->
             <div class="form-outline mb-4">
                 <label class="form-label" for="defaultRegisterPasswordForm">Password</label>
-                <input type="password" id="defaultRegisterPasswordForm" class="form-control"
-                    formControlName="password" required/>
-                    <div *ngIf="isValidInput('password')" class="alert alert-danger">
-                        <div *ngIf="registerForm.controls['password'].errors.required">
-                            Password is required.
-                        </div>
-                        <div *ngIf="registerForm.controls['password'].errors.pattern">
-                            A Minimum of 8 Characters input with one lowercase letter
-                            and one uppercase letter and any possible character accepted.
-                        </div>
+                <input type="password" id="defaultRegisterPasswordForm" class="form-control" formControlName="password"
+                    required />
+                <div *ngIf="isValidInput('password')" class="alert alert-danger">
+                    <div *ngIf="registerForm.controls['password'].errors.required">
+                        Password is required.
                     </div>
+                    <div *ngIf="registerForm.controls['password'].errors.pattern">
+                        A Minimum of 8 Characters input with one lowercase letter
+                        and one uppercase letter and any possible character accepted.
+                    </div>
+                </div>
             </div>
             <div class="form-outline mb-4">
                 <label class="form-label" for="defaultRegisterConfirmPasswordForm">Confirm
                     Password</label>
                 <input type="password" id="defaultRegisterConfirmPasswordForm" class="form-control"
                     formControlName="confirmPassword" />
-                    <div *ngIf="isValidInput('confirmPassword')" class="alert alert-danger">
-                        <div *ngIf="registerForm.controls['confirmPassword'].errors.required">
-                            Password is required.
-                        </div>
-                        <div *ngIf="registerForm.controls['confirmPassword'].errors.pattern">
-                            A minimun of 8 Characters input with one lowercase letter
-                            and one uppercase letter and any possible character accepted.
-                        </div>
-                        <div *ngIf="registerForm.controls['confirmPassword'].errors.pattern">
-                            Password and Confirm Password must be match.
-                        </div>
+                <div *ngIf="isValidInput('confirmPassword')" class="alert alert-danger">
+                    <div *ngIf="registerForm.controls['confirmPassword'].errors.required">
+                        Password is required.
                     </div>
+                    <div *ngIf="registerForm.controls['confirmPassword'].errors.pattern">
+                        A minimun of 8 Characters input with one lowercase letter
+                        and one uppercase letter and any possible character accepted.
+                    </div>
+                    <div *ngIf="registerForm.controls['confirmPassword'].errors.pattern">
+                        Password and Confirm Password must be match.
+                    </div>
+                </div>
             </div>
             <!-- Submit button -->
             <button type="submit" class="btn btn-primary btn-block mb-4" (click)="submitForm()">Sign up</button>

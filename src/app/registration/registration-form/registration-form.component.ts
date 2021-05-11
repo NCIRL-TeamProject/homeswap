@@ -18,6 +18,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   user: User;
   registerForm: FormGroup;
   stepOneCompleted = false;
+  isValidDbo = false;
   confirmMatches = false;
   staticAlertClosed = false;
   successRedirectMessage: string;
@@ -38,7 +39,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       firstName: ['', [Validators.required, Validators.maxLength(20)]],
       lastName: ['', [Validators.required, Validators.maxLength(20)]],
       email: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$')]],
-      dbo: ['', [Validators.required, Validators.pattern(/^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/)]],
+      dbo: ['', [Validators.required]],
       // Password fields will be set as required after step one is completed
       password: [''],
       confirmPassword: ['']
@@ -67,6 +68,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   }
 
   private prepareForm(): void {
+    this.isValidDbo = true;
     const formModel = this.registerForm.value;
     if (this.registerForm.valid) {
       if (!this.stepOneCompleted) {
@@ -77,6 +79,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
         this.stepOneCompleted = true;
       }
       else {
+        this.isValidDbo = false;
         this.user = new User();
         this.user.firstName = formModel.firstName;
         this.user.lastName = formModel.lastName;
@@ -96,7 +99,9 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
 
   isValidInput(fieldName): boolean {
     return this.registerForm.controls[fieldName].invalid &&
-      (this.registerForm.controls[fieldName].dirty || this.registerForm.controls[fieldName].touched);
+      (this.registerForm.controls[fieldName].dirty ||
+        this.registerForm.controls[fieldName].touched ||
+        (fieldName === 'dbo' && this.isValidDbo));
   }
 
   private registerUser(user: User): void {
@@ -114,5 +119,4 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
-
 }
