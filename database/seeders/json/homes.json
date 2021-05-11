@@ -7,7 +7,8 @@
             "bedrooms": 3,
             "bathrooms": 1,
             "userId": 1,
-            "published": true
+            "published": true,
+            "addressId": 1
         },
         {
             "title": "Horto flat with small garden",
@@ -16,7 +17,8 @@
             "bedrooms": 1,
             "bathrooms": 1,
             "userId": 2,
-            "published": true
+            "published": true,
+            "addressId": 2
         },
         {
             "title": "Ocean View Waikiki Marina w/prkg",
@@ -1509,8 +1511,7 @@
             "bedrooms": 2,
             "bathrooms": 2,
             "userId": 168,
-            "published": true,
-            "addressId": 1
+            "published": true
         },
         {
             "title": "Room 1 near Jordan Mtr station 1min",
@@ -1519,8 +1520,7 @@
             "bedrooms": 1,
             "bathrooms": 1,
             "userId": 169,
-            "published": true,
-            "addressId": 2
+            "published": true
         }
     ]
 }
