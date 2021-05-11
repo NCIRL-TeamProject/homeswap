@@ -1,0 +1,4 @@
+<!-- <mat-icon *ngIf="!authService.isLoggedIn() || (authService.isLoggedIn() && !loggedInUser?.profileImage)">
+    account_circle</mat-icon> -->
+<img *ngIf="authService.isLoggedIn() && loggedInUser?.profileImage" [src]="loggedInUser.profileImage"
+    class="profileImage">

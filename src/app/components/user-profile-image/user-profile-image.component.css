@@ -1,0 +1,8 @@
+.profileImage {
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+  background-clip: content-box;
+  border: 2px solid transparent;
+  border-radius: 49.9%;
+}

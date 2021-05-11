@@ -53,6 +53,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ApproveOrRejectRequestComponent } from './components/request-management/approve-or-reject-request/approve-or-reject-request.component';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
+import { UserProfileImageComponent } from './components/user-profile-image/user-profile-image.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -85,7 +86,8 @@ export function tokenGetter() {
     AccountUpdateComponent,
     RequestMessagesComponent,
     UserDetailsComponent,
-    ApproveOrRejectRequestComponent
+    ApproveOrRejectRequestComponent,
+    UserProfileImageComponent
   ],
   imports: [
     BrowserModule,

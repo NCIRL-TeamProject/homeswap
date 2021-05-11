@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, HostListener } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, HostListener, ChangeDetectorRef } from '@angular/core';
+import { User } from 'src/app/Models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,20 +10,29 @@ import { AuthService } from 'src/app/services/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
-
-  loggedInUser;
+  loggedInUserId: number | undefined;
   isMenuCollapsed = true;
   mobile = false;
   innerWidth;
+  showIcon = false;
 
-  constructor(public authService: AuthService) {
+  constructor(public authService: AuthService, private ref: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
     this.setMobile(window.innerWidth);
+    const id = parseInt(this.authService.getLoggedInUserId());
 
-    this.authService.getLoggedInUser().subscribe(user => {
-      this.loggedInUser = user;;
+    this.authService.getUserBasicProfile(id).subscribe(res => {
+      this.loggedInUserId = res['id'];
+      this.showIcon = !this.loggedInUserId || (this.loggedInUserId && !res['profileImage']);
+      this.ref.detectChanges();
+    });
+
+    this.authService.getLoggedInUserChange().subscribe(user => {
+      this.loggedInUserId = user?.id;
+      this.showIcon = !this.loggedInUserId || (this.loggedInUserId && !user.profileImage);
+      this.ref.detectChanges();
     });
   }
 

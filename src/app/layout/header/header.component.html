@@ -8,11 +8,8 @@
     <div class="ap-2">
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
         <mat-icon>menu</mat-icon>
-        <mat-icon
-          *ngIf="!authService.isLoggedIn() || (authService.isLoggedIn() && !authService.getLoggedInUserProfile())">
-          account_circle</mat-icon>
-        <img *ngIf="authService.isLoggedIn() && authService.getLoggedInUserProfile()"
-          [src]="authService.getLoggedInUserProfile()" class="profileImage">
+        <mat-icon *ngIf="showIcon">account_circle</mat-icon>
+        <app-user-profile-image [userId]="loggedInUserId"></app-user-profile-image>
       </button>
     </div>
   </div>
@@ -31,11 +28,8 @@
     <div class="col text-right">
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
         <mat-icon>menu</mat-icon>
-        <mat-icon
-          *ngIf="!authService.isLoggedIn() || (authService.isLoggedIn() && !authService.getLoggedInUserProfile())">
-          account_circle</mat-icon>
-        <img *ngIf="authService.isLoggedIn() && authService.getLoggedInUserProfile()"
-          [src]="authService.getLoggedInUserProfile()" class="profileImage">
+        <mat-icon *ngIf="showIcon">account_circle</mat-icon>
+        <app-user-profile-image [userId]="loggedInUserId"></app-user-profile-image>
       </button>
 
     </div>

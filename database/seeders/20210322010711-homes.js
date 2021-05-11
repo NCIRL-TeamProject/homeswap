@@ -20,7 +20,10 @@ module.exports = {
     let homeArray = []
 
     homes.forEach((home, i) => {
-      const address = addresses[Math.floor(Math.random() * addresses.length)];
+      const address = home?.addressId ?
+        addresses.find(x => x.id == home?.addressId) :
+        addresses[Math.floor(Math.random() * addresses.length)];
+
       const image = home['image'] ?? 'home' + (i + 1) + '.jpg';
       const imagePath = path.resolve(imageBasePath, image);
       const bitmap = fs.readFileSync(imagePath);

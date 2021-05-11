@@ -17,15 +17,22 @@ export class AuthService {
 
   loggedInUser$ = new BehaviorSubject<User>(undefined);
 
+  getLogedIUser(): Observable<any> {
+    const userId = this.getLoggedInUserId();
+    if (!userId) return undefined;
+
+    return this.getUserBasicProfile(userId);
+  }
+
   getLoggedInUserProfile(): string {
     return this.isLoggedIn() ? localStorage.getItem('profileImage') : null;
   }
-  
-  getLoggedInUser(): Observable<User> {
+
+  getLoggedInUserChange(): Observable<User> {
     return this.loggedInUser$.asObservable();
   }
 
-  setLoggedInUser(loggedInUser: User) {
+  setLoggedInUserChange(loggedInUser: User) {
     this.loggedInUser$.next(loggedInUser);
   }
 
@@ -48,13 +55,14 @@ export class AuthService {
           localStorage.setItem('profileImage', res.profileImage);
 
         var user = new User();
+        user.id = res.id;
         user.firstName = res.firstName;
         user.lastName = res.lastName;
         user.dbo = res.dbo;
         user.email = res.email;
         user.profileImage = res.profileImage;
 
-        this.setLoggedInUser(user);
+        this.setLoggedInUserChange(user);
 
         return res;
       }));
@@ -66,7 +74,7 @@ export class AuthService {
     localStorage.removeItem('email');
     localStorage.removeItem('profileImage');
 
-    this.setLoggedInUser(undefined);
+    this.setLoggedInUserChange(undefined);
     this.router.navigate(['/home']);
   }
 
@@ -112,30 +120,30 @@ export class AuthService {
       catchError((err) => { console.log(err); return this.handleError(err); }));
   }
 
-   updateAccount(user: User, id: string): Observable<any> {
-      return this.httpClient.put(`api/user/update/${id}`, user).pipe(
-        map((res: Response) => {
-          return res;
-        }),
-        catchError((err) => { console.log(err); return this.handleError(err); }));
-    }
+  updateAccount(user: User, id: string): Observable<any> {
+    return this.httpClient.put(`api/user/update/${id}`, user).pipe(
+      map((res: Response) => {
+        return res;
+      }),
+      catchError((err) => { console.log(err); return this.handleError(err); }));
+  }
 
-    updatePassword(user: User, id: string): Observable<any> {
-      return this.httpClient.put(`api/user/update/password/${id}`, user).pipe(
-        map((res: Response) => {
-          return res;
-        }),
-        catchError((err) => { console.log(err); return this.handleError(err); }));
-    }
+  updatePassword(user: User, id: string): Observable<any> {
+    return this.httpClient.put(`api/user/update/password/${id}`, user).pipe(
+      map((res: Response) => {
+        return res;
+      }),
+      catchError((err) => { console.log(err); return this.handleError(err); }));
+  }
 
-    updateProfilePicture(user: User, id: string): Observable<any> {
-      const formData: any = new FormData();
-      formData.append('profileImage', user.profileImage);
-      return this.httpClient.put(`api/user/update/picture/${id}`, formData).pipe(
-        map((res: Response) => {
-          return res;
-        }), catchError((err) => this.handleError(err)));
-    }
+  updateProfilePicture(user: User, id: string): Observable<any> {
+    const formData: any = new FormData();
+    formData.append('profileImage', user.profileImage);
+    return this.httpClient.put(`api/user/update/picture/${id}`, formData).pipe(
+      map((res: Response) => {
+        return res;
+      }), catchError((err) => this.handleError(err)));
+  }
 
   private clearRemovedUserDetails(res: any): void {
     localStorage.removeItem('access_token');

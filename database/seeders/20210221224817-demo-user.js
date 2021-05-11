@@ -1,6 +1,7 @@
 'use strict';
 var bcrypt = require("bcryptjs");
 const path = require('path');
+require('dotenv').config();
 var fs = require('fs');
 
 function getRandomDob() {
@@ -45,7 +46,8 @@ module.exports = {
     const usersFromJson = require('./json/users.json').users;
     const imageBasePath = './database/seeders/images/users';
     let users = [];
-    const password = bcrypt.hashSync('Test12345!', 8);
+
+    const password = bcrypt.hashSync(process.env.USERS_PASS, 8);
 
     fs.readdir(imageBasePath, (err, files) => {
       //handling error

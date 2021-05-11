@@ -1494,7 +1494,7 @@
             "published": true
         },
         {
-            "title": "",
+            "title": "Spanish style apartment",
             "description": "We're a couple of spanish people and we want to share our beautiful apartment with nice people visiting the incredible Barcelona. The apartment is quiet even being in the heart of this plenty of life quarter. We're friendly pleople, who loves to travel and like to meet travellers and different cultures. The apartment is very confortable, nice and quiet. 1 bathroom The kitchen is not available (it's only for private use) We´ll be available in case you need any advice about visiting Barcelona, we can help to plan your visits if you want to. Gracia is one of the most young, colorful and alive quarters in Barcelona. Plenty of restaurants, small local shops, nice (Website hidden by Airbnb) the same time, this place still maintain the taste of a village inside the big city.  We live in the most important and beautiful street in Gracia, Verdi, one minute walking from the emblematic Cines Verdi Our flat is 5 minutes to Fontana L3 and 5 minutes to Joanic L4, 10 minutes walking to Passeig de Gra",
             "beds": 1,
             "bedrooms": 1,
@@ -1509,7 +1509,8 @@
             "bedrooms": 2,
             "bathrooms": 2,
             "userId": 168,
-            "published": true
+            "published": true,
+            "addressId": 1
         },
         {
             "title": "Room 1 near Jordan Mtr station 1min",
@@ -1518,7 +1519,8 @@
             "bedrooms": 1,
             "bathrooms": 1,
             "userId": 169,
-            "published": true
+            "published": true,
+            "addressId": 2
         }
     ]
 }

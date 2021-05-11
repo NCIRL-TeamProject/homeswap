@@ -17,6 +17,7 @@ exports.userBasicDetails = (req, res) => {
                 return res.status(404).send({ message: "User Not found." });
             }
             res.send({
+                id: u.id,
                 email: u.email,
                 firstName: u.firstName,
                 lastName: u.lastName,

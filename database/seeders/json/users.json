@@ -1,6 +1,16 @@
 {
     "users": [
         {
+            "firstname": "UT1Name",
+            "lastname": "UT1Surname",
+            "email": "usertest1@hsapp.com"
+        },
+        {
+            "firstname": "UT2Name",
+            "lastname": "UT2Surname",
+            "email": "usertest2@hsapp.com"
+        },
+        {
             "firstname": "Vere",
             "lastname": "Malanie",
             "email": "Vere.Malanie@hsapp.com"
@@ -989,16 +999,6 @@
             "firstname": "Karina",
             "lastname": "Masao",
             "email": "Karina.Masao@hsapp.com"
-        },
-        {
-            "firstname": "Renae",
-            "lastname": "Slifka",
-            "email": "Renae.Slifka@hsapp.com"
-        },
-        {
-            "firstname": "Charissa",
-            "lastname": "Ietta",
-            "email": "Charissa.Ietta@hsapp.com"
         }
     ]
 }
