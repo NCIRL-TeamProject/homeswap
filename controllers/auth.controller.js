@@ -3,6 +3,8 @@ const config = require("../config/auth.config");
 const User = db.User;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+const { Sequelize } = require('sequelize');
+const Op = Sequelize.Op;
 
 exports.signup = (req, res) => {
 
@@ -33,7 +35,7 @@ exports.signin = (req, res) => {
 
     User.findOne({
         where: {
-            email: req.body.email
+            email: { [Op.iLike]: req.body.email }
         }
     })
         .then(user => {
