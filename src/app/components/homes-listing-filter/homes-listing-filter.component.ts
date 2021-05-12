@@ -18,14 +18,11 @@ export class HomesListingFilterComponent implements OnInit {
   }
 
   onAutocompleteSelected(result: PlaceResult) {
-    console.log('onAutocompleteSelected: ', result);
-    console.log('name: ', result.name);
-
-    this.router.navigate(['homes-for-swapping', { place: result.name }]);
+    this.router.navigate(['homes-for-swapping', result.name]);
   }
 
   onLocationSelected(location: Location) {
-    console.log('onLocationSelected: ', location);
+    // console.log('onLocationSelected: ', location);
     // this.latitude = location.latitude;
     // this.longitude = location.longitude;
   }

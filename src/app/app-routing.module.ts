@@ -22,7 +22,7 @@ const appRoutes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'home', component: HomeComponent },
     { path: 'home-profile', component: HomeProfileComponent, canActivate: [AuthGuard] },
-    { path: 'homes-for-swapping', component: HomesForSwapListComponent },
+    { path: 'homes-for-swapping/:place', component: HomesForSwapListComponent },
     { path: 'home-details/:id', component: HomeDetailComponent },
     { path: 'how-it-works', component: HowItWorksComponent },
     { path: 'register', component: RegistrationFormComponent },
