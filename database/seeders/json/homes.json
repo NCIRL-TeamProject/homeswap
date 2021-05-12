@@ -27,7 +27,8 @@
             "bedrooms": 1,
             "bathrooms": 1,
             "userId": 3,
-            "published": true
+            "published": true,
+            "addressId": 4
         },
         {
             "title": "Private Room in Bushwick",
@@ -36,7 +37,8 @@
             "bedrooms": 1,
             "bathrooms": 1,
             "userId": 4,
-            "published": true
+            "published": true,
+            "addressId": 6
         },
         {
             "title": "Apt Linda Vista Lagoa - Rio",
@@ -45,7 +47,8 @@
             "bedrooms": 1,
             "bathrooms": 2,
             "userId": 5,
-            "published": true
+            "published": true,
+            "addressId": 8
         },
         {
             "title": "New York City - Upper West Side Apt",
@@ -54,7 +57,8 @@
             "bedrooms": 1,
             "bathrooms": 1,
             "userId": 6,
-            "published": true
+            "published": true,
+            "addressId": 9
         },
         {
             "title": "Copacabana Apartment Posto 6",
@@ -63,7 +67,8 @@
             "bedrooms": 1,
             "bathrooms": 2,
             "userId": 7,
-            "published": true
+            "published": true,
+            "addressId": 10
         },
         {
             "title": "Charming Flat in Downtown Moda",
@@ -72,7 +77,8 @@
             "bedrooms": 2,
             "bathrooms": 1,
             "userId": 8,
-            "published": true
+            "published": false,
+            "addressId": 2
         },
         {
             "title": "Catete's Colonial Big Hause Room B",
@@ -81,7 +87,8 @@
             "bedrooms": 1,
             "bathrooms": 4,
             "userId": 9,
-            "published": true
+            "published": false,
+            "addressId": 3
         },
         {
             "title": "Modern Spacious 1 Bedroom Loft",
@@ -90,7 +97,8 @@
             "bedrooms": 1,
             "bathrooms": 1,
             "userId": 10,
-            "published": true
+            "published": false,
+            "addressId": 5
         },
         {
             "title": "Deluxe Loft Suite",
@@ -99,7 +107,8 @@
             "bedrooms": 0,
             "bathrooms": 1,
             "userId": 11,
-            "published": true
+            "published": false,
+            "addressId": 7
         },
         {
             "title": "Ligne verte - à 15 min de métro du centre ville.",
@@ -108,7 +117,8 @@
             "bedrooms": 0,
             "bathrooms": 1,
             "userId": 12,
-            "published": true
+            "published": false,
+            "addressId": 10
         },
         {
             "title": "Soho Cozy, Spacious and Convenient",

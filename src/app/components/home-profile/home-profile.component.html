@@ -18,8 +18,9 @@
                     </div>
                 </div>
                 <label for="description" class="col-form-label">Description</label>
-                <textarea id="description" formControlName="description" class="form-control" placeholder="Description"
+                <textarea id="description" class="form-control" formControlName="description" placeholder="Description"
                     maxlength="512" rows="7" required></textarea>
+                <div class="text-right">{{ form.controls.description.value.length}} / 512</div>
                 <div *ngIf="isValidInput('description')" class="alert alert-danger">
                     <div *ngIf="form.controls['description'].errors.required">
                         Description is required.
