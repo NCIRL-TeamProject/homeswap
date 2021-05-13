@@ -55,6 +55,7 @@ import { ApproveOrRejectRequestComponent } from './components/request-management
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 import { UserProfileImageComponent } from './components/user-profile-image/user-profile-image.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -145,6 +146,7 @@ export function tokenGetter() {
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     { provide: NgbDateAdapter, useClass: CustomAdapter },
     { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter },
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
