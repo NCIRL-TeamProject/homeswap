@@ -39,6 +39,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "@ng-bootstrap/ng-bootstrap": "^9.0.2",
+    "@videogular/ngx-videogular": "^3.0.1",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -62,6 +63,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1102.0",
+    "@types/core-js": "^2.5.4",
     "@types/googlemaps": "^3.39.12",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",

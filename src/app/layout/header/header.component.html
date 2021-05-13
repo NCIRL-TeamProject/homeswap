@@ -6,6 +6,10 @@
         routerLinkActive="active">How it works</a>
     </div>
     <div class="ap-2">
+      <a class="nav-link" style="color: rgba(0, 0, 0, 0.5);!important" routerLink="/demo" routerLinkActive="active">View
+        demo</a>
+    </div>
+    <div class="ap-2">
       <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>menu</mat-icon>
         <mat-icon *ngIf="showIcon">account_circle</mat-icon>
@@ -20,6 +24,9 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/how-it-works" routerLinkActive="active">How it works</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/demo" routerLinkActive="active">View demo</a>
       </li>
     </ul>
     <div class="col text-right">

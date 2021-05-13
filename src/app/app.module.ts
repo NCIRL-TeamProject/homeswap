@@ -57,6 +57,11 @@ import { UserProfileImageComponent } from './components/user-profile-image/user-
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DemoComponent } from './components/demo/demo.component';
+import { VgCoreModule } from '@videogular/ngx-videogular/core';
+import { VgControlsModule } from '@videogular/ngx-videogular/controls';
+import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
+import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -90,7 +95,8 @@ export function tokenGetter() {
     RequestMessagesComponent,
     UserDetailsComponent,
     ApproveOrRejectRequestComponent,
-    UserProfileImageComponent
+    UserProfileImageComponent,
+    DemoComponent
   ],
   imports: [
     BrowserModule,
@@ -125,7 +131,11 @@ export function tokenGetter() {
     MatButtonToggleModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ],
   providers: [
     {

@@ -16,6 +16,7 @@ import { AccountComponent } from './components/account/account.component';
 import { AccountRemoveComponent } from './components/account/account-remove/account-remove.component';
 import { AccountUpdateComponent } from './components/account/account-update/account-update.component';
 import { RequestManagementComponent } from './components/request-management/request-management.component';
+import { DemoComponent } from './components/demo/demo.component';
 
 const appRoutes: Routes = [
     // Home
@@ -30,7 +31,8 @@ const appRoutes: Routes = [
     { path: 'account-details', component: AccountComponent, canActivate: [AuthGuard] },
     { path: 'account-remove', component: AccountRemoveComponent, canActivate: [AuthGuard] },
     { path: 'account-update', component: AccountUpdateComponent, canActivate: [AuthGuard] },
-    { path: 'request-management', component: RequestManagementComponent, canActivate: [AuthGuard] }
+    { path: 'request-management', component: RequestManagementComponent, canActivate: [AuthGuard] },
+    { path: 'demo', component: DemoComponent },
 ];
 
 @NgModule({
