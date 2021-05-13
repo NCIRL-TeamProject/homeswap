@@ -56,6 +56,7 @@ import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/go
 import { UserProfileImageComponent } from './components/user-profile-image/user-profile-image.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -123,7 +124,8 @@ export function tokenGetter() {
     MatButtonModule,
     MatButtonToggleModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTooltipModule
   ],
   providers: [
     {
